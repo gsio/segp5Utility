@@ -53,7 +53,7 @@
     <div id="header">
         <div id="title_left">
             <span class="client_text text-center">SAMSUNG ENGINEERING</span>
-            <span class="site_text text-center">P4-PJT 그린동</span>
+            <span class="site_text text-center">평택 P5-PJT 그린동 관리 시스템</span>
             <span class="system_text text-center">Monitoring System</span>
         </div>
         <div id="title_right">  

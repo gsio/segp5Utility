@@ -106,7 +106,7 @@ public class WorkerController {
 		model.addAttribute("contList", contList);
 		model.addAttribute("workerVO", workerVO);
 		model.addAttribute("wtypeList", wtypeList);
-		session.setAttribute("contentView", "recordList_renewal");//TODO: change workerList
+		session.setAttribute("contentView", "menu_record");//TODO: change workerList
 	}
 	
 	@RequestMapping(value = "insertWorker")
@@ -133,7 +133,7 @@ public class WorkerController {
 			return "registerWorker";
 		}
 		else{//성공시 list로 이동
-			return "redirect:recordList_renewal";
+			return "redirect:recordList";
 		}
 	}
 	
@@ -161,7 +161,7 @@ public class WorkerController {
 		}
 		else{
 			//성공시 list로 이동
-			return "redirect:recordList_renewal";
+			return "redirect:recordList";
 		}
 	}
 	
@@ -278,7 +278,7 @@ public class WorkerController {
 		HttpServletRequest request) {
 		UserVO userInfo = (UserVO) session.getAttribute("userLoginInfo");
 		workerService.deleteWorker(userInfo.getSite_id(), id);
-		return "redirect:recordList_renewal";		
+		return "redirect:recordList";		
 	}
 	
 	@RequestMapping(value = "/json/uploadWorkerImage")

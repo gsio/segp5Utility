@@ -44,10 +44,10 @@ import com.cons.man.services.WorkerService;
 @Controller(value="MenuController")
 public class MenuController {
 	
-	@Resource(name = "WorkerService")
+	@Resource(name="WorkerService")
 	private WorkerService workerService;
 	
-	@Resource(name = "SiteService")
+	@Resource(name="SiteService")
 	private SiteService siteService;
 	
 	@Resource(name="UserService")
@@ -87,13 +87,10 @@ public class MenuController {
 	private DeviceService deviceService;
 	
 	// Menu - 근로자 관리
-	@RequestMapping(value = {"/recordList_renewal", "recordList"})
-	public String recordList_renewal(HttpSession session, Model model,
+	@RequestMapping(value = {"/recordList"})
+	public String recordList(HttpSession session, Model model,
 		@RequestParam(value="cont_id", defaultValue="-1")int tar_cont_id) 
-	{
-		
-		// System.out.println("[Menu] (Worker) > recordList_renewal - cont_id: " + tar_cont_id);
-		
+	{	
 		UserVO userInfo = (UserVO) session.getAttribute("userLoginInfo");		
 		boolean isContSelected = false;
 		if(tar_cont_id > 0 ) {
@@ -118,17 +115,17 @@ public class MenuController {
 		model.addAttribute("contList", contList);		
 		model.addAttribute("workerList", workerList);
 		model.addAttribute("tar_cont_id", tar_cont_id);
-		session.setAttribute("contentView", "recordList_renewal");
-		return "recordList_renewal";
+		session.setAttribute("contentView", "menu_record");
+		return "menu_record";
 	}
 	
 	// Menu - 관리자 관리
-	@RequestMapping(value = {"/userList_renewal", "userList"})
-	public String userList_renewal(HttpSession session , Model model,
+	@RequestMapping(value = {"/userList"})
+	public String userList(HttpSession session , Model model,
 		@RequestParam(value="cont_id", defaultValue="-1")int tar_cont_id) 
 	{
 		
-		// System.out.println("[Menu] (User) > userList_renewal - cont_id: " + tar_cont_id);
+		// System.out.println("[Menu] (User) > userList - cont_id: " + tar_cont_id);
 		
 		UserVO userInfo = (UserVO)session.getAttribute("userLoginInfo");
 		
@@ -154,16 +151,16 @@ public class MenuController {
 		model.addAttribute("userList", userList);
 		model.addAttribute("contList", contList);
 		model.addAttribute("tar_cont_id", tar_cont_id);
-		session.setAttribute("contentView", "userList_renewal");
-		return "userList_renewal";
+		session.setAttribute("contentView", "menu_user");
+		return "menu_user";
 	}
 
 	// Menu - 업체 관리
-	@RequestMapping(value = {"/contList_renewal", "contList"})
-	public String contList_renewal(HttpSession session, Model model,
+	@RequestMapping(value = {"/contList"})
+	public String contList(HttpSession session, Model model,
 		@RequestParam(value="site_id", defaultValue="-1") int site_id)
 	{		
-		// System.out.println("[Menu] (Cont) > contList_renewal - site_id: " + site_id);
+		// System.out.println("[Menu] (Cont) > contList - site_id: " + site_id);
 		
 		UserVO userInfo = (UserVO)session.getAttribute("userLoginInfo");
 		List<ContVO> contList = null;	
@@ -175,137 +172,10 @@ public class MenuController {
 		SiteVO siteVO = siteService.getSiteInfo(site_id);
 		model.addAttribute("siteVO", siteVO);
 		model.addAttribute("contList", contList);
-		session.setAttribute("contentView", "contList_renewal");
-		return "contList_renewal";
+		session.setAttribute("contentView", "menu_contractor");
+		return "menu_contractor";
 	}
 	
-	// Menu - 구역 그룹 관리
-	@RequestMapping(value = { "/sectionList" })
-	public String sectionList(HttpSession session, Model model) 
-	{
-		// System.out.println("[Menu] (Section) > sectionList");
-		
-		UserVO userInfo = (UserVO) session.getAttribute("userLoginInfo");
-		List<SectionVO> section =  sectionService.getSectionList(userInfo.getSite_id());		
-		model.addAttribute("sList", section);
-		session.setAttribute("contentView", "sectionList");
-		return "sectionList";
-	}
-	
-	// Menu - 비콘 배정 관리
-	@RequestMapping(value = { "/beaconList_renewal" })
-	public String beaconList_renewal(HttpSession session, Model model,
-		@RequestParam(value="cont_id", defaultValue="-1")int tar_cont_id) 
-	{
-		// System.out.println("[Menu] (Beacon) > beaconList_renewal - cont_id: " + tar_cont_id);
-		
-		UserVO userInfo = (UserVO) session.getAttribute("userLoginInfo");
-		List<ContVO> contList = contService.getContList(userInfo.getSite_id());
-		List<BeaconVO> beaconList = null;
-		if(tar_cont_id > 0) {
-			beaconList = beaconService.getBeaconListByCont(userInfo.getSite_id(), tar_cont_id);
-		}
-		else {
-			beaconList = beaconService.getBeaconListByCont(userInfo.getSite_id(), -1);
-		}	
-		List<WorkerVO> workerList = workerService.getBeaconWorkerList(userInfo.getSite_id(), -1);
-		List<UserVO> userList = userService.getBeaconUserList(userInfo.getSite_id(), -1);
-		model.addAttribute("contList", contList);
-		model.addAttribute("beaconList", beaconList);
-		model.addAttribute("workerList", workerList);
-		model.addAttribute("userList", userList);
-		model.addAttribute("tar_cont_id", tar_cont_id);
-		session.setAttribute("contentView", "beaconList_renewal");
-		return "beaconList_renewal";
-	}
-	
-	// Menu - NFC 배정 관리
-	@RequestMapping(value = { "/nfcList_renewal" })
-	public String nfcList_renewal(HttpSession session, Model model,
-		@RequestParam(value="cont_id", defaultValue="-1")int tar_cont_id)
-	{
-		// System.out.println("[Menu] (NFC) > nfcList_renewal - cont_id: " + tar_cont_id);
-		
-		UserVO userInfo = (UserVO) session.getAttribute("userLoginInfo");
-		List<ContVO> contList = contService.getContList(userInfo.getSite_id());				
-		List<NFCVO> nfcList =  null;
-		if(tar_cont_id > 0) {
-			nfcList = nfcService.getNFCListByCont(userInfo.getSite_id(), tar_cont_id);
-		}
-		else {
-			nfcList = nfcService.getNFCListBySiteId(userInfo.getSite_id());		
-		}
-	
-		List<WorkerVO> workerList = workerService.getBeaconWorkerList(userInfo.getSite_id(), -1);
-		List<UserVO> userList = userService.getBeaconUserList(userInfo.getSite_id(), -1);
-		model.addAttribute("contList", contList);
-		model.addAttribute("nfcList", nfcList);
-		model.addAttribute("workerList", workerList);
-		model.addAttribute("userList", userList);
-		model.addAttribute("tar_cont_id", tar_cont_id);
-		session.setAttribute("contentView", "nfcList_renewal");
-		return "nfcList_renewal";
-	}
-	
-	//Menu - 개구부 관리
-	@RequestMapping(value = { "/holeList_renewal" })
-	public String holeManaholeList_renewalgeList(HttpSession session, Model model) {
-		
-		// System.out.println("[Menu] (Hole) > holeList_renewal");
-		
-		UserVO userInfo = (UserVO) session.getAttribute("userLoginInfo");			
-		List<HoleVO> holeList = holeService.getHoleList(userInfo.getSite_id(), -1);
-		List<HoleVO> sectionList = holeService.getHoleAssignSectionList(userInfo.getSite_id());			
-		model.addAttribute("holeList", holeList);
-		model.addAttribute("sectionList", sectionList);
-		session.setAttribute("contentView", "holeList_renewal");
-		return "holeList_renewal";
-	}
-	
-	// Menu - 환경센서 로그
-	@RequestMapping(value = { "/sensorList_renewal" })
-	public String sensorList_renewal(HttpSession session, Model model) {
-		
-		// System.out.println("[Menu] (Sensor) > sensorList_renewal");
-		
-		session.setAttribute("contentView", "sensorList_renewal");		
-		return "sensorList_renewal";
-	}
-
-	// Menu - 위치파악 로그
-	@RequestMapping(value = { "/locationList" })
-	public String locationList(HttpSession session, Model model) {
-		session.setAttribute("contentView", "locationList");
-		return "locationList";
-	}
-	
-	// Menu - 구역출입 로그
-	@RequestMapping(value = { "/inoutLogList" })
-	public String inoutLogList(HttpSession session, Model model) {		
-		session.setAttribute("contentView", "inoutLogList");
-		return "inoutLogList";
-	}
-	
-	// Menu - 구역출입 로그
-	@RequestMapping(value = { "/fanLogList" })
-	public String fanLogList(HttpSession session, Model model) {		
-		session.setAttribute("contentView", "fanLogList");
-		return "fanLogList";
-	}
-	
-	// Menu - 직종관리
-	@RequestMapping(value = { "/wtypeList" })
-	public String wtypeList(HttpSession session, Model model) {
-		
-		// System.out.println("[Menu] (WType) > wtypeList");
-		
-		UserVO userInfo = (UserVO) session.getAttribute("userLoginInfo");
-		List<WorkTypeVO> list = manageService.getWorkTypeList(userInfo.getSite_id());	
-		model.addAttribute("wList", list);
-		session.setAttribute("contentView", "wtypeList");
-		return "wtypeList";
-	}	
-
 	// Menu - 공지사항
 	@RequestMapping(value = {"/noticeList"})
 	public String noticeList(HttpSession session , Model model,
@@ -341,6 +211,140 @@ public class MenuController {
 		session.setAttribute("contentView", "noticeList");		
 		return "noticeList";
 	}
+	
+	// Menu - 환경센서 로그
+	@RequestMapping(value = { "/sensorList" })
+	public String sensorList(HttpSession session, Model model) {		
+		// System.out.println("[Menu] (Sensor) > sensorList");		
+		session.setAttribute("contentView", "sensorList");		
+		return "sensorList";
+	}	
+
+	// Menu - 구역출입 로그
+	@RequestMapping(value = { "/fanLogList" })
+	public String fanLogList(HttpSession session, Model model) {		
+		session.setAttribute("contentView", "fanLogList");
+		return "fanLogList";
+	}
+	
+	
+	// Menu - 구역 그룹 관리
+	/*
+	@RequestMapping(value = { "/sectionList" })
+	public String sectionList(HttpSession session, Model model) 
+	{
+		// System.out.println("[Menu] (Section) > sectionList");
+		
+		UserVO userInfo = (UserVO) session.getAttribute("userLoginInfo");
+		List<SectionVO> section =  sectionService.getSectionList(userInfo.getSite_id());		
+		model.addAttribute("sList", section);
+		session.setAttribute("contentView", "sectionList");
+		return "sectionList";
+	}
+	
+	// Menu - 비콘 배정 관리
+	@RequestMapping(value = { "/beaconList" })
+	public String beaconList(HttpSession session, Model model,
+		@RequestParam(value="cont_id", defaultValue="-1")int tar_cont_id) 
+	{
+		// System.out.println("[Menu] (Beacon) > beaconList - cont_id: " + tar_cont_id);
+		
+		UserVO userInfo = (UserVO) session.getAttribute("userLoginInfo");
+		List<ContVO> contList = contService.getContList(userInfo.getSite_id());
+		List<BeaconVO> beaconList = null;
+		if(tar_cont_id > 0) {
+			beaconList = beaconService.getBeaconListByCont(userInfo.getSite_id(), tar_cont_id);
+		}
+		else {
+			beaconList = beaconService.getBeaconListByCont(userInfo.getSite_id(), -1);
+		}	
+		List<WorkerVO> workerList = workerService.getBeaconWorkerList(userInfo.getSite_id(), -1);
+		List<UserVO> userList = userService.getBeaconUserList(userInfo.getSite_id(), -1);
+		model.addAttribute("contList", contList);
+		model.addAttribute("beaconList", beaconList);
+		model.addAttribute("workerList", workerList);
+		model.addAttribute("userList", userList);
+		model.addAttribute("tar_cont_id", tar_cont_id);
+		session.setAttribute("contentView", "beaconList");
+		return "beaconList";
+	}
+	
+	// Menu - NFC 배정 관리
+	@RequestMapping(value = { "/nfcList" })
+	public String nfcList(HttpSession session, Model model,
+		@RequestParam(value="cont_id", defaultValue="-1")int tar_cont_id)
+	{
+		// System.out.println("[Menu] (NFC) > nfcList - cont_id: " + tar_cont_id);
+		
+		UserVO userInfo = (UserVO) session.getAttribute("userLoginInfo");
+		List<ContVO> contList = contService.getContList(userInfo.getSite_id());				
+		List<NFCVO> nfcList =  null;
+		if(tar_cont_id > 0) {
+			nfcList = nfcService.getNFCListByCont(userInfo.getSite_id(), tar_cont_id);
+		}
+		else {
+			nfcList = nfcService.getNFCListBySiteId(userInfo.getSite_id());		
+		}
+	
+		List<WorkerVO> workerList = workerService.getBeaconWorkerList(userInfo.getSite_id(), -1);
+		List<UserVO> userList = userService.getBeaconUserList(userInfo.getSite_id(), -1);
+		model.addAttribute("contList", contList);
+		model.addAttribute("nfcList", nfcList);
+		model.addAttribute("workerList", workerList);
+		model.addAttribute("userList", userList);
+		model.addAttribute("tar_cont_id", tar_cont_id);
+		session.setAttribute("contentView", "nfcList");
+		return "nfcList";
+	}
+	
+	//Menu - 개구부 관리
+	@RequestMapping(value = { "/holeList" })
+	public String holeManaholeListgeList(HttpSession session, Model model) {
+		
+		// System.out.println("[Menu] (Hole) > holeList");
+		
+		UserVO userInfo = (UserVO) session.getAttribute("userLoginInfo");			
+		List<HoleVO> holeList = holeService.getHoleList(userInfo.getSite_id(), -1);
+		List<HoleVO> sectionList = holeService.getHoleAssignSectionList(userInfo.getSite_id());			
+		model.addAttribute("holeList", holeList);
+		model.addAttribute("sectionList", sectionList);
+		session.setAttribute("contentView", "holeList");
+		return "holeList";
+	}
+	
+	// Menu - 직종관리
+	@RequestMapping(value = { "/wtypeList" })
+	public String wtypeList(HttpSession session, Model model) {
+		
+		// System.out.println("[Menu] (WType) > wtypeList");
+		
+		UserVO userInfo = (UserVO) session.getAttribute("userLoginInfo");
+		List<WorkTypeVO> list = manageService.getWorkTypeList(userInfo.getSite_id());	
+		model.addAttribute("wList", list);
+		session.setAttribute("contentView", "wtypeList");
+		return "wtypeList";
+	}		
+	
+	// Menu - 위치파악 로그
+	@RequestMapping(value = { "/locationList" })
+	public String locationList(HttpSession session, Model model) {
+		session.setAttribute("contentView", "locationList");
+		return "locationList";
+	}
+	
+	// Menu - 구역출입 로그
+	@RequestMapping(value = { "/inoutLogList" })
+	public String inoutLogList(HttpSession session, Model model) {		
+		session.setAttribute("contentView", "inoutLogList");
+		return "inoutLogList";
+	}
+	
+	*/
+	
+
+	
+
+	
 	
 	// Menu - 작업허가서
 	@RequestMapping(value = {"/ptwList"})

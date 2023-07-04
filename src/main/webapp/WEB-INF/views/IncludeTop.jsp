@@ -7,7 +7,7 @@
 
 <%@ page session="true"%>
 <c:set var="contextPath" value="<%= request.getContextPath()%>"/>
-<c:set var="lastUpdate" value="20220526"/>
+<c:set var="lastUpdate" value="20220923"/>
 
 <%
 	response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
@@ -32,68 +32,69 @@
 	gtag('config', 'UA-138883721-1');
 </script>
 		
-	<title>공사관리 시스템  	</title>
+	<title>스마트 관리 시스템</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   	
-	<link rel="icon" href="${contextPath}/images/ss.ico" type="image/x-icon" />
-  		<link rel="shortcut icon" href="${contextPath}/images/ss.ico" type="image/x-icon" />
+  	<!-- 파비콘 -->
+	<link rel="icon" href="${contextPath}/images/ss.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="${contextPath}/images/ss.ico" type="image/x-icon"/>
   	
-  	<!-- 공용  	-->
+  	<!-- 공용 -->
   	<script type="text/javascript" src="${contextPath}/js/jquery-1.12.4.min.js" ></script>
   	<script type="text/javascript" src="${contextPath}/js/jquery.plugin.js"></script>
-  	<script type="text/javascript" src="${contextPath}/js/cons.man.js?version=${lastUpdate}"></script>	
   	
-  	<!-- login페이지외 나머지 적용 -->
-	<c:if test="${!sessionScope.contentView.equals('main')}">  	 
-		<link rel="stylesheet" href="${contextPath}/css/bootstrap.css?s=2" media="screen">
+  	<c:if test="${!sessionScope.contentView.equals('main')}">  		
+  	
+  		<link rel="stylesheet" href="${contextPath}/css/bootstrap4.1/bootstrap.css" media="screen">
 		<link rel="stylesheet" href="${contextPath}/css/jquery.datepick.css" type="text/css" >
 		<link rel="stylesheet" href="${contextPath}/css/jquery.timepicker.css" type="text/css" >
-	  	<link rel="stylesheet" href="${contextPath}/css/overlay-bootstrap.min.css">
-	  	<link rel="stylesheet" href="${contextPath}/css/bootstrap-table.css?s=1">
-	  	<link rel="stylesheet" href="${contextPath}/css/navbar.css?s=1">
-	  	<link rel="stylesheet" href="css/mdb/css/mdb.css?s=2"> 	  	
-	  	<link rel="stylesheet" href="${contextPath}/css/common.css?s=3"	media="screen">
-	  	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-	  		
-	  	<script type="text/javascript" src="${contextPath}/js/jquery.datepick.js"></script> 
-	  	<script type="text/javascript" src="${contextPath}/js/jquery.datepick-ko.js"></script>
+		<link rel="stylesheet" href="${contextPath}/css/bootstrap-table.css?s=1">
+		
+		<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.3/dist/extensions/group-by-v2/bootstrap-table-group-by.css">
+		<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.3/dist/bootstrap-table.min.css">
+		<link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
+		
+		<script src="https://unpkg.com/bootstrap-table@1.21.3/dist/bootstrap-table.min.js"></script>
+		<script src="https://unpkg.com/bootstrap-table@1.21.3/dist/extensions/group-by-v2/bootstrap-table-group-by.min.js"></script>
+		
+		<link rel="stylesheet" href="${contextPath}/css/basic.css?s=2">
+		<link rel="stylesheet" href="${contextPath}/fontawesome/css/all.css">	
+		
+  		<script type="text/javascript" src="${contextPath}/js/jquery.datepick.js"></script> 
+		<script type="text/javascript" src="${contextPath}/js/jquery.datepick-ko.js"></script>
 	  	<script type="text/javascript" src="${contextPath}/js/jquery.timepicker.js"></script>
-	  	<script type="text/javascript" src="${contextPath}/js/bootstrap.min.js"></script>
-	  	<script type="text/javascript" src="${contextPath}/js/bootstrap-table.js"></script>
-	  	<script type="text/javascript" src="${contextPath}/js/bootstrap-table-ko-KR.js"></script>
+	  	<script type="text/javascript" src="${contextPath}/js/bootstrap-table-ko-KR.js"></script>	  	
+ 		<script type="text/javascript" src="${contextPath}/js/bootstrap-table.js"></script>
 	  	<script type="text/javascript" src="${contextPath}/js/bootstrap-table-filter.js?s=1"></script>
-	  	<script type="text/javascript" src="js/monitor/mon_base.js"></script>
-  	</c:if>
+		<script type="text/javascript" src="${contextPath}/js/bootstrap-table-ko-KR.js"></script>
+		<script type="text/javascript" src="${contextPath}/js/vue_2.0.3.js"></script>
+		<script type="text/javascript" src="${contextPath}/js/basic.js"></script>
+		<script type="text/javascript" src="${contextPath}/js/bootstrap4.1/bootstrap.bundle.js"></script>		
+		
+  	</c:if>  	  	
   	
-	<link rel="stylesheet" href="${contextPath}/css/font-awesome.min.css">
+  	<!-- login페이지외 나머지 적용 -->
 
-<script>
-
-	var site_group = '${sessionScope.userLoginInfo.site_group}';
- 	var __site_type = '${siteVO.type}' || '-1';
+<script>	
  	
  	$(document).ready(function() {
-		init();
-	
-		var userid = '${sessionScope.userLoginInfo.userid} ';
-	
-		resizeMainContent();
-		$(window).resize(function(){	
-			resizeMainContent();
-		}).resize();
+		getMenuInfo();	
+		var userid = '${sessionScope.userLoginInfo.userid}';
  	});
  
-	function resizeMainContent(){
-		$('#main_content').height(window.innerHeight + 150);
- 	}
- 
-	function init(){
+	function getMenuInfo(){
+		
+		//alert("getMenuInfo 호출");
+		
 		var site_auth = '${sessionScope.userLoginInfo.site_auth}';	
 		var cont_type = '${sessionScope.userLoginInfo.cont_type}';
 		var role_code = '${sessionScope.userLoginInfo.role_code}';	
-		var access_temp = '${sessionScope.isAccess}';	
+		var access_temp = '${sessionScope.isAccess}';
+		
+		//alert(site_auth + "/" + cont_type + "/" + role_code + "/" + access_temp);		
 		
 		var isAccess = ${sessionScope.isAccess} || false;	
+		
 		checkAccess(isAccess, site_auth, role_code);	
 	
 		var contentView = '${sessionScope.contentView}';
@@ -103,107 +104,133 @@
 			addMenu('${menu.group}', '${menu.name}', '${menu.href}','${menu.isaccess}', site_auth , contentView);
 			if('${menu.href}' == contentView){
 				cur_group = '${menu.group}';
-			}
+		}
 		</c:forEach>
 	
 		//선택한 메뉴 active
 		$('#__menu_' + contentView).addClass('active');	
-		$('#__grouptab_' + cur_group).addClass('in');
+		$('#__grouptab_' + cur_group).addClass('show');
 		$('[id^=__grouptab_]').each(function(){
 			var id = this.id;
 			var tab_no = id.split('_')[3];
 			var size = this.firstChild.childElementCount;
-			if ( size <= 0)
+			if (size <= 0)
 				$('#__group_' + tab_no).hide();
 			else{
 				$('#__group_' + tab_no).show();
 			}
 		});
 	}
-	
-	function checkAccess(isAccess, site_auth, role_code){
-		var test='${sessionScope.isAccess}';		
-		if(!isAccess){
-			$('#main_content').hide();
-			alert('잘못된 접근으로 인하여 기본페이지로 이동합니다.');
-			location.replace("main");
-		} 
-	}
 
 	function addMenu(group, name, href, isaccess, site_auth, contentView){	
 		if(isaccess == 1){
 	 		$('#__group_' + group + ' ul').append('<li><a id="__menu_' + href +'" href="'+ href + '" >' + name +'</a></li>');
-		 }
+		}
 	}
 	
-	function setScrollTop(){
-		document.body.scrollTop = 0;
+	function setVisibleMenu() {		
+		if($('#side-menu').css('display') == 'flex') {
+			$("#side-menu").attr( "style", "display: none !important;")
+		}
+		else {
+			$("#side-menu").attr( "style", "display: flex !important;")
+		}
 	}
 	
 </script>
+
+<style>
+
+</style>
+
 </head>
+
 <body> 
-<c:if test="${!sessionScope.contentView.equals('main')}">
-	<div id="__top_header" class="row col-xs-12 col-md-12">		
-		<div id="btn navbar_toggle_btn" aria-controls="bs-navbar" aria-expanded="false" class="collapsed in navbar-toggle"
-		  	  	 data-target="#bs-navbar" data-toggle="collapse" onmouseup="setScrollTop();"> 
-			<span class="sr-only">Toggle</span><span class="glyphicon glyphicon-align-justify"></span>
+	<div id="__top_header">
+		<!-- 큰 화면 상단바 -->
+		<div id="lg-top-header" class="d-none d-lg-flex" title="큰 화면 상단바 (사용자 정보 표시 필요)">
+			<div id="lg-top-menu-bar" onclick="setVisibleMenu()" style="cursor: pointer;">
+		 		<i class="fa-solid fa-bars"></i>
+		 	</div>
+		 	<div id="lg-user_info">
+		 		<div class="header_box">사용자 : <span>${sessionScope.userLoginInfo.name}</span></div>	
+				<div class="header_box">권 한 : <span>${sessionScope.userLoginInfo.role_name}</span></div>		  	
+			 	<div class="header_box">소속업체 : <span>${sessionScope.userLoginInfo.cont_name}</span></div>
+				<div class="header_box">현장명 : <span>${sessionScope.userLoginInfo.site_name}</span></div>		
+		 	</div>
 		</div>
-		  	
-		<div id="__web_header">
-			<div class="header_box" ><b>사용자: </b> ${sessionScope.userLoginInfo.name} </div>	
-			<div class="header_box" ><b>권 한: </b> ${sessionScope.userLoginInfo.role_name} </div>		  	
-		 	<div class="header_box" ><b>소속업체: </b> ${sessionScope.userLoginInfo.cont_name} </div>
-			<div class="header_box" style="height: 4.3vh; float: right; margin-left: 1%; margin-right: 1%;"><b>현장명: </b>${sessionScope.userLoginInfo.site_name} </div>
-			<div class="top_gradient_bar"></div>
+		<!-- 작은 화면 상단바 -->
+		<div id="sm-top-header" class="d-lg-none" title="작은 화면 상단바">	
+		 	<div id="sm-top-menu-bar" onclick="setVisibleMenu()" style="cursor: pointer;">
+		 		<i class="fa-solid fa-bars"></i>
+		 	</div>
 		</div>
-	</div>
-
-	<div class="col-xs-12 col-sm-2 leftnav collapse " id="bs-navbar" style="margin-top: 6vh;">
-		<nav id="main_navbar" class="__nav" role="navigation" style="min-width: 120px;">
-			<div id="__group_1" style="display:none;">
-				<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_1" style="border-bottom: 3px solid #a2a2a2;">모니터링</div>
-				<div id="__grouptab_1" class="collapse in"><ul class="nav"></ul></div>
-			</div>	
-			
-			<div id="__group_2" style="display:none;">
-				<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_2" style="border-bottom: 3px solid #a2a2a2;">인력 관리</div>
-				<div id="__grouptab_2" class="collapse in"><ul class="nav"></ul></div>
-			</div>
-				
-			<div id="__group_3" style="display:none;">
-				<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_3" style="border-bottom: 3px solid #a2a2a2;">관리자 메뉴</div>
-				<div id="__grouptab_3" class="collapse in"><ul class="nav"></ul></div>
-			</div>			
-				
-			<div id="__group_4">
-				<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_4" style="border-bottom: 3px solid #a2a2a2;">기기 관리</div>
-				<div id="__grouptab_4" class="collapse in"><ul class="nav"></ul></div>
-			</div>
+	</div>	
+		
+	<div id="__cotent_box">
+		<div id="lg-content-box" class="flex-box">
+			<div id="side-menu" class="menu_box d-none d-lg-flex">
+				<nav id="main_navbar" class="__nav" role="navigation">
+					<div id="__group_1" style="display:none;">
+						<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_1" >모니터링</div>
+						<div id="__grouptab_1" class="collapse in"><ul class="nav"></ul></div>
+					</div>	
 					
-			<c:if test="${sessionScope.userLoginInfo.isManager == 1}">	
-			<div id="__group_5" style="display:none;">
-				<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_5"  style="border-bottom: 3px solid #a2a2a2;">데이터 관리</div>
-				<div id="__grouptab_5" class="collapse in"><ul class="nav"></ul></div>
+					<div id="__group_7" style="display:none;">
+						<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_7">공지사항</div>
+						<div id="__grouptab_7" class="collapse in"><ul class="nav"></ul></div>
+					</div>
+					
+					<c:if test="${sessionScope.userLoginInfo.id == '0' || sessionScope.userLoginInfo.id == '1' || sessionScope.userLoginInfo.id == '2'}">						
+					
+					<div id="__group_8" style="display:none;">
+						<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_8">진행중 ...</div>
+						<div id="__grouptab_8" class="collapse in"><ul class="nav"></ul></div>
+					</div>
+					
+					<div id="__group_9" style="display:none;">
+						<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_9">대기중 ...</div>
+						<div id="__grouptab_9" class="collapse in"><ul class="nav"></ul></div>
+					</div>
+					
+					<div id="__group_10" style="display:none;">
+						<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_10">개발완료 ...</div>
+						<div id="__grouptab_10" class="collapse in"><ul class="nav"></ul></div>
+					</div>
+					
+					</c:if>
+					
+					<div id="__group_2" style="display:none;">
+						<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_2" >인력 관리</div>
+						<div id="__grouptab_2" class="collapse in"><ul class="nav"></ul></div>
+					</div>
+						
+					<div id="__group_3" style="display:none;">
+						<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_3">관리자 메뉴</div>
+						<div id="__grouptab_3" class="collapse in"><ul class="nav"></ul></div>
+					</div>			
+						
+					<div id="__group_4" style="display:none;">
+						<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_4">기기 관리</div>
+						<div id="__grouptab_4" class="collapse in"><ul class="nav"></ul></div>
+					</div>
+							
+					<c:if test="${sessionScope.userLoginInfo.isManager == 1}">	
+					<div id="__group_5" style="display:none;">
+						<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_5">데이터 관리</div>
+						<div id="__grouptab_5" class="collapse in"><ul class="nav"></ul></div>
+					</div>
+					
+					<div id="__group_6" style="display:none;">
+						<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_6">웹 관리</div>
+						<div id="__grouptab_6" class="collapse in"><ul class="nav"></ul></div>
+					</div>
+					</c:if>
+					<div id="__group_0">
+						<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_0">
+							<a id="logout" href="./logout" class="collapse in" style="text-decoration: none;">로그아웃</a>
+						</div>
+					</div>
+				</nav>
 			</div>
-			
-			<div id="__group_6" style="display:none;">
-				<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_6"  style="border-bottom: 3px solid #a2a2a2;">웹 관리</div>
-				<div id="__grouptab_6" class="collapse in"><ul class="nav"></ul></div>
-			</div>
-			</c:if>
-			<div id="__group_0">
-				<div class="nav_main_menu waves-effect waves-blue" data-toggle="collapse" data-target="#__grouptab_0"  style="border-bottom: 3px solid #a2a2a2;">
-					<a id="logout" href="./logout" class="collapse in" style="text-decoration: none;">로그아웃</a>
-				</div>
-			</div>
-		</nav>  	  	  	
-		 
-	</div>
-	
-	<div class="visible-xs" style="height: 6vh; width: 100%;"> </div>
-	<div id="main_content" class="col-xs-12 col-sm-10">
-	<div id="container" class="col-xs-12 row">
-</c:if>
-
-  	 
+			<div id="main_content">

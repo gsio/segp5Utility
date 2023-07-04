@@ -46,18 +46,14 @@ public class LoginController {
 				}
 			}
 		}
-		return "main/main_renewal";
+		return "main/main";
 	}
 
 	@RequestMapping({ "/renewal" })
 	public String mainRenewalPage(HttpSession session, HttpServletRequest request) {
-
-		StringBuffer url = request.getRequestURL();
-
 		session.setAttribute("contentView", "main");
 		session.setAttribute("isAccess", true);
-
-		return "main/main_renewal";
+		return "main/main";
 	}
 
 	@RequestMapping("/error")

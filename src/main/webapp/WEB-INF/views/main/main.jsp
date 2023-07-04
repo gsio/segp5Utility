@@ -1,134 +1,175 @@
-<%@ page pageEncoding="utf-8" contentType="text/html;charset=UTF-8"	language="java"%>
+<%@ page pageEncoding="utf-8" contentType="text/html;charset=UTF-8"
+	language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <%
-	response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
-	response.setHeader("Pragma","no-cache"); //HTTP 1.0
-	response.setDateHeader ("Expires", 0);
+	response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
+	response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+	response.setDateHeader("Expires", 0);
 	if (request.getProtocol().equals("HTTP/1.1")) {
-	    response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Cache-Control", "no-cache");
 	}
 %>
-<!doctype html> 
+<!doctype html>
 
 
 <html dir="ltr" lang="en">
 <head>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <title>삼성엔지니어링 스마트 관리 시스템 </title>
-	<link rel="stylesheet" href="css/bootstrap4.1/bootstrap.css"  media="screen">
-	
-	<link rel="stylesheet" href="css/font-awesome/4.7.0/css/font-awesome.css">
-	<link rel="stylesheet" href="css/mdb/css/mdb.css">
-	<link rel="stylesheet" href="css/mdb/css/style.css"> 
-	
-  	<script type="text/javascript" src="js/jquery-1.12.4.min.js" ></script>
-  	<script type="text/javascript" src="js/jquery.plugin.js"></script>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>스마트 관리 시스템</title>
+<link rel="stylesheet" href="css/bootstrap4.1/bootstrap.css"
+	media="screen">
+
+<link rel="stylesheet" href="css/login.css">
+
+<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="js/jquery.plugin.js"></script>
 
 <script>
-	
-	$(window).ready(function(){
-		var isLogin = '${sessionScope.isLogin}';
-		if(isLogin){
-			location.href="recordList";		  
-		}		
-	});
-	
-	function login() {	
-		var userid = $('#userid').val();
-		if(userid.trim() == '' || userid.length <= 0){
-			alert('Please enter your User  ID.');
-		}else{
-			$('#loginForm').submit();	
-		}
-	}  
+	$(window).ready(function() {
 
-	function reset(){
+		var isLogin = '${sessionScope.isLogin}';
+		if (isLogin) {
+			location.href = "recordList";
+		}
+	});
+
+	function login() {
+		$('#loginForm').submit();
+	}
+
+	function reset() {
 		$('#userid').val('');
-	}	
-	
+	}
+
+	function privacyPolicyPage() {
+		location.href = "policy_privacy";
+	}
+
+	function locationPolicyPage() {
+		location.href = "policy_location";
+	}
+
+	function servicePolicyPage() {
+		location.href = "policy_service";
+	}
 </script>
 
 <style>
-
-	body {
-		content: "";
-		position: fixed;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		background-image: url(images/etc/orac_ex_image.jpg) !important;
-		background-position: 58% 20% !important;
-		background-repeat: no-repeat !important;
-		background-size: cover;
-		background-attachment: fixed !important;
-		height: 100% !important;
-		z-index: 0;
-		animation: f17imgfade 0.5s 0s 1 cubic-bezier(0, 0, 0.2, 1) forwards;
-		height:100vh;
-	}
-		
-	#back {
-		background: rgba(255,255,255,0.85);
-		animation: cb41FadeIn 1.2s 0s 1 cubic-bezier(0, 0, 0.2, 1) forwards;
-	}
-	
 </style>
 
 </head>
-<body onload="reset()">
-	<script type="text/javascript" src="js/bootstrap4.1/bootstrap.js"></script>  	
+<body>
+	<script type="text/javascript" src="js/bootstrap4.1/bootstrap.js"></script>
 
-<form id="loginForm" name="form" method="post" action="loginProcess">
+	<div class="d-lg-none sm-top-box">
+		<div class="sm-top-bg">
+			<div class="sm-top-title">Safety With U</div>
+			<div class="sm-card">
 
-	<div class="container">		
-		<div class="row" >
-			<div class="col" style="height:20vh">			
+				<img class="logo-ss" src="images/monitor/ss/logo_se.png?s=1">
+
+
+				<p class="logo-text">평택 P5-PJT 그린동 관리 시스템</p>
+				<form id="loginForm" name="form" method="post" action="loginProcess">
+					<input type="text" id="userid" name="id" placeholder="아이디"
+						placeholder="아이디"
+						class="input-up-down ng-untouched ng-pristine ng-valid"> <input
+						type="password" id="password" name="password"
+						onkeypress="if(event.keyCode=='13') login()" placeholder="비밀번호"
+						class="input-up-down ng-untouched ng-pristine ng-valid">
+
+					<button
+						class="login-button submit button-block button-round button-solid ion-activatable ion-focusable hydrated"
+						style="margin-bottom: 4px;">로그인</button>
+				</form>
+
+				<div class="sub-buttons md hydrated">
+					<div class="button_box md hydrated row">
+						<button
+							class="col md button button-clear ion-activatable ion-focusable hydrated"
+							onclick="privacyPolicyPage()">개인정보 처리방침</button>
+						<button
+							class="coi md button button-clear ion-activatable ion-focusable hydrated"
+							onclick="locationPolicyPage()">위치정보 처리방침</button>
+						<button
+							class="col md button button-clear ion-activatable ion-focusable hydrated"
+							onclick="servicePolicyPage()">서비스 이용약관</button>
+					</div>
+				</div>
+
+				<img src="images/logo_gsil.png?s=1" class="logo-gsil">
 			</div>
-	 	</div>
-		<div class="row" >
-	    	<div class="col-2"></div>
-	    	<div id="back" class="col-8" style="height: 50vh; min-height: 450px; padding: 3vh;">
-				<input id="isuser" type="hidden" name="isuser" value="1">
-					<div class="row">
-						<div class="col text-center">
-							<img class="img-responsive-height" src="images/monitor/ss/logo_se.png?s=1" style="height:8vh;">
-						</div>				    	
-					</div>
-					<div class="row">
-						<div class="col" style="text-align: center; font-weight: bold; font-size: 3vh; color: #333">
-					    	<br>
-					    	그린동 P4 스마트 관리 시스템
-						</div>
-					</div>
-					<div class="md-form">
-						<i class="fa fa-user prefix" style="color:#405f73"></i>
-						<input type="text" id="userid"  name="id" class="form-control validate">
-						<label for="userid" >Type your UserID</label>
-					</div>
-						
-					<div class="md-form">
-						<i class="fa fa-lock prefix" style="color:#405f73"></i>
-						<input type="password" id="password" name="password" class="form-control validate" onkeypress="if(event.keyCode=='13') login()">
-						<label for="password">Type your password</label>
-					</div>				
-				<button class="btn btn-info btn-block my-4" onclick="login()" type="submit">로그인</button>
-	    	</div>
-	    	<div class="col-2"></div>
-	    </div>
-	    <div class="row">
-	    	<div class="col-12 text-center"><img class="img-responsive-height" src="images/logo_gsil.png?s=1" style="height:10vh;"></div>
-	    </div>
+			<div style="height: 20px; width: 100%;"></div>
+		</div>
 	</div>
 
-</form>	
+	<div class="flex-box d-none d-lg-flex lg-content-box">
+		<div class="left-col md hydrated">
+			<button
+				class="active login md button button-block button-clear ion-activatable ion-focusable hydrated">
+				<div class="button-inner" onclick="privacyPolicyPage()">
+					개인정보<br>처리방침
+				</div>
+			</button>
+			<button
+				class="active sign-up md button button-block button-clear ion-activatable ion-focusable hydrated">
+				<div class="button-inner" onclick="locationPolicyPage()">
+					위치정보<br>처리방침
+				</div>
+			</button>
+			<button
+				class="active id-password md button button-block button-clear ion-activatable ion-focusable hydrated">
+				<div class="button-inner" onclick="servicePolicyPage()">
+					서비스<br>이용약관
+				</div>
+			</button>
+		</div>
+		<div class="center-col md hydrated">
+			<div class="title">
+				Smart Construction<br>Management System
+			</div>
+			<div class="sub-title">
+				스마트 안전관리 시스템에<br>오신 것을 환영합니다.
+			</div>
+		</div>
+		<div class="right-col md hydrated">
+			<div class="md-form-box form-box">
+
+				<div class="sub-buttons md hydrated">
+					<img class="logo-ss" src="images/monitor/ss/logo_se.png?s=1">
+				</div>
+
+				<div class="md hydrated">
+					<p class="logo-text">평택 P5-PJT 그린동 관리 시스템</p>
+				</div>
+				<form id="loginForm" name="form" method="post" action="loginProcess">
+					<input type="text" id="userid" name="id" placeholder="아이디"
+						class="ng-untouched ng-pristine ng-valid"> <input
+						type="password" id="password" name="password"
+						onkeypress="if(event.keyCode=='13') login()" placeholder="비밀번호"
+						class="ng-untouched ng-pristine ng-valid">
+
+					<button
+						class="login-button button-block button-solid ion-activatable ion-focusable hydrated"
+						style="margin-bottom: 4px;" ng-reflect-expand="block">
+						로그인</button>
+				</form>
+				<div class="sub-buttons md hydrated">
+					<img class="logo-gsil" src="images/logo_gsil.png?s=1">
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 </body>
 </html>

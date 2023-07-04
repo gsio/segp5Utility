@@ -130,31 +130,31 @@ public class MonitorController {
 	// 모바일 앱 개인정보처리방침
 	@RequestMapping(value = {"/privacy"})
 	public String MobilePrivacy(HttpSession session , Model model) {
-		return "etc/privacy";
+		return "policy/app";
 	}
 	
 	// 웹 개인정보처리방침
 	@RequestMapping(value = {"/policy_privacy"})
 	public String policyPrivacy(HttpSession session , Model model) {
-		return "etc/policyPrivacy";
+		return "policy/privacy";
 	}
 	
 	// 위치정보처리방침	
 	@RequestMapping(value = {"/policy_location"})
 	public String policyLocation(HttpSession session , Model model) {
-		return "etc/policyLocation";
+		return "policy/location";
 	}
 	
 	// 서비스이용방침
 	@RequestMapping(value = {"/policy_service"})
 	public String policyService(HttpSession session , Model model) {
-		return "etc/policyService";
+		return "policy/service";
 	}
 	
 	@RequestMapping( value = "/json/getOpenWeatherAPIInfo" )
 	public void getOpenWeatherAPIInfo( HttpServletResponse response,
-		@RequestParam(value="site_id", defaultValue="-1")int site_id
-	) {		
+		@RequestParam(value="site_id", defaultValue="-1")int site_id)
+	{		
 		WeatherInfoVO vo =  monitorService.getOpenWeatherAPIInfo(site_id);		
 		JSONObject jo = new JSONObject(vo);
 		jo.put("result", "true");		
