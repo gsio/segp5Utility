@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cons.man.persistence.ManageMapper"> 
+
+	<select id="getWorkStateListFromWeb" parameterType="Integer" resultType="WorkStateVO">
+		SELECT ws.*, u.name as writer_name
+		FROM work_state ws
+		LEFT JOIN user u
+		ON u.id = ws.u_id
+		WHERE
+			site_id = #{site_id}
+			AND ws.useyn = 'Y'				
+			AND ws.id >= 0
+		ORDER BY ws.id = 0 DESC
+	</select>
+
+	<select id="getWorkStateList" parameterType="Integer" resultType="WorkStateVO">
+		SELECT ws.*, u.name as writer_name
+		FROM work_state ws
+		LEFT JOIN user u
+		ON u.id = ws.u_id
+		WHERE
+			site_id = #{site_id}
+			AND ws.useyn = 'Y'	
+		ORDER BY id DESC
+	</select>
+	
+	<select id="getWorkTypeList" parameterType="Integer" resultType="WorkTypeVO">
+		SELECT wt.*, u.name 
+		FROM w_type wt
+		LEFT JOIN user u
+		ON u.id = wt.u_id
+		where
+			site_id = #{site_id}
+			AND wt.useyn = 'Y'	
+		ORDER BY t_name
+	</select>
+	
+	<insert id="insertWorkType"  parameterType="WorkTypeVO">
+    	INSERT INTO w_type(t_name, useyn, gubun, site_id, u_id, write_time)
+    	VALUES (
+    		#{t_name}, 'Y', #{gubun}, #{site_id}, #{u_id}, NOW())
+    	ON DUPLICATE KEY UPDATE 
+    		gubun = #{gubun},
+    		useyn = 'Y',
+    		u_id = #{u_id},
+    		write_time = NOW()
+	</insert>
+	
+	<insert id="insertWorkState"  parameterType="WorkTypeVO">
+    	INSERT INTO work_state(site_id, name, code, color, u_id, useyn, write_time)
+    	VALUES (
+    		#{site_id}, #{name}, 'U', #{color}, #{u_id}, 'Y', NOW())
+    	ON DUPLICATE KEY UPDATE 
+    		name = #{name},
+			color = #{color},    
+    		u_id = #{u_id},
+    		write_time = NOW()
+	</insert>
+	
+	<update id="deletetWorkType" parameterType="WorkTypeVO">
+		UPDATE w_type set useyn = 'N', write_time = now(), u_id = #{u_id} WHERE id = #{id}
+	</update>
+	
+	<update id="deletetWorkState" parameterType="WorkStateVO">
+		UPDATE work_state set useyn = 'N', write_time = now(), u_id = #{u_id} WHERE id = #{id}
+	</update>
+	
+	<select id="getSectionGroupList" parameterType="Integer" resultType="SectionGroupVO">
+		SELECT SG.*, U1.name as writer_name, U2.name as updater_name
+		FROM section_group SG
+		LEFT JOIN user U1
+		ON U1.id = SG.writer_id
+		LEFT JOIN user U2
+		ON U2.id = SG.updater_id
+		where site_id = #{site_id}	
+		AND SG.useyn = 'Y'
+	</select>
+	
+	<select id="getSectionMemberList" parameterType="Integer" resultType="SectionVO">
+		SELECT * 
+		FROM section
+		where group_id = #{group_id}	
+	</select>
+	
+	<select id="insertGroupName" parameterType="Integer" resultType="SectionGroupVO">
+		INSERT INTO section_group(site_id, writer_id, updater_id, group_name, write_time, last_update_time, useyn)
+		VALUES(#{site_id}, #{writer_id}, #{writer_id}, #{group_name}, NOW(), NOW(), 'Y')
+	</select>
+	
+	<update id="updateGroupName" parameterType="SectionGroupVO">
+		UPDATE section_group
+        SET 
+			group_name = #{group_name},
+			updater_id = #{updater_id},
+			last_update_time = now()			
+		WHERE
+			id = #{id}
+	</update>
+	
+	<update id="updateLastUpdater" parameterType="SectionGroupVO">
+		UPDATE section_group
+        SET 
+			updater_id = #{updater_id},
+			last_update_time = now()			
+		WHERE
+			id = #{id}
+	</update>
+	
+	<select id="getSectionGroupStateList" parameterType="Integer" resultType="SectionVO">
+		SELECT * 
+		FROM section_group_view
+		where site_id = #{site_id}	
+	</select>
+	
+	<update id="selectSectionGroup" parameterType="Integer">
+		UPDATE section
+        SET 
+			group_id = #{id}
+		WHERE
+			site_id = #{site_id}	
+			AND
+			section = #{section}
+	</update>
+	
+	<update id="deleteSectionGroup" parameterType="Integer">
+		UPDATE section
+        SET 
+			group_id = 0
+		WHERE
+			site_id = #{site_id}	
+			AND
+			section = #{section}
+	</update>
+		
+	<update id="deleteGroup" parameterType="Integer">
+		UPDATE section_group
+        SET 
+			useyn = 'N'
+		WHERE
+			site_id = #{site_id}
+			AND
+			id = #{id}
+	</update>	
+		
+	<update id="initGroupMember" parameterType="Integer">
+		UPDATE section
+        SET 
+			group_id = 0
+		WHERE
+			group_id = #{id}
+	</update>
+	
+	<insert id="insertDidSetting"  parameterType="DidSettingVO">
+    	INSERT INTO did_setting_off(site_id, gubun, type, start_time, end_time, u_id, write_date, write_time)
+    	VALUES (#{site_id}, #{gubun}, #{type}, #{start_time}, #{end_time}, #{u_id}, DATE(NOW()), NOW())
+	</insert>
+			
+	<select id="getDidSettingList" parameterType="Integer" resultType="DidSettingVO">
+		SELECT * 
+		FROM did_setting_view
+		where site_id = #{site_id}	
+	</select>	
+	
+	<delete id="deleteMonitorSetting" parameterType="Integer">	   	
+		DELETE FROM did_setting_off
+		WHERE 
+			site_id = #{site_id} AND
+			id = #{id}
+	</delete> 
+	
+</mapper>
+

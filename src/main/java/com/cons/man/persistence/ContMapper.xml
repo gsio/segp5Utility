@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cons.man.persistence.ContMapper">
+
+	<select id="getContList" resultType="ContVO"  parameterType="Integer" >
+		SELECT C.*, WS.name as state_name
+        FROM contractor C
+        	LEFT JOIN work_state WS
+        	ON C.state = WS.id
+        WHERE 
+        	C.site_id = #{site_id}
+        	AND C.useyn = 'Y'
+	</select>
+	
+	<select id="getContInfo" resultType="ContVO"  parameterType="Integer" >
+		SELECT C.*, S.NAME AS SITE_NAME
+		FROM contractor C
+			JOIN SITE S 
+			ON C.SITE_ID = S.ID 
+			AND C.ID = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="ContVO">		
+		INSERT INTO contractor(id, site_id, name, type, state, reg_num, phone, rep_name, useyn, write_time)
+		values ((select * from (select ifnull((max(CAST(id AS SIGNED))+1),'0') from contractor) a), 
+			#{site_id}, #{name}, #{type}, #{state}, #{reg_num}, #{phone}, #{rep_name}, 'Y', now())
+	</insert>
+	
+	<update id="update" parameterType="ContVO">
+ 	    UPDATE contractor
+		SET name=#{name},
+			type=#{type},
+			state = #{state},
+			reg_num=#{reg_num},
+			phone=#{phone},
+			rep_name=#{rep_name}		
+		WHERE id=#{id}
+    </update>  
+    
+	<update id="disableCont" parameterType="Integer">
+ 	    UPDATE contractor
+		SET USEYN = 'N'
+		WHERE id=#{id}
+    </update>
+    
+</mapper>

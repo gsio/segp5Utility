@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cons.man.persistence.UserMapper">  
+	<select id="getUserByUserId" resultType="UserVO" parameterType="String">
+		SELECT 
+			U.*, 
+		    C.NAME AS CONT_NAME, 
+		    C.TYPE AS CONT_TYPE,
+		    C.state AS WORK_STATE,
+		    R.NAME AS ROLE_NAME,
+		    S.ID AS SITE_ID,
+		    S.NAME AS SITE_NAME,
+		    S.AUTH AS SITE_AUTH,
+		    S.address AS SITE_ADDR,
+		    S.TYPE AS SITE_TYPE,
+		    S.TOPIC_ALERT
+		FROM USER U
+			JOIN CONTRACTOR C	    
+			ON U.CONT_ID = C.ID    
+			JOIN SITE S
+			ON C.SITE_ID = S.ID
+			LEFT JOIN ROLE R
+			ON C.TYPE = R.TYPE
+			AND U.ROLE_CODE = R.CODE  	           
+	   	WHERE 
+	   		U.USERID = #{userid}
+	  		AND U.USEYN='Y'
+   	</select>  
+  
+	<select id="getUserList" resultType="UserVO" parameterType="UserVO">
+		SELECT U.*, C.NAME AS cont_name, C.TYPE AS cont_type, R.NAME AS role_name,
+			(SELECT IDX FROM BEACON WHERE U_ID = U.ID AND role = 1 LIMIT 0, 1) AS beacon_idx
+		FROM USER U
+			JOIN CONTRACTOR C     
+			ON U.CONT_ID = C.ID
+	 		LEFT JOIN ROLE R
+     		ON U.ROLE_CODE = R.CODE
+     		AND C.TYPE = R.TYPE     
+     	WHERE 
+	     	C.SITE_ID = #{site_id}
+	     	<if test="cont_id > 0">
+	     	AND C.ID = #{cont_id}
+	     	</if>
+	     	AND U.USEYN = 'Y'
+     	ORDER BY C.NAME, R.CODE, U.NAME
+    </select>
+  
+   <select id="getSignByUserVO" resultType="UserVO" parameterType="UserVO">
+		SELECT U.NAME, U.SIGN
+		FROM USER U JOIN CONTRACTOR C
+			ON U.CONT_ID = C.ID
+			JOIN ROLE R 
+			ON U.ROLE_CODE  = R.CODE
+			AND C.TYPE = R.TYPE		
+		WHERE 
+			C.SITE_ID = #{site_id}
+			<if test="cont_id >= 0 ">
+			AND C.ID = #{cont_id}
+			</if>
+			AND C.TYPE = #{cont_type}
+			AND R.CODE = #{role_code}
+		ORDER BY U.WRITE_TIME LIMIT 0,1		   
+   </select>
+
+	<select id="getUserByUserIdAndPW" resultType="UserVO" parameterType="UserVO">
+		SELECT 
+			U.*, 
+		    C.NAME AS CONT_NAME, 
+		    C.TYPE AS CONT_TYPE,
+		    R.NAME AS ROLE_NAME,
+		    S.ID AS SITE_ID,
+		    S.NAME AS SITE_NAME,
+		    S.AUTH AS SITE_AUTH,
+		    S.address AS SITE_ADDR,
+		    S.TYPE AS SITE_TYPE,
+		    S.TOPIC_ALERT
+		FROM USER U
+			JOIN CONTRACTOR C	    
+			ON U.CONT_ID = C.ID    
+			JOIN SITE S
+			ON C.SITE_ID = S.ID
+			LEFT JOIN ROLE R
+			ON C.TYPE = R.TYPE
+			AND U.ROLE_CODE = R.CODE      
+		WHERE
+			U.USERID = #{userid}
+	   		AND U.PASSWORD = #{password}
+	   		AND U.USEYN='Y'
+	   		AND S.USEYN = 'Y'
+   	</select>      
+   
+	<insert id="insertLoginLog" parameterType="LoginLogVO" >
+		INSERT INTO LOGIN_LOG(IP, USERID, URL, IS_WEB, WRITE_TIME)
+		VALUES(#{ip}, #{userid}, #{url}, #{is_web}, NOW())
+	</insert>
+	
+	<select id="getUserById" resultType="UserVO" parameterType="String">
+		SELECT 
+			U.*, C.NAME AS CONT_NAME, C.TYPE AS CONT_TYPE, R.NAME AS ROLE_NAME,
+			S.ID AS SITE_ID, S.NAME AS SITE_NAME, S.AUTH AS SITE_AUTH, S.TYPE AS SITE_TYPE
+		FROM USER U
+			JOIN CONTRACTOR C    
+			JOIN SITE S
+			ON U.CONT_ID = C.ID
+			AND C.SITE_ID = S.ID     
+			LEFT JOIN ROLE R
+			ON U.ROLE_CODE = R.CODE     
+			AND C.TYPE = R.TYPE
+		WHERE 
+			U.ID = #{id}
+     		AND U.USEYN = 'Y' 
+	</select>
+   
+ 	<insert id="insert" parameterType="UserVO" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+		INSERT INTO	USER(
+			ID, CONT_ID, ROLE_CODE, NAME, USERID, PASSWORD, PHONE, 
+			EMAIL, GRADE, SIGN, PHOTO, USEYN, WRITE_TIME, ISMANAGER, BTYPE, 
+			EDUDATE, SEALED_DATE1 , SEALED_DATE2 , SEALED_DATE3 , SEALED_DATE4, last_update_time)
+		VALUES(
+			#{id}, #{cont_id}, #{role_code}, #{name}, #{userid}, #{password}, #{phone},
+			#{email}, #{grade}, #{sign}, #{photo}, 'Y', SYSDATE(), #{isManager}, #{btype},
+			#{edudate}, #{sealed_date1}, #{sealed_date2}, #{sealed_date3}, #{sealed_date4}, NOW())
+	</insert>
+		
+    <update id="update" parameterType="UserVO">
+         UPDATE USER
+         SET
+			 CONT_ID = #{cont_id},
+			 ROLE_CODE = #{role_code},
+			 NAME = #{name},
+			 USERID = #{userid},
+			 PASSWORD = #{password},
+			 PHONE = #{phone},
+			 EMAIL = #{email},
+			 GRADE = #{grade},
+			 SIGN = #{sign},
+			 PHOTO = #{photo}, 
+			 ISMANAGER = #{isManager},
+			 BTYPE = #{btype},
+			 EDUDATE = #{edudate},
+			 SEALED_DATE1 = #{sealed_date1},
+			 SEALED_DATE2 = #{sealed_date2},
+			 SEALED_DATE3 = #{sealed_date3},
+			 SEALED_DATE4 = #{sealed_date4},
+			 last_update_time = NOW()			
+         WHERE ID = #{id}
+     </update>    
+     
+	<update id="disableUser" parameterType="String">
+		UPDATE 
+			USER 
+		SET
+			USEYN='N',
+			USERID = CONCAT(USERID , '_' , ID  ),
+			last_update_time = NOW()
+		WHERE ID=#{id}  
+	</update>
+    
+	<!--  -->
+	
+	<select id="getUserViewList" resultType="UserVO" parameterType="UserVO">
+		SELECT * FROM user_view	
+		WHERE site_id = #{site_id}
+		<if test="cont_id >= 0 ">
+			AND cont_id = #{cont_id}
+		</if>
+		ORDER BY name
+    </select>	
+	
+	<select id="getApprovalUserList" resultType="UserVO" parameterType="UserVO">
+		SELECT * FROM approval_view
+		WHERE site_id = #{site_id}
+		<if test="content_id >= 0 ">
+			AND (content_id != #{content_id} OR content_id is NULL)
+		</if>
+		<if test="cont_id >= 0 ">
+			AND cont_id = #{cont_id}
+		</if>
+		ORDER BY name
+    </select>
+    
+    <select id="getCheckerUserList" resultType="UserVO" parameterType="UserVO">
+		SELECT * FROM checker_view
+		WHERE site_id = #{site_id}
+		<if test="content_id >= 0 ">
+			AND (content_id != #{content_id} OR content_id is NULL)
+		</if>
+		<if test="cont_id >= 0 ">
+			AND cont_id = #{cont_id}
+		</if>
+		ORDER BY name
+    </select>
+    
+    <select id="getUserListBySiteId" resultType="UserVO" parameterType="UserVO">
+       SELECT U.* FROM USER U JOIN CONTRACTOR C ON U.CONT_ID = C.ID  AND C.TYPE = 0
+          JOIN SITE S ON C.SITE_ID = S.ID
+          WHERE S.ID IN
+          <foreach collection="siteIdList" item="item" index="index" separator="," open="(" close=")">
+	          	   #{item}
+	      </foreach>  
+	      AND S.USEYN='Y'
+    </select>
+    
+    <select id="checkModifyUserId" resultType="UserVO" parameterType="String">
+		SELECT * FROM certkey
+		WHERE 1=1
+		<![CDATA[ AND TIMESTAMPDIFF(SECOND, write_time, NOW()) < 180 ]]>		
+		AND phone = #{phone}
+		ORDER BY write_time DESC LIMIT 1
+    </select>
+	
+	 <update id="postChangeUserId" parameterType="String">
+		 UPDATE USER
+         SET 
+         userid = #{userid},
+         last_update_time = NOW()	
+         WHERE phone = #{phone}
+    </update>
+
+
+</mapper>
+

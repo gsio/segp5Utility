@@ -1,0 +1,293 @@
+.table-container {
+    max-width: 100%;
+    width: 100%;
+}
+
+.content_table_box  {
+	display: flex;
+    align-items: center;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+#equipViewTable {
+	margin-bottom: 20px;
+}
+
+#equipViewTable th {
+    min-width: 100px;
+    width: 100px;
+	background: #FFF;
+	font-size: 0.9em;
+}
+
+#equipViewTable th.required {
+	color: #FF3547;
+	font-weight: 600;		
+}
+
+#equipViewTable td input, #equipViewTable td select{
+	height: 40px;
+	font-size: 0.85em;
+	max-width: 100% !important;
+	background: #FFF;
+	padding-left: 5px;
+}
+
+#equipViewTable td .item{
+   	height: 40px;
+    max-width: 100% !important;
+    background: #FFF;
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    font-size: 0.85em;
+}
+
+#equipViewTable td .item-btn {
+    height: 40px;
+    min-width: 90px;
+}
+
+#equipViewTable .size-fix {
+    max-width: 250px;
+    max-height: 250px;
+    height: 250px;
+    border: 1px solid #D4D4D4;
+}
+
+#equipViewTable .file-input-hidden {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    background: red;
+}
+
+#equipViewTable .img_btn_wrapper {
+	height: 40px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#equipViewTable .img_btn_box { 
+    min-width: 100px;    
+	max-width: 120px;
+    flex: 0 0 40px;
+    box-shadow: 0 0 12px 0 rgb(0 0 0 / 10%);
+    border-radius: 5px;
+    font-size: 1em;
+    color: #FFF;
+    float: right;
+    text-align: center;
+    line-height: 40px;
+    margin-left: 5px;
+    padding: 0;
+    position: relative;
+    cursor: pointer;
+} 
+
+#equipViewTable td .comment-box {
+	padding: 10px;
+}
+
+#equipViewTable td .reply-box {
+    margin: 5px 0;
+    padding: 0 0 0 5px;
+	height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
+	position: relative;
+}
+
+#equipViewTable td .reply-box .reply-input {
+    height: 40px;
+    font-size: 0.9em;
+    background: #FFF;
+    flex: 0 0 100%;
+    max-width: 100% !important;
+}
+
+#equipViewTable td .reply-box .reply-btn {
+    right: 5px;
+    max-width: 100px;
+    min-width: 80px;
+    position: absolute;
+}
+
+#equipViewTable .item-comment-box {
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    background: #FAFAFA;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    margin: 5px 0px;
+	padding: 10px;
+    align-content: center;
+}
+
+#equipViewTable .item-comment-box .comment-info, .item-reply-box .comment-info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 10px;
+}
+
+#equipViewTable .item-comment-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 0.9em;
+}
+
+#equipViewTable .item-comment-body {
+    font-size: 0.9em;
+    height:35px;
+    line-height: 35px;
+    overflow: auto;
+}
+
+#equipViewTable .item-comment-footer {
+    height: 20px;
+    padding: 0;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#equipViewTable td .item-comment-footer .btn {
+	height: 20px;
+    min-width: 30px;
+    line-height: 0;
+}
+
+#equipViewTable .comment-box img {
+	height: 80px;
+	width: 80px;
+}
+
+#equipViewTable .item-comment-box .show-mobile {
+	font-size: 0.8em;
+}
+
+#equipViewTable .item-mobile-comment-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 0.9em;
+}
+
+#equipViewTable .item-reply-box {
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    background: #f0eeee;
+    border: 1px dotted #C4C4C4;
+    border-radius: 1rem;
+    margin: 5px 0px;
+    padding: 10px;
+    align-content: center;
+    margin-left: 35px;
+    position: relative;
+}
+
+#equipViewTable .item-reply-box:before {
+    content: "\f3e5";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    left: -33px;
+    top: 5px;
+    position: absolute;
+    transform: rotate(180deg);
+    font-size: 1.5em;
+}
+
+#equipViewTable .item-reply-box .show-mobile {
+	font-size: 0.8em;
+}
+
+#equipViewTable td .file-box{
+	max-height: 200px;
+	height: 200px;
+	max-width: 100% !important;
+    background: #FFF;
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    overflow: auto;
+}
+
+#equipViewTable td .file-item {
+   	height: 60px;
+    max-width: 100% !important;
+    background: #FFF;
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    color: #495057;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	margin: 5px 0;
+	display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    flex-wrap: nowrap;
+}
+
+#equipViewTable td .file-item > div {
+	margin: 0 5px;
+}
+
+#equipViewTable td .file-item .file-icon {
+    flex: 0 0 20px;
+    font-size: 1.5em;
+}
+
+#equipViewTable td .file-item .file-name {
+  	font-size: 0.9em;
+    font-weight: 600;
+    color: #000;
+}
+
+#equipViewTable .check-item {
+	cursor: pointer;
+ 	height: inherit !important;
+}  
+
+#equipViewTable .check-item:hover {
+	cursor: pointer;
+	background: #E2FAFA;
+}  

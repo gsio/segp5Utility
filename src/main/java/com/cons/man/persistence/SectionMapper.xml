@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cons.man.persistence.SectionMapper">
+
+	<select id="getSectionList" resultType="SectionVO" parameterType="Integer">
+	 	SELECT 
+			SS.section,
+			SEC.name as sec_name,
+			SEC.floor,
+			SEC.group_id,
+			SS.state,
+			S.has_env,
+			S.push_sensor,
+			S.idx as scanner_idx			
+		FROM section SEC
+			LEFT JOIN state SS
+				ON SEC.site_id = SS.site_id
+				AND SEC.place_id = SS.place_id
+				AND SEC.section = SS.section		
+			LEFT JOIN scanner S
+				ON SEC.site_id = S.site_id
+				AND SEC.place_id = S.place_id
+				AND SEC.section = S.section	
+		WHERE
+			SEC.site_id = #{site_id}
+		ORDER BY SEC.section
+ 	</select>
+ 	
+ 	<select id="checkSectionDuplicate" resultType="SectionVO" parameterType="Integer">
+	 	SELECT SEC.*
+		FROM section SEC
+			LEFT JOIN scanner S
+			ON S.site_id  = SEC.site_id
+			AND S.place_id  = SEC.place_id
+			AND S.section  = SEC.section
+		WHERE S.id is NULL
+		AND SEC.section = #{section}	
+ 	</select>
+ 
+</mapper>

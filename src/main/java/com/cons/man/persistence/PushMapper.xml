@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cons.man.persistence.PushMapper">  
+  <select id="getPushUserList" resultType="String" parameterType="PushUserVO">
+  	SELECT FCM_TOKEN FROM PUSH_USER PU
+    JOIN USER U 
+    ON PU.U_ID = U.ID
+  	WHERE PU.SITE_ID = #{site_id}
+  	<if test="beacon_alarm > 0 ">AND PU.BEACON_ALARM = #{beacon_alarm}</if>
+  	<if test="env_sensor > 0 ">AND PU.ENV_SENSOR = #{env_sensor}</if>
+  	<if test="gyn_cctv > 0 ">AND PU.GYN_CCTV = #{gyn_cctv}</if>
+  	<if test="seg_sealed > 0 ">AND PU.SEG_SEALED = #{seg_sealed}</if>
+  	<if test="seg_wind > 0 ">AND PU.SEG_WIND = #{seg_wind}</if>
+  	<if test="seg_workmin > 0 ">AND PU.SEG_WORKMIN = #{seg_workmin}</if>
+  </select>
+  
+  <select id="getPushTargetUserList" resultType="String" parameterType="PushUserVO">
+		SELECT FCM_TOKEN FROM USER WHERE ID IN 
+	 	<foreach collection="u_id_list" item="u_ids" index="index" separator="," open="(" close=")">
+           #{u_ids}
+        </foreach>		  	
+  </select>
+</mapper>
+

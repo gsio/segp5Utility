@@ -1,0 +1,102 @@
+
+#contTable tr {
+	cursor: pointer;
+}
+
+#overlay_info_text {
+	min-width: 100%;
+	font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+}
+
+#user_modal #sub-tab-box {
+	height: 750px;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: center;
+}
+
+#user_modal #sub-tab-box ul {
+    list-style: none;
+    padding-left: 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    align-content: center;
+    justify-content: space-between;
+}
+
+#user_modal #sub-tab-box li {	
+    flex: 0 0 49%;	
+    background: white;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    position: relative;    
+}
+
+#user_modal #sub-tab-box .nav>li a {
+	color: #666;
+	width: 100%;
+    height: 100% !important;
+    max-height: 40px !important;     
+    border-radius: 5px 5px 0 0;
+	display: block;
+	text-decoration: none;
+	background: #e6e8e6;
+	border-bottom: 1px solid #D4D4D4;
+	font-size: 1em;	
+	box-shadow: 0 0 12px 0 rgb(0 0 0/ 10%);
+}
+
+#user_modal #sub-tab-box .nav>li a:hover {
+	color: black;
+	font-weight: 600;
+	background: white;
+}
+
+#user_modal #sub-tab-box .nav li>.active {
+	background: white;
+	color: red;
+	font-weight: 600;
+	border: 1px solid #FF3547;
+}
+
+#user_modal #sub-tab-box .nav li>.active:after {
+	position: absolute;
+    left: 5px;
+    top: 5px;
+    content: "";
+    display: block;
+    width: 3px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: #007bff;
+}
+
+#user_modal .label {
+	font-size:0.8em;
+	font-weight: 600;
+}
+
+#user_modal .content-item {
+	display: flex;
+    margin-top: 10px;
+}
+
+#user_modal .content_selete_box .select-content {
+	max-width: 250px !important;   
+}
+
+.popup-select-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    align-items: center;
+}

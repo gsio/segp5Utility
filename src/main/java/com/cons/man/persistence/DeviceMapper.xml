@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cons.man.persistence.DeviceMapper">
+ 	
+	 <select id="getPatchList" resultType="PatchVO" parameterType="Integer">
+	 	SELECT P.*, AT.name as app_type_name, AT.color as app_color 
+		FROM patch P
+		JOIN app_type AT
+		ON AT.id = P.app_type
+		WHERE site_id = #{site_id}
+		ORDER BY write_date DESC
+ 	</select>
+ 	 	
+	<delete id="deleteDeviceState" parameterType="ScannerInfoVO">	   	
+		DELETE FROM SCANNER_STATE
+		WHERE 
+			MD5(scanner_mac) = MD5(#{scanner_mac})
+			AND phone_idx = #{phone_idx}
+			AND app_type = #{app_type}
+	</delete> 
+   
+   
+ 	<select id="getFanList" resultType="FanVO" parameterType="Integer">
+		SELECT F.id,
+			F.site_id, F.place_id, F.section, S.name as section_name,
+			F.idx as fan_idx, F.name as fan_name,
+			B.state as battery, B.write_time as last_scan_time 
+		FROM fan F
+		LEFT JOIN section S
+		ON F.site_id = S.site_id
+		AND F.place_id = S.place_id
+		AND F.section = S.section
+		LEFT JOIN battery B
+		ON B.mac_addr = F.mac_addr
+		WHERE F.SITE_ID = #{site_id}
+		ORDER BY F.idx;
+ 	</select> 
+ 	
+ 	<select id="getFanAllotList" resultType="FanVO" parameterType="Integer">
+ 		SELECT *
+		FROM FAN_ALLOT_VIEW
+		WHERE SITE_ID = #{site_id}
+		ORDER BY section_id;
+ 	</select>
+ 	
+ 	<update id="deleteFanBeaconByid" parameterType="Integer" >
+		UPDATE fan
+        SET 
+			section = null
+		WHERE
+			id = #{id}
+   	</update>
+   	
+	<update id="updateFanBeacon" parameterType="Integer" >
+		UPDATE fan
+        SET 
+			section = #{section}
+		WHERE
+			id = #{id}
+   	</update>
+   	
+   	<update id="updateFanName" parameterType="FanVO" >
+		UPDATE fan
+        SET 
+			name = #{name}
+		WHERE
+			id = #{id}
+   	</update>
+ 
+</mapper>

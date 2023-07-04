@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cons.man.persistence.WorkerMapper">  
+
+	<select id="checkWorkerPhone" parameterType="String" resultType="WorkerVO">
+		SELECT W.ID, W.PHONE,W.GUBUN,W.NAME,W.COUNTRY,T_ID, CONT_ID, C.NAME AS CONT_NAME ,S.ID AS SITE_ID, S.NAME AS SITE_NAME
+		FROM WORKER W
+        LEFT OUTER JOIN CONTRACTOR C
+        ON W.CONT_ID = C.ID
+        LEFT OUTER JOIN SITE S
+        ON W.SITE_ID = S.ID
+		WHERE
+		  W.PHONE = #{phone}		  
+	</select>
+
+	<select id="getWorker" parameterType="Integer" resultType="WorkerVO">
+		SELECT * FROM WORKER 
+		WHERE ID = #{worker_id}
+	</select>
+
+	<select id="getWorkRecord" resultType="WorkerVO" >
+		SELECT W.*,C.name AS cont_name, WT.t_name AS t_name 
+		FROM WORKER W 
+			LEFT JOIN w_type WT
+			ON W.t_id = WT.id
+			LEFT JOIN CONTRACTOR C
+		ON W.cont_id = C.ID
+		WHERE 
+			W.site_id = #{site_id}
+			<if test="cont_id > 0">
+			AND W.cont_id = #{cont_id}
+			</if>
+		AND delyn='N'
+		ORDER BY W.name
+	</select>
+	
+	<select id="getWorkerTypeList" resultType="WorkerVO">
+		SELECT * FROM w_type
+		where useyn = 'Y'	
+		ORDER BY t_name	
+	</select>
+	
+	<insert id="insertWorker"  parameterType="WorkerVO">
+    	insert into worker (
+    		id, phone, gubun, name, jumin, country, passno, hiredate, t_id, cont_id, site_id,
+    		 edudate, eduimage, btype, sealed_date1, sealed_date2, sealed_date3, sealed_date4, last_update_time) 
+		values ((select * from (select ifnull((max(CAST(id AS SIGNED))+1),'0') from worker) a), #{phone}, #{gubun}, #{name}, #{jumin}, #{country}, #{passno}, #{hiredate}, #{t_id}, #{cont_id}, #{site_id},
+		 #{edudate} ,#{eduimage}, #{btype}, #{sealed_date1}, #{sealed_date2}, #{sealed_date3}, #{sealed_date4}, NOW())	
+    </insert>
+    
+    <update id="updateRecord" parameterType="WorkerVO">
+   		UPDATE WORKER
+   		SET 
+   		<if test="cont_id > 0">
+   			cont_id = #{cont_id},
+   		</if>	
+			name = #{name},
+			btype = #{btype},
+			t_id = #{t_id},
+			hiredate = #{hiredate},
+			edudate =#{edudate},
+			jumin = #{jumin},
+			sealed_date1 = #{sealed_date1},
+			sealed_date2 = #{sealed_date2},
+   			sealed_date3 = #{sealed_date3},
+   			sealed_date4 = #{sealed_date4},
+   			last_update_time = NOW()	   		
+   		WHERE id = #{id}
+   	</update>
+   	
+   	<select id="getWorkerListByContId" parameterType="WorkerVO" resultType="WorkerVO">
+		SELECT W.*, WT.T_NAME AS t_name, WT.gubun AS t_gubun, C.NAME AS cont_name, 
+			(SELECT IDX FROM BEACON WHERE U_ID = W.ID AND role = 2 LIMIT 0, 1) AS beacon_idx
+		FROM WORKER W 
+			LEFT JOIN W_TYPE WT
+			ON W.T_ID = WT.ID	
+			JOIN CONTRACTOR C
+			ON C.ID = W.CONT_ID	
+		WHERE W.SITE_ID = #{site_id}
+		<if test="cont_id > 0">
+			AND W.CONT_ID = #{cont_id}
+		</if>
+        	AND DELYN = 'N'
+		ORDER BY C.ID, WT.T_NAME
+	</select>
+   	
+	<update id="deleteWorker" parameterType="Integer">
+		UPDATE WORKER 
+		SET 
+			site_id = -1,
+			phone = CONCAT(#{site_id}, '_', #{id}),
+			delyn = 'Y',
+			last_update_time = NOW()
+		WHERE
+			id = #{id}
+    </update>
+    
+    <update id="updateEduImageByWorkerId" parameterType="WorkerVO">
+		update worker 
+		set eduimage = #{eduimage},
+		last_update_time = NOW()
+		where id = #{id};
+   	</update>
+
+	<select id="getDriverList" resultType="WorkerVO" parameterType="Integer">
+		SELECT W.*,C.name AS cont_name, WT.t_name AS t_name, E.id as equip_id 
+		FROM WORKER W 
+			LEFT JOIN w_type WT
+			ON W.t_id = WT.id
+			LEFT JOIN contractor C
+			ON W.cont_id = C.ID
+			LEFT JOIN equip E
+			ON E.driver_id = W.id
+		WHERE 
+			W.site_id = #{site_id}
+			AND WT.gubun = 2
+			<if test="cont_id > 0">
+			AND W.cont_id = #{cont_id}
+			</if>
+		AND delyn='N'
+		ORDER BY W.name
+	</select>
+
+</mapper>
+

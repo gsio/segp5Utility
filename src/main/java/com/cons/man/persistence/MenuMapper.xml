@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cons.man.persistence.MenuMapper">  
+  <select id="getMenuList" resultType="MenuVO"   >
+	   SELECT * FROM MENU_MANAGER ORDER BY id;
+  </select>
+  
+  <select id="getMenuListByAccess" resultType="MenuVO" parameterType="List" >
+	   SELECT MM.*
+		   , EXISTS(SELECT 1 FROM MENU_MANAGER WHERE ID = MM.ID  AND ID IN 
+		     <foreach collection="list" item="menu_id"  open="(" close=")" separator=",">
+	            #{menu_id}
+	        </foreach>
+		   ) AS ISACCESS
+	   FROM MENU_MANAGER MM
+	   ORDER BY MM.GROUP, MM.IDX
+	   ;
+  </select>
+  <select id="getMenuAccessList" resultType="String" parameterType="MenuAccessVO"   >
+	   SELECT access_list 
+	   FROM MENU_ACCESS
+	   WHERE
+	   ROLE_CODE = #{role_code}
+	   AND SITE_AUTH = #{site_auth}
+	   AND CONT_TYPE = #{cont_type}	   
+	   ;
+  </select>
+</mapper>
+

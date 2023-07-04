@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cons.man.persistence.NFCMapper">
+ 
+ 	<select id="getNFCList" resultType="NFCVO" parameterType="Integer">
+ 		SELECT *
+		FROM nfc_view
+		WHERE SITE_ID = #{site_id}
+		ORDER BY IDX;
+ 	</select>
+	
+	<select id="getUnUseNFCList" resultType="NFCVO" parameterType="Integer">
+		SELECT * FROM nfc_view
+		WHERE			
+		u_id is null
+		AND role is null
+		AND site_id = #{site_id} 
+	</select> 
+ 	
+	<select id="getUseNFCList" resultType="NFCVO" parameterType="Integer">
+		SELECT * FROM nfc_view
+		WHERE			
+		u_id is not null
+		AND role = #{role}
+		AND site_id = #{site_id}
+	</select>	
+   	
+	<select id="getNFCTargetList" resultType="TargetVO" parameterType="Integer">
+		SELECT TAR.*
+		FROM
+		(
+			SELECT C.site_id, U.id AS uw_id, 1 as role, U.name, U.photo, C.name as cont_name, R.name as type, U.phone, B.idx as nfc_idx
+			FROM User U
+			LEFT JOIN nfc B
+			ON B.u_id = U.id
+			AND B.role = 1
+			JOIN contractor C
+			ON C.id = U.cont_id
+			JOIN role R
+			ON U.role_code = R.code
+			AND C.type = R.type 
+			WHERE U.useyn = 'Y'
+		
+			UNION ALL
+		
+			SELECT W.site_id, W.id AS uw_id, 2 as role, W.name, W.eduimage, C.name as cont_name, WT.t_name as type, W.phone, B.idx as nfc_idx
+			FROM worker W
+			LEFT JOIN nfc B
+			ON B.u_id = W.id
+			AND B.role = 2
+			JOIN contractor C
+			ON C.id = W.cont_id
+			JOIN w_type WT
+			ON WT.id = W.t_id
+			WHERE W.delyn = 'N'
+		) AS TAR
+		WHERE 
+			TAR.site_id = #{site_id}
+			AND TAR.role = #{role}
+		ORDER BY TAR.nfc_idx
+	</select>  
+ 	
+	<insert id="createNFCData" parameterType="NFCVO">
+ 		INSERT INTO nfc (site_id, idx, serial_number) 
+ 		VALUES (	 		
+	 		#{site_id},
+	 		(select * from (SELECT min(idx+1) FROM nfc WHERE (idx+1) NOT IN(SELECT idx FROM nfc)) a),
+	 		#{serial_number}
+ 		) 	
+ 	</insert>
+ 	
+ 	<insert id="createNFCDataByIdx" parameterType="NFCVO">
+ 		INSERT INTO nfc (site_id, idx, serial_number) 
+ 		VALUES (	 		
+	 		#{site_id},
+	 		#{idx},
+	 		#{serial_number}
+ 		) 	
+ 	</insert>
+   	
+	<update id="updateNFCData" parameterType="NFCVO" >
+		UPDATE NFC
+        SET 
+			u_id = #{u_id},
+			role = #{role}
+		WHERE idx = #{idx}  
+   	</update>  
+	
+	<select id="checkNFCDuplicate" parameterType="NFCVO" resultType="NFCVO">
+		SELECT * 
+		FROM nfc_view 
+		WHERE
+	 		1=1
+	 	<if test="site_id > 0">
+			AND site_id = #{site_id}
+        </if>	   
+	        AND serial_number = #{serial_number}
+	</select>
+	
+	<select id="checkNFCState" parameterType="NfcVO" resultType="NfcVO">
+		SELECT * 
+		FROM nfc_view 
+		WHERE
+	 		1=1
+	 	<if test="site_id > 0">
+			AND site_id = #{site_id}
+        </if>	   
+	        AND serial_number = #{serial_number}
+	        AND u_id is NOT NULL
+	</select>
+   	
+   	<select id="checkNFCDuplicateByIdx" resultType="NFCVO" parameterType="NFCVO">
+ 		SELECT *
+		FROM NFC
+		WHERE 
+			serial_number = #{serial_number}
+			<if test="idx >= 0">
+			OR idx = #{idx}		
+			</if>
+ 	</select>
+   	
+   	<update id="unAassignNFCData" parameterType="NFCVO">
+		UPDATE NFC
+		SET u_id = null,
+		role = null
+		WHERE 
+			serial_number = #{serial_number}
+			AND idx = #{idx}			  
+	</update>
+ 	
+ 	<select id="getRemainNFCList" resultType="Integer" parameterType="Integer">
+		SELECT B.idx as idx
+		FROM beacon B
+		LEFT JOIN nfc N
+		ON B.site_id = N.site_id
+		AND B.idx = N.idx
+		WHERE
+			N.id is NULL 
+			AND B.site_id = #{site_id}
+		ORDER BY B.idx
+ 	</select>
+   	
+   	<select id="checkNFCUpdateData" resultType="Integer" parameterType="Integer">
+		SELECT B.idx as idx
+		FROM beacon B
+		LEFT JOIN nfc N
+		ON B.site_id = N.site_id
+		AND B.idx = N.idx
+		WHERE
+			N.id is NULL 
+			AND B.idx = #{idx}
+		ORDER BY B.idx
+ 	</select>
+ 	
+ 	<insert id="insertNFCItem" parameterType="NFCVO">
+ 		INSERT INTO NFC (id, site_id, idx, serial_number) 
+ 		VALUES (
+	 		(select * from (select ifnull((max(CAST(id AS SIGNED))+1),'0') from nfc) a),
+	 		#{site_id},
+	 		#{idx},
+	 		#{serial_number}
+ 		) 	
+ 	</insert>
+ 	
+ 	<delete id="deleteNFCItem" parameterType="NFCVO">
+ 		DELETE FROM NFC
+ 		WHERE
+ 			idx = #{idx}
+ 			AND serial_number = #{serial_number}
+ 	</delete>
+ 	
+	<update id="updateNFCByIdx" parameterType="NFCVO" >
+		UPDATE NFC
+        SET 
+			idx = #{idx} 
+		WHERE
+			site_id = #{site_id}
+			AND serial_number = #{serial_number}
+   	</update>   	
+ 	
+ 	<select id="getNFCListByCont" resultType="NFCVO" parameterType="Integer">
+ 		SELECT *
+		FROM nfc_view
+		WHERE 
+			SITE_ID = #{site_id}
+			<if test="cont_id >= 0">
+			AND cont_id = #{cont_id}		
+			</if>
+		ORDER BY IDX;
+ 	</select>
+   	
+	<update id="unAssignNFCDataByidx" parameterType="Integer">
+		UPDATE NFC
+		SET u_id = null,
+		role = null
+		WHERE idx = #{idx}			  
+	</update>
+	
+	<select id="getWaitList" parameterType="NfcLocationVO" resultType="NfcLocationVO">
+		SELECT * 
+		FROM wait_view 
+		WHERE
+	 		1=1
+	 	<if test="site_id > 0">
+			AND site_id = #{site_id}
+        </if>
+	    <if test="place_id > 0">
+	        AND place_id = #{place_id}
+	    </if>
+	    <if test="section > 0">
+	        AND section = #{section}
+	    </if>
+	    ORDER BY section
+	</select>
+	
+	<delete id="postWaitOut" parameterType="NfcLocationVO">
+		DELETE FROM seg.wait
+ 		WHERE
+ 			serial_number = #{serial_number}
+ 			AND u_id = #{uw_id}
+ 			AND role = #{role} 	
+ 	</delete>
+ 	
+ 	
+ 	
+</mapper>

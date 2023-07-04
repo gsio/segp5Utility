@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.cons.man.persistence.NoticeMapper">
+   	
+	<select id="getNoticeList" resultType="NoticeVO" parameterType="Integer">
+		SELECT * FROM notice_view
+		WHERE site_id = #{site_id}
+		<if test="cont_id >= 0">
+			AND cont_id = #{cont_id}
+		</if>		
+	</select>
+	
+	<update id="updateNoticeHit" parameterType="Integer">
+		UPDATE notice
+		SET hit = hit + 1
+		WHERE id = #{id}
+	</update>
+	
+	<insert id="insertReadCheck"  parameterType="ReadCheckVO">
+    	REPLACE INTO read_check(type, notice_id, user_id, write_time)
+    	VALUES(#{type}, #{notice_id}, #{user_id}, NOW())
+	</insert>
+	
+	<select id="getNoticeInfo" resultType="NoticeVO" parameterType="Integer">
+		SELECT * FROM notice_view
+		WHERE id = #{id}		
+	</select>
+	
+	<select id="getCommentList" resultType="CommentVO" parameterType="CommentVO">
+    	SELECT * 
+		FROM comment_view 
+    	WHERE notice_id = #{id}    		
+    </select>
+    
+    <insert id="insertComment" parameterType="ReadCheckVO">
+    	INSERT INTO comment(site_id, notice_id, parent_id, content, write_time, writer_user_id, useyn)
+    	VALUES(#{site_id}, #{notice_id}, #{parent_id}, #{content}, NOW(), #{writer_user_id}, 'Y')
+	</insert>
+	
+	 <update id="deleteCommentData" parameterType="Integer">
+    	UPDATE comment
+    	SET USEYN = 'N'
+    	WHERE ID = #{id}
+   	</update>
+   	
+   	<update id="updateCommentData" parameterType="CommentVO">
+    	UPDATE comment
+    	SET content = #{content}
+    	WHERE ID = #{id}
+   	</update>
+   	
+   	<update id="updateNoticeData" parameterType="NoticeVO">
+	 	UPDATE notice
+	 	SET
+	 		title = #{title},
+	 		contents = #{contents},
+	 		write_time = NOW()
+		WHERE
+	 		id = #{id} 					
+	</update>
+	
+	<insert id="insertNoticeData" parameterType="NoticeVO" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+	   	INSERT INTO notice(site_id, title, contents, writer_user_id, writer_cont_id, write_date, write_time, hit, useyn)
+	   	VALUES (#{site_id}, #{title}, #{contents}, #{writer_user_id}, #{writer_cont_id}, DATE(NOW()), NOW(), 0, 'Y')   	
+	</insert>
+	
+	<update id="deleteCommentByParent" parameterType="Integer">
+    	UPDATE comment
+    	SET USEYN = 'N'
+    	WHERE notice_id = #{notice_id}
+   	</update>
+   
+	<update id="deleteNoticeData" parameterType="Integer">
+    	UPDATE notice
+    	SET USEYN = 'N'
+    	WHERE id = #{id}
+   	</update>
+   	
+ </mapper>

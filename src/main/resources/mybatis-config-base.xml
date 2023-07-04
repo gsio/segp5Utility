@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <settings>  
+        <setting name="cacheEnabled"              value="true"/>  
+        <setting name="lazyLoadingEnabled"        value="false"/>  
+        <setting name="multipleResultSetsEnabled" value="true"/>  
+        <setting name="useColumnLabel"            value="true"/>  
+        <setting name="useGeneratedKeys"          value="false"/>  
+        <setting name="defaultExecutorType"      value="SIMPLE"/>  
+        <setting name="defaultStatementTimeout"  value="25000"/> 
+    </settings>
+    
+ 	<typeAliases>		
+ 	
+		<typeAlias type="com.cons.man.domain.SiteVO" alias="SiteVO"/>      
+		<typeAlias type="com.cons.man.domain.ContVO" alias="ContVO"/>
+        <!-- Push -->
+        
+		<typeAlias type="com.cons.man.domain.PushUserVO" alias="PushUserVO"/>        		
+ 		<typeAlias type="com.cons.man.domain.FileVO" alias="FileVO"/>       
+       	<typeAlias type="com.cons.man.domain.LoginLogVO" alias="LoginLogVO"/>
+       	<typeAlias type="com.cons.man.domain.BeaconVO" alias="BeaconVO"/>       
+       	<typeAlias type="com.cons.man.domain.ScannerVO" alias="ScannerVO"/>
+        <typeAlias type="com.cons.man.domain.WeatherInfoVO" alias="WeatherInfoVO"/>
+       	<typeAlias type="com.cons.man.domain.AppVersionCheckVO" alias="AppVersionCheckVO"/>      
+       	<typeAlias type="com.cons.man.domain.MenuVO" alias="MenuVO"/>
+       	<typeAlias type="com.cons.man.domain.MenuAccessVO" alias="MenuAccessVO"/>
+       	<typeAlias type="com.cons.man.domain.UserVO" alias="UserVO"/>
+       	<typeAlias type="com.cons.man.domain.ManagerVO" alias="ManagerVO"/>
+		<typeAlias type="com.cons.man.domain.WorkerVO" alias="WorkerVO"/>
+       	<typeAlias type="com.cons.man.domain.WorkerListVO" alias="WorkerListVO"/>       	
+       	<typeAlias type="com.cons.man.domain.RoleVO" alias="RoleVO"/>
+       	<typeAlias type="com.cons.man.domain.SiteVO" alias="SiteVO"/>		
+		<typeAlias type="com.cons.man.domain.SensorVO" alias="SensorVO"/>
+		<typeAlias type="com.cons.man.domain.SectionVO" alias="SectionVO"/>
+		<typeAlias type="com.cons.man.domain.LocationVO" alias="LocationVO"/>
+		<typeAlias type="com.cons.man.domain.EmergencyVO" alias="EmergencyVO"/>
+		<typeAlias type="com.cons.man.domain.StateVO" alias="StateVO"/>
+		<typeAlias type="com.cons.man.domain.AlertVO" alias="AlertVO"/>
+		<typeAlias type="com.cons.man.domain.InoutVO" alias="InoutVO"/>
+		<typeAlias type="com.cons.man.domain.ScannerInfoVO" alias="ScannerInfoVO"/>
+		<typeAlias type="com.cons.man.domain.RssiBlockVO" alias="RssiBlockVO"/>
+		<typeAlias type="com.cons.man.domain.ScannerStateVO" alias="ScannerStateVO"/>
+		<typeAlias type="com.cons.man.domain.GsilManagerVO" alias="GsilManagerVO"/>
+		<typeAlias type="com.cons.man.domain.WorkTypeVO" alias="WorkTypeVO"/>
+		<typeAlias type="com.cons.man.domain.TargetVO" alias="TargetVO"/>
+		<typeAlias type="com.cons.man.domain.AbnormalSensorVO" alias="AbnormalSensorVO"/>
+		<typeAlias type="com.cons.man.domain.NFCVO" alias="NFCVO"/>
+		<typeAlias type="com.cons.man.domain.NfcLocationVO" alias="NfcLocationVO"/>		
+		<typeAlias type="com.cons.man.domain.WorkStateVO" alias="WorkStateVO"/>
+		<typeAlias type="com.cons.man.domain.HoleVO" alias="HoleVO"/>
+     	<typeAlias type="com.cons.man.domain.SectionGroupVO" alias="SectionGroupVO"/>
+     	<typeAlias type="com.cons.man.domain.PatchVO" alias="PatchVO"/>     	
+       	<typeAlias type="com.cons.man.domain.MobileVO" alias="MobileVO"/>
+       	<typeAlias type="com.cons.man.domain.MobileWtypeVO" alias="MobileWtypeVO"/>
+       	<typeAlias type="com.cons.man.domain.MobileUserVO" alias="MobileUserVO"/>
+       	<typeAlias type="com.cons.man.domain.MobileWorkerVO" alias="MobileWorkerVO"/>
+       	<typeAlias type="com.cons.man.domain.MobileWorkingManagerVO" alias="MobileWorkingManagerVO"/> 	 
+		<typeAlias type="com.cons.man.domain.DidSettingVO" alias="DidSettingVO"/>
+		<typeAlias type="com.cons.man.domain.FanVO" alias="FanVO"/> 
+       	
+       	<!-- Notice -->
+		<typeAlias type="com.cons.man.domain.NoticeVO" alias="NoticeVO"/>		
+		<typeAlias type="com.cons.man.domain.InfoVO" alias="InfoVO"/>				
+		<typeAlias type="com.cons.man.domain.MarkVO" alias="MarkVO"/>		
+		<typeAlias type="com.cons.man.domain.CommentVO" alias="CommentVO"/>
+		<typeAlias type="com.cons.man.domain.ReadCheckVO" alias="ReadCheckVO"/>
+		
+		<!-- PTW -->
+		<typeAlias type="com.cons.man.domain.PTWVO" alias="PTWVO"/>
+		
+		<!-- Equip -->
+		<typeAlias type="com.cons.man.domain.EquipVO" alias="EquipVO"/>
+		<typeAlias type="com.cons.man.domain.EquipCategoryVO" alias="EquipCategoryVO"/>
+		<typeAlias type="com.cons.man.domain.EquipCheckVO" alias="EquipCheckVO"/>
+		
+		<!-- Risk -->
+		<typeAlias type="com.cons.man.domain.RiskVO" alias="RiskVO"/>
+		<typeAlias type="com.cons.man.domain.ApprovalVO" alias="ApprovalVO"/>
+		<typeAlias type="com.cons.man.domain.CheckerVO" alias="CheckerVO"/>		
+		<typeAlias type="com.cons.man.domain.CtgoRiskFactorVO" alias="CtgoRiskFactorVO"/>		
+		<typeAlias type="com.cons.man.domain.RiskWorkActivityVO" alias="RiskWorkActivityVO"/>
+		<typeAlias type="com.cons.man.domain.RiskWorkStepVO" alias="RiskWorkStepVO"/>	
+		<typeAlias type="com.cons.man.domain.RiskFactorVO" alias="RiskFactorVO"/>				
+		<typeAlias type="com.cons.man.domain.RiskManagPlanVO" alias="RiskManagPlanVO"/>
+		
+		<!-- ETC -->
+		<typeAlias type="com.cons.man.domain.WorkDetailVO" alias="WorkDetailVO"/>
+       	  
+    </typeAliases>
+     	
+    <typeHandlers>
+        <typeHandler javaType="java.sql.Timestamp" handler="org.apache.ibatis.type.DateTypeHandler"/>
+        <typeHandler javaType="java.sql.Time"      handler="org.apache.ibatis.type.DateTypeHandler"/>
+        <typeHandler javaType="java.sql.Date"      handler="org.apache.ibatis.type.DateTypeHandler"/>
+    </typeHandlers>
+    
+</configuration>

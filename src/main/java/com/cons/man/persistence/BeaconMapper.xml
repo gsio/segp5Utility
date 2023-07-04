@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cons.man.persistence.BeaconMapper">
+
+ 	<select id="getBeaconList" resultType="BeaconVO" parameterType="Integer">
+ 		SELECT *
+		FROM beacon_view
+		WHERE SITE_ID = #{site_id}
+		ORDER BY IDX;
+ 	</select>
+ 	
+	<select id="getUnUseBeaconList" resultType="BeaconVO" parameterType="Integer">
+		SELECT * FROM beacon_view
+		WHERE			
+		u_id is null
+		AND role is null
+		AND site_id = #{site_id} 
+	</select>  
+ 	
+ 	<select id="getUseBeaconList" resultType="BeaconVO" parameterType="Integer">
+		SELECT * FROM beacon_view
+		WHERE			
+		u_id is not null
+		AND role = #{role}
+		AND site_id = #{site_id}
+	</select>  
+	
+	<select id="getBeaconTargetList" resultType="TargetVO" parameterType="Integer">
+		SELECT TAR.*
+		FROM
+		(
+			SELECT C.site_id, U.id AS uw_id, 1 as role, U.name, U.photo, C.name as cont_name, R.name as type, U.phone, B.idx as beacon_idx
+			FROM User U
+			LEFT JOIN beacon B
+			ON B.u_id = U.id
+			AND B.role = 1
+			JOIN contractor C
+			ON C.id = U.cont_id
+			JOIN role R
+			ON U.role_code = R.code
+			AND C.type = R.type 
+			WHERE U.useyn = 'Y'
+		
+			UNION ALL
+		
+			SELECT W.site_id, W.id AS uw_id, 2 as role, W.name, W.eduimage, C.name as cont_name, WT.t_name as type, W.phone, B.idx as beacon_idx
+			FROM worker W
+			LEFT JOIN beacon B
+			ON B.u_id = W.id
+			AND B.role = 2
+			JOIN contractor C
+			ON C.id = W.cont_id
+			JOIN w_type WT
+			ON WT.id = W.t_id
+			WHERE W.delyn = 'N'
+		) AS TAR
+		WHERE 
+			TAR.site_id = #{site_id}
+			AND TAR.role = #{role}
+		ORDER BY TAR.beacon_idx
+	</select>  
+ 	
+ 	<update id="updateBeaconData" parameterType="BeaconVO" >
+		UPDATE BEACON
+        SET 
+			u_id = #{u_id},
+			role = #{role}
+		WHERE idx = #{idx}  
+   	</update>
+   	
+   	<update id="unAssignBeaconData" parameterType="Integer">
+		UPDATE BEACON
+		SET u_id = null,
+		role = null
+		WHERE idx = #{idx} 
+	</update>
+	
+	<select id="checkBeaconDuplicate" resultType="BeaconVO" parameterType="BeaconVO">
+ 		SELECT *
+		FROM BEACON
+		WHERE 
+			mac_addr = #{mac_addr}
+			<if test="idx >= 0">
+			OR idx = #{idx}		
+			</if>
+ 	</select>
+ 	
+	<select id="getBeaconMacAddrData" resultType="BeaconVO" parameterType="Integer">
+ 		SELECT *
+		FROM BEACON
+		WHERE 
+			site_id = #{site_id}
+			AND idx = #{idx}  
+ 	</select>
+ 	
+ 	<insert id="insertBeaconItem" parameterType="BeaconVO">
+ 		INSERT INTO BEACON (id, site_id, idx, mac_addr) 
+ 		VALUES (
+	 		(select * from (select ifnull((max(CAST(id AS SIGNED))+1),'0') from beacon) a),
+	 		#{site_id},
+	 		#{idx},
+	 		#{mac_addr}
+ 		) 	
+ 	</insert>
+ 	
+ 	<delete id="deleteBeaconItem" parameterType="BeaconVO">
+ 		DELETE FROM BEACON
+ 		WHERE
+ 			idx = #{idx}
+ 			AND mac_addr = #{mac_addr}
+ 	</delete>
+ 	
+	<update id="updateBeaconMacAddr" parameterType="BeaconVO" >
+		UPDATE BEACON
+        SET 
+			mac_addr = #{mac_addr}
+		WHERE
+			site_id = #{site_id}
+			AND idx = #{idx}  
+   	</update>
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+   	
+
+ 	
+ 	<select id="getBeaconListByCont" resultType="BeaconVO" parameterType="Integer">
+ 		SELECT *
+		FROM beacon_view
+		WHERE 
+			SITE_ID = #{site_id}
+			<if test="cont_id >= 0">
+			AND cont_id = #{cont_id}		
+			</if>
+		ORDER BY IDX;
+ 	</select>
+ 
+ 
+ 
+</mapper>

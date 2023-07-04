@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cons.man.persistence.seg.SegMapper">
+	
+	<select id="getSectionInfo" parameterType="Integer" resultType="SectionVO">
+		SELECT *
+	 	FROM section_view
+	 	WHERE
+	 		1=1
+	 	<if test="site_id > 0">
+			AND site_id = #{site_id}
+        </if>
+	    <if test="place_id > 0">
+	        AND place_id = #{place_id}
+	    </if>
+	    <if test="section > 0">
+	        AND section = #{section}
+	    </if>
+		<if test="has_env > 0">
+	        AND has_env = #{has_env}
+	    </if>
+ 	</select> 	
+ 	
+ 	<select id="getSectionGroupList" parameterType="Integer" resultType="Integer">
+		SELECT section
+		FROM section_group_view
+		WHERE id = (
+			SELECT id 
+			FROM section_group_view
+			WHERE id is NOT NULL
+			AND section = #{section}
+		)
+ 	</select> 
+ 	 	
+	<select id="getLocationInfo" parameterType="Integer" resultType="LocationVO">
+		SELECT *
+	 	FROM location_view
+	 	WHERE
+	 		1=1
+	 	<if test="site_id > 0">
+			AND site_id = #{site_id}
+        </if>
+	    <if test="place_id > 0">
+	        AND place_id = #{place_id}
+	    </if>
+	    <if test="section > 0">
+	        AND section = #{section}
+	    </if>
+	    <if test="input_state >= 0 or input_state == -99">
+	        AND cont_state = #{input_state}
+	    </if>
+ 	</select>	
+ 	
+ 	<select id="getGroupLocationList" parameterType="Integer" resultType="LocationVO">
+		SELECT *
+	 	FROM location_view
+	 	WHERE
+	 		1=1
+	 	<if test="site_id > 0">
+			AND site_id = #{site_id}
+        </if>
+	    <if test="place_id > 0">
+	        AND place_id = #{place_id}
+	    </if>
+	    	AND section IN
+	    <foreach collection="groupList" item="item" index="index" separator="," open="(" close=")">
+			#{item}
+		</foreach> 
+	    <if test="input_state >= 0 or input_state == -99">
+	        AND cont_state = #{input_state}
+	    </if>
+ 	</select>
+ 	
+	<select id="getEmergencyInfo" parameterType="Integer" resultType="EmergencyVO">
+		SELECT *
+	 	FROM EMERGENCY_VIEW
+	 	WHERE
+	 		1=1
+	 	<if test="site_id > 0">
+			AND site_id = #{site_id}
+        </if>
+	    <if test="place_id > 0">
+	        AND place_id = #{place_id}
+	    </if>
+	    <if test="section > 0">
+	        AND section = #{section}
+	    </if>
+		<if test="limit > 0">
+	        ORDER BY id DESC LIMIT 0, 1
+	    </if>
+ 	</select>
+ 	 	
+  	<insert id="changeState" parameterType="StateVO">
+		INSERT INTO STATE (site_id, place_id, section, state, writer_user_id, write_time)
+ 		VALUES(#{site_id}, #{place_id}, #{section}, #{state}, #{writer_user_id}, NOW())
+ 		ON DUPLICATE KEY UPDATE
+			site_id = #{site_id}, 
+			place_id = #{place_id}, 
+			section = #{section}, 
+			state = #{state},
+			write_time = NOW(), 
+			writer_user_id = #{writer_user_id};
+ 	</insert>  	
+ 	 	
+	<select id="getSensorList" parameterType="Integer" resultType="SensorVO">
+		SELECT *
+	 	FROM sensor_view
+	 	WHERE
+	 		1=1
+	 	<if test="site_id > 0">
+			AND site_id = #{site_id}
+        </if>
+	    <if test="place_id > 0">
+	        AND place_id = #{place_id}
+	    </if>
+	    <if test="section > 0">
+	        AND section = #{section}
+	    </if>
+	     <if test="has_section > 0">
+	     	AND id is NOT NULL
+	     </if>
+ 	</select>
+ 	
+   	<select id="getAbnormalSensorList" parameterType="Integer" resultType="AbnormalSensorVO">
+		SELECT *
+	 	FROM ABNORMAL_SENSOR_VIEW
+	 	WHERE
+	 		1=1
+	 	<if test="site_id > 0">
+			AND site_id = #{site_id}
+        </if>
+	    <if test="place_id > 0">
+	        AND place_id = #{place_id}
+	    </if>
+	    <if test="section > 0">
+	        AND section = #{section}
+	    </if>
+		<if test="limit > 0">
+	        ORDER BY id DESC LIMIT 0, 1
+	    </if>
+ 	</select> 	
+ 	
+	<select id="checkNfcInoutInfo" parameterType="NfcLocationVO" resultType="NfcLocationVO">
+		SELECT * 
+		FROM wait_view 
+		WHERE
+	 		1=1
+	 	<if test="site_id > 0">
+			AND site_id = #{site_id}
+        </if>	   
+	        AND serial_number = #{serial_number}
+	</select>
+	
+	<select id="checkNfcState" parameterType="NfcVO" resultType="NfcVO">
+		SELECT * 
+		FROM nfc_view 
+		WHERE
+	 		1=1
+	 	<if test="site_id > 0">
+			AND site_id = #{site_id}
+        </if>	   
+	        AND serial_number = #{serial_number}
+	        AND u_id is NOT NULL
+	</select>	
+ 	
+	<select id="getWorkStateList" parameterType="Integer" resultType="WorkStateVO">
+		SELECT * 
+		FROM work_state 
+		WHERE
+	 		site_id = #{site_id}   
+		ORDER BY priority DESC, id ASC
+	</select>
+	 	
+	<select id="getWaitList" parameterType="NfcLocationVO" resultType="NfcLocationVO">
+		SELECT * 
+		FROM wait_view 
+		WHERE
+	 		1=1
+	 	<if test="site_id > 0">
+			AND site_id = #{site_id}
+        </if>
+	    <if test="place_id > 0">
+	        AND place_id = #{place_id}
+	    </if>
+	    <if test="section > 0">
+	        AND section = #{section}
+	    </if>
+	    AND location_uw_id is NULL
+	</select>	
+ 	
+	<select id="getHoleOpenData" parameterType="Integer" resultType="HoleVO">
+		SELECT *
+	 	FROM hole_log_view
+	 	WHERE
+		1=1	 				
+		<if test="id >= 0">
+			<![CDATA[ AND id > #{id} ]]>
+		</if>
+		AND site_id = #{site_id}
+		<if test="place_id > 0">
+	        AND place_id = #{place_id}
+	    </if>
+	    <if test="section > 0">
+	        AND section = #{section}
+	    </if>
+		ORDER BY id DESC limit 1 
+ 	</select> 	
+ 	
+	<select id="getDidSettingData" parameterType="Integer" resultType="DidSettingVO">
+		SELECT D.*, TIMESTAMPDIFF(SECOND, D.write_time,  NOW()) AS time_diff_sec
+		FROM did_setting D
+	 	WHERE 1=1	 		
+		AND site_id = #{site_id}
+		ORDER BY id DESC limit 1 
+ 	</select> 	
+ 	
+	<insert id="insertAlert" parameterType="AlertVO">
+		REPLACE INTO ALERT(site_id, place_id, section, type, write_time, writer_user_id)
+		VALUES (#{site_id}, #{place_id}, #{section}, #{type}, NOW(), #{writer_user_id})	
+	</insert>
+	
+	<update id="updateBeaconRssiAdd" parameterType="BeaconVO" >
+		UPDATE BEACON
+		SET	rssi_add = #{rssi_add}
+		WHERE mac_addr = #{mac_addr}
+	</update>
+   
+   	<update id="exitWait" parameterType="NfcVO">   
+		DELETE FROM seg.wait
+		WHERE 
+			u_id = #{u_id}
+			AND role = #{role}
+	</update>
+   
+	<update id="exitInout" parameterType="String">   
+		UPDATE seg.INOUT
+		SET 
+			is_end = 1,
+			end_time = NOW(),
+			work_min =TIMESTAMPDIFF(MINUTE, START_TIME, NOW()) 
+		WHERE 
+			MD5(beacon_mac) = MD5(#{beacon_mac})
+	</update>
+   
+	<delete id="exitLocation" parameterType="String">	   	
+		DELETE FROM LOCATION
+		WHERE 
+			MD5(beacon_mac) = MD5(#{beacon_mac})
+	</delete>   	
+	
+	<select id="getRssiBlockList" parameterType="Integer" resultType="RssiBlockVO">
+		SELECT * FROM block_view
+		WHERE site_id = #{site_id}
+		ORDER BY section DESC;
+ 	</select>
+ 	
+	<select id="getDeviceStateData" parameterType="Integer" resultType="ScannerStateVO">
+		SELECT * FROM scanner_state_view
+		WHERE site_id = #{site_id}
+	</select>
+   
+	<update id="updateStateService" parameterType="Integer">
+		UPDATE STATE
+		SET	state = CASE WHEN #{isService} = 1 THEN -1 ELSE 99 END
+		WHERE
+			site_id = #{site_id} 
+			AND section = #{section} 
+	</update>
+ 	
+	<update id="updateSensorService" parameterType="Integer">
+		UPDATE SCANNER
+		SET	has_env = CASE WHEN #{isService} = 1 THEN 1 ELSE 0 END
+		WHERE
+			site_id = #{site_id} 
+			AND section = #{section} 
+	</update>
+   
+   	<update id="updateSectionSensorPush" parameterType="Integer">
+		UPDATE SCANNER
+		SET	push_sensor = #{isService}
+		WHERE
+			site_id = #{site_id} 
+			AND section = #{section} 
+	</update>
+	
+	<delete id="deleteSensorData" parameterType="Integer">	   	
+		DELETE FROM sensor
+		WHERE 
+			site_id = #{site_id} AND
+			place_id = #{place_id} AND
+			section = #{section}
+	</delete> 
+	
+	<select id="getHoleManageList" parameterType="Integer" resultType="HoleVO">
+		SELECT * 
+		FROM hole_state_view 
+		WHERE
+	 		site_id = #{site_id}   
+		ORDER BY section
+	</select>
+	
+	<select id="getHoleLog" parameterType="HoleVO" resultType="HoleVO">
+		SELECT * FROM hole_log_view 
+		WHERE 
+		1=1
+			AND site_id = #{site_id}
+		<if test="place_id > 0">
+	        AND place_id = #{place_id}
+	    </if>
+	    <if test="section > 0">
+	        AND section = #{section}
+	    </if>
+		<if test="id > 0">
+			AND id = #{id}
+		</if>
+			AND input_date = DATE(NOW())
+		ORDER BY write_time DESC
+	</select>
+	
+	<select id="getHoleStateList" parameterType="NfcLocationVO" resultType="NfcLocationVO">
+		SELECT * 
+		FROM hole_state_view 
+		WHERE
+	 		1=1
+			AND site_id = #{site_id}
+	        AND place_id = #{place_id}
+	        AND section = #{section}
+	</select>
+		 	
+	<insert id="insertChangeDidSettingLog" parameterType="DidSettingVO">
+		INSERT INTO did_setting_log(site_id, type, ip, userid, is_service, is_web, write_time)
+		VALUES (#{site_id}, #{type}, #{ip}, #{userid}, #{is_service}, #{is_web}, NOW())	
+	</insert>
+	
+	<update id="setDidSetting" parameterType="Integer">
+	    UPDATE did_setting
+	    SET
+		<if test="alarm_state > -1">
+	      	alarm_state = #{alarm_state},	     
+		</if>
+		<if test="sound_state > -1">
+	    	sound_state = #{sound_state},
+		</if>
+			write_time = NOW()
+	    WHERE site_id = #{site_id}	   
+	</update>
+	
+	<select id="getFanOpenData" parameterType="Integer" resultType="FanVO">
+		SELECT *
+	 	FROM fan_log_view
+	 	WHERE
+		1=1	 				
+		<if test="id >= 0">
+			<![CDATA[ AND id > #{id} ]]>
+		</if>
+		AND site_id = #{site_id}
+		<if test="place_id > 0">
+	        AND place_id = #{place_id}
+	    </if>
+	    <if test="section > 0">
+	        AND section = #{section}
+	    </if>
+		ORDER BY id DESC limit 1 
+ 	</select>
+ 	
+	<select id="getFanList" parameterType="Integer" resultType="FanVO">
+		SELECT FS.*, f.name as fan_name, f.idx AS fan_idx, IFNULL(fsv.running_time, -1) as running_time
+			FROM fan_state fs 
+			LEFT JOIN fan_state_new_view fsv ON fs.beacon_mac = fsv.beacon_mac
+			JOIN fan f 
+			ON F.mac_addr = FS.beacon_mac
+	 	WHERE
+			fs.site_id = #{site_id}
+	        AND fs.place_id = #{place_id}	
+	        AND fs.section = #{section}		
+ 	</select>
+	
+	<select id="getFanLogList" parameterType="Integer" resultType="FanVO">
+		SELECT F.*, FLOOR(F.time_diff_second / 60) AS running_time
+	 	FROM fan_log_view F
+	 	WHERE
+			site_id = #{site_id}
+	        AND place_id = #{place_id}	
+	        AND section = #{section}
+	        AND fan_idx = #{fan_idx}
+ 	</select>
+	
+	<select id="getFanOffCount" parameterType="Integer" resultType="Integer">
+		SELECT count(*) as fan_off_count FROM fan_state
+		WHERE state = 0
+			AND site_id = #{site_id}
+	        AND place_id = #{place_id}	
+	        AND section = #{section}
+	</select>
+	
+</mapper>

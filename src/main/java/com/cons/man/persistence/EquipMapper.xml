@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.cons.man.persistence.EquipMapper">
+ 
+ 	<select id="getEquipList" resultType="EquipVO" parameterType="Integer">
+		SELECT * FROM equip_view
+		WHERE site_id = #{site_id}
+		<if test="cont_id >= 0">
+			AND cont_id = #{cont_id}
+		</if>		
+	</select>
+	
+	<select id="getEquipData" resultType="EquipVO" parameterType="Integer">
+		SELECT * FROM equip_view
+		WHERE id = #{id}	
+	</select>
+   	
+   	<select id="getEquipCategory" resultType="EquipCategoryVO" parameterType="Integer">
+		SELECT * FROM equip_category
+		WHERE site_id = #{site_id}
+		AND useyn = 'Y'
+	</select>
+	
+	<insert id="insertEquipData" parameterType="EquipVO" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+	   	INSERT INTO equip
+	   		(site_id, cont_id, category_id, equip_registration_no, rent_cont_name, small_category_name, equip_standard, check_start, check_end,
+	   		  insur_start, insur_end, equip_img, writer_id, driver_id, driver_license_no, remark, useyn, write_time)
+	   	VALUES 
+	   		(#{site_id}, #{cont_id}, #{category_id}, #{equip_registration_no}, #{rent_cont_name}, #{small_category_name}, #{equip_standard}, #{check_start}, #{check_end}, 
+	   		#{insur_start}, #{insur_end}, #{equip_img}, #{writer_id}, #{driver_id}, #{driver_license_no}, #{remark}, 'Y', NOW());   	
+	</insert>
+	
+	<update id="updateEquipData" parameterType="EquipVO">
+	 	UPDATE equip
+	 	SET
+	 		cont_id = #{cont_id},
+	 		category_id = #{category_id},
+	 		equip_registration_no = #{equip_registration_no},
+	 		rent_cont_name = #{rent_cont_name},
+	 		small_category_name = #{small_category_name},
+	 		equip_standard = #{equip_standard},
+	 		check_start = #{check_start},
+	 		check_end = #{check_end},
+	 		insur_start = #{insur_start},
+	 		insur_end = #{insur_end},
+	 		equip_img = #{equip_img},
+	 		writer_id = #{writer_id},
+	 		driver_id = #{driver_id},
+	 		driver_license_no = #{driver_license_no},
+	 		remark = #{remark},	 		
+	 		write_time = NOW()
+		WHERE
+	 		id = #{id} 					
+	</update>
+	
+	<select id="getEquipCheckList" resultType="EquipCheckVO" parameterType="Integer">
+		SELECT ECL.*
+		FROM equip E 
+			JOIN equip_category EC
+			ON E.category_id = EC.id
+			JOIN equip_check_list ECL
+			ON ECL.category_id = EC.id
+		WHERE E.id = #{id}	
+		ORDER BY ECL.idx
+	</select>
+   	
+ </mapper>

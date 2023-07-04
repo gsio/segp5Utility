@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.cons.man.persistence.RiskMapper">
+ 
+ 	<select id="getRiskList" resultType="RiskVO" parameterType="Integer">
+		SELECT * FROM risk_view
+		WHERE site_id = #{site_id}
+		<if test="cont_id >= 0">
+			AND cont_id = #{cont_id}
+		</if>
+		<if test="approval_state >= 0">
+			AND approval_state = #{approval_state}
+		</if>		
+			<![CDATA[
+			AND (
+				(risk_start >= #{risk_start} AND risk_start <= #{risk_end})
+				OR
+				(risk_end <= #{risk_end} AND risk_end >= #{risk_start}
+				OR 
+				(risk_start < #{risk_start} AND risk_end > #{risk_end}) 
+				)				
+			)]]>			
+		ORDER BY last_update_time DESC
+		
+	</select>
+	
+	<select id="getRiskData" resultType="RiskVO" parameterType="Integer">
+		SELECT * FROM risk_view
+		WHERE id = #{id}	
+	</select>
+	
+	<select id="getFactorTypeList" resultType="WorkTypeVO" parameterType="Integer">
+		SELECT * FROM work_state
+		WHERE site_id = #{site_id}
+		AND id > 0 
+		AND id != 99		
+	</select>
+	
+	<select id="getFactorListByTitle" resultType="CtgoRiskFactorVO">
+		SELECT * FROM ctgo_risk_assessment
+		WHERE code_level_two is NOT NULL
+        AND code_level_four is NULL
+       	ORDER BY code
+	</select>
+   	
+   	<select id="getFactorDetailList" resultType="CtgoRiskFactorVO">
+		SELECT * FROM risk_factor_view
+		WHERE 
+			code_level_one = #{code_level_one}
+        	AND code_level_two = #{code_level_two}
+        	AND code_level_three = #{code_level_three}
+        	AND code_level_four is NOT NULL
+        ORDER BY code
+	</select>
+	
+	<select id="getManagementMethodList" resultType="String" parameterType="String">
+		SELECT content FROM risk_management_method
+		WHERE 
+			cf_code = #{cf_code}
+        ORDER BY idx
+	</select>
+	
+	<insert id="insertRiskData" parameterType="RiskVO" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+	   	INSERT INTO 
+	   	risk_assessment(
+	   		site_id, cont_id, approval_state, work_state, content, risk_start, risk_end, remark, writer_id, useyn, last_update_time, write_time)
+	   	VALUES (
+	   		#{site_id}, #{cont_id}, 1, #{work_state}, #{content}, #{risk_start}, #{risk_end}, #{remark}, #{writer_id}, 'Y', NOW(), NOW())   	
+	</insert>
+	
+	<update id="updateRiskData" parameterType="RiskVO">
+	   	UPDATE risk_assessment 
+	   	SET
+	   		cont_id = #{cont_id}, 
+	   		<if test="approval_state == 5">
+				approval_state = 1,
+			</if>	   		
+	   		work_state = #{work_state},
+	   		content = #{content},
+	   		risk_start = #{risk_start},
+	   		risk_end = #{risk_end},
+	   		remark = #{remark},
+	   		writer_id = #{writer_id},
+	   		remark = #{remark},
+	   		last_update_time = NOW()
+	   	WHERE 
+	   		id = #{id}
+	</update>
+	
+	<insert id="updateApprovalLine" parameterType="ApprovalVO">
+	   	REPLACE INTO 
+	   	approval(type, content_id, user_id, approval.order, confirm, last_update_time, write_time)
+	   	VALUES (#{type}, #{content_id}, #{user_id}, #{order}, 'N', NOW(), NOW())   	
+	</insert>
+	
+	<delete id="deleteApprovalLine" parameterType="Integer">
+ 		DELETE FROM approval
+ 		WHERE
+ 			type = #{type}
+ 			AND content_id = #{content_id}
+ 	</delete> 
+	
+	<insert id="updateCheckerUser" parameterType="CheckerVO">
+	   	INSERT INTO 
+	   	checker(
+	   		risk_id, user_id, confirm, last_update_time, write_time)
+	   	VALUES (
+	   		#{content_id}, #{user_id}, 'N', NOW(), NOW())   	
+	</insert>
+	
+	<delete id="deleteCheckerUser" parameterType="Integer">
+ 		DELETE FROM checker
+ 		WHERE risk_id = #{risk_id}
+ 	</delete> 
+	
+	<select id="getApprovalList" resultType="ApprovalVO">
+		SELECT * FROM approval_status_view
+		WHERE type = #{type}
+		AND content_id = #{content_id}
+	</select>
+	
+	<select id="getCountApprover" resultType="Integer">
+		SELECT count(*) FROM approval_status_view
+		WHERE type = #{type}
+		AND content_id = #{content_id}
+	</select>
+	
+	<select id="getCheckerlList" resultType="CheckerVO">
+		SELECT * FROM checker_status_view
+		WHERE content_id = #{risk_id}
+	</select>
+	
+	<update id="deleteRiskData" parameterType="Integer">
+	   	UPDATE risk_assessment 
+	   	SET
+	   		useyn = 'N',
+	   		last_update_time = NOW()
+	   	WHERE 
+	   		id = #{id}
+ 	</update> 
+ 	
+ 	<insert id="insertRiskWorkActivityData" parameterType="RiskWorkActivityVO">
+	   	INSERT INTO risk_work_activity(type, risk_id, wa_code, class_name, idx, code, writer_id, write_time)
+	   	VALUES (#{type}, #{risk_id}, #{wa_code}, #{class_name}, #{idx}, #{code}, #{writer_id}, NOW())   	
+	</insert>
+	
+	<insert id="insertRiskWorkStepData" parameterType="RiskWorkStepVO">
+	   	INSERT INTO risk_work_step(risk_id, wa_idx, work_content, equip_name, equip_cnt, work_start, work_end, section_name, engineer_cnt, idx, write_time)
+	   	VALUES (#{risk_id}, #{wa_idx}, #{work_content}, #{equip_name}, #{equip_cnt}, #{work_start}, #{work_end}, #{section_name}, #{engineer_cnt}, #{idx}, NOW())   	
+	</insert>
+	
+	<insert id="insertRiskFactorData" parameterType="RiskFactorVO">
+	   	INSERT INTO risk_factor(risk_id, wa_idx, ws_idx, risk_content, damage_form, frequency, strength, rating, idx, write_time)
+	   	VALUES (#{risk_id}, #{wa_idx}, #{ws_idx}, #{risk_content}, #{damage_form}, #{frequency}, #{strength}, #{rating}, #{idx}, NOW())   	
+	</insert>
+   	
+   	<insert id="insertRiskManagementData" parameterType="RiskManagPlanVO">
+	   	INSERT INTO risk_management_plan(risk_id, wa_idx, ws_idx, rf_idx, content, idx, write_time)
+	   	VALUES (#{risk_id}, #{wa_idx}, #{ws_idx}, #{rf_idx}, #{content}, #{idx}, NOW())   	
+	</insert>
+	
+	<delete id="deleteRiskWorkActivityData" parameterType="Integer">
+ 		DELETE FROM risk_work_activity
+ 		WHERE risk_id = #{risk_id}
+ 	</delete> 
+	
+	<delete id="deleteRiskWorkStepData" parameterType="Integer">
+ 		DELETE FROM risk_work_step
+ 		WHERE risk_id = #{risk_id}
+ 	</delete> 
+ 	
+ 	<delete id="deleteRiskFactorData" parameterType="Integer">
+ 		DELETE FROM risk_factor
+ 		WHERE risk_id = #{risk_id}
+ 	</delete> 
+	
+	<delete id="deleteRiskManagementData" parameterType="Integer">
+ 		DELETE FROM risk_management_plan
+ 		WHERE risk_id = #{risk_id}
+ 	</delete> 
+	
+	<select id="getRiskWorkActivitylList" parameterType="Integer" resultType="RiskWorkActivityVO">
+		SELECT * FROM risk_work_activity
+		WHERE risk_id = #{risk_id}
+		ORDER BY idx
+	</select>
+	
+	<select id="getRiskWorkStepData" parameterType="Integer" resultType="RiskWorkStepVO">
+		SELECT * FROM risk_work_step
+		WHERE risk_id = #{risk_id}
+		AND wa_idx = #{wa_idx}
+		ORDER BY wa_idx, idx
+	</select>
+	
+	<select id="getRiskFactorData" parameterType="Integer" resultType="RiskFactorVO">
+		SELECT * FROM risk_factor
+		WHERE risk_id = #{risk_id}
+		AND wa_idx = #{wa_idx}
+		AND ws_idx = #{ws_idx}
+		ORDER BY wa_idx, ws_idx, idx
+	</select>
+	
+	<select id="getRiskManagementData" parameterType="Integer" resultType="RiskManagPlanVO">
+		SELECT * FROM risk_management_plan
+		WHERE risk_id = #{risk_id}
+		AND wa_idx = #{wa_idx}
+		AND ws_idx = #{ws_idx}
+		AND rf_idx = #{rf_idx}
+		ORDER BY wa_idx, ws_idx, rf_idx, idx
+	</select>
+   	
+   	<update id="setRiskApproval" parameterType="RiskVO">
+	   	UPDATE approval 
+	   	SET
+	   		confirm = 'Y',
+	   		last_update_time = NOW()
+	   	WHERE 
+	   		content_id = #{id}
+	   		AND user_id = #{approver_id}
+ 	</update>
+ 	
+ 	<update id="setRiskCancel" parameterType="RiskVO">
+	   	UPDATE approval 
+	   	SET
+	   		confirm = 'R',
+	   		last_update_time = NOW()
+	   	WHERE 
+	   		content_id = #{id}
+	   		AND user_id = #{approver_id}
+ 	</update>
+ 	 
+   	<update id="RAInitRequest" parameterType="Integer">
+	   	UPDATE risk_assessment 
+	   	SET
+	   		approval_state = 2,
+	   		last_update_time = NOW()
+	   	WHERE 
+	   		id = #{id}
+ 	</update> 
+ 	
+ 	<update id="RAStepProceed" parameterType="Integer">
+	   	UPDATE risk_assessment 
+	   	SET
+	   		approval_state = 3,
+	   		last_update_time = NOW()
+	   	WHERE 
+	   		id = #{id}
+ 	</update> 
+ 	
+ 	<update id="RAStepEnd" parameterType="Integer">
+	   	UPDATE risk_assessment 
+	   	SET
+	   		approval_state = 4,
+	   		last_update_time = NOW()
+	   	WHERE 
+	   		id = #{id}
+ 	</update> 
+ 	
+ 	<update id="RACancel" parameterType="Integer">
+	   	UPDATE risk_assessment 
+	   	SET
+	   		approval_state = 5,
+	   		last_update_time = NOW(),
+	   		remark = CONCAT(remark, #{remark})
+	   	WHERE 
+	   		id = #{id}
+ 	</update> 
+   	
+ </mapper>

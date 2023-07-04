@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xsi:schemaLocation="http://www.springframework.org/schema/security 
+    	http://www.springframework.org/schema/security/spring-security-3.2.xsd
+        http://www.springframework.org/schema/jee
+        http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+  
+	<http auto-config='true' use-expressions="true" disable-url-rewriting="true">
+	
+		<!-- DID -->
+		<intercept-url pattern="/seg_mon_8022123" access="permitAll" />
+		<intercept-url pattern="/seg_mon_1523399" access="permitAll" />
+
+		<!-- Manage -->
+		<intercept-url pattern="/manage_default" access="permitAll" />
+		<intercept-url pattern="/manage_detail" access="permitAll" />
+		<intercept-url pattern="/manage_log" access="permitAll" />
+		
+		<!-- Privacy -->
+		<intercept-url pattern="/privacy" access="permitAll" />
+		<intercept-url pattern="/policy_privacy" access="permitAll" />
+		<intercept-url pattern="/policy_location" access="permitAll" />
+		<intercept-url pattern="/policy_service" access="permitAll" />
+    
+    	<intercept-url pattern="/gsil" access="isAuthenticated()" /> 
+    	
+    	<!-- login -->
+      	<intercept-url pattern="/m_login" access="permitAll" />  
+        <intercept-url pattern="/login" access="permitAll" />     
+        <intercept-url pattern="/login_duplicate" access="permitAll" />     
+        <intercept-url pattern="/login_fail" access="permitAll" />
+        <intercept-url pattern="/loginManagerProcess" access="permitAll" />
+        <intercept-url pattern="/logout_success" access="permitAll" />
+        <intercept-url pattern="/logout_noSite" access="permitAll" /><!-- 주소와 로그인id 정보가 일치하지않는경우 -->
+        
+        <!-- resources -->
+        <intercept-url pattern="/resources/**" access="permitAll" />
+        <intercept-url pattern="/css/**" access="permitAll" />        
+		<intercept-url pattern="/fontawesome/**" access="permitAll" />
+        <intercept-url pattern="/fonts/**" access="permitAll" />
+        <intercept-url pattern="/images/**" access="permitAll" />
+        <intercept-url pattern="/js/**" access="permitAll" />        
+        <intercept-url pattern="/file/**" access="permitAll" />
+        <intercept-url pattern="/image" access="permitAll" />
+        <intercept-url pattern="/image/**" access="permitAll" />
+        <intercept-url pattern="/image_thumb/**" access="permitAll" />      
+        
+        <intercept-url pattern="/json/getSiteList" access="isAuthenticated()" />
+        <intercept-url pattern="/json/**" access="permitAll" />
+        
+        <intercept-url pattern="/device/**" access="permitAll" />
+        <intercept-url pattern="/admin/**" access="permitAll" />
+        <intercept-url pattern="/event/**" access="permitAll" />
+        <intercept-url pattern="/mobile/**" access="permitAll" />
+        <intercept-url pattern="/gsil/**" access="permitAll" />
+        <intercept-url pattern="/seg/**" access="permitAll" />
+        
+		<intercept-url pattern="/beacon/**" access="permitAll" />
+        <intercept-url pattern="/nfc/**" access="permitAll" />        
+        <intercept-url pattern="/hole/**" access="permitAll" />
+        <intercept-url pattern="/section/**" access="permitAll" />
+		<intercept-url pattern="/sensor/**" access="permitAll" /> 
+		<intercept-url pattern="/scanner/**" access="permitAll" />		
+		<intercept-url pattern="/location/**" access="permitAll" />
+
+		<intercept-url pattern="/molit_accList" access="permitAll" /> 
+		<intercept-url pattern="/printAccList" access="permitAll" />    
+             
+        <!-- gsil -->    
+        <intercept-url pattern="/main/**" access="permitAll" />
+        <intercept-url pattern="/renewal/**" access="permitAll" />
+        
+        <!--  default -->
+        <intercept-url pattern="/home" access="isAuthenticated()" />
+        <intercept-url pattern="/**" access="isAuthenticated()" />
+       	<intercept-url pattern="/IncludeBottom" access="isAuthenticated()" />
+      	<intercept-url pattern="/IncludeTop" access="isAuthenticated()" />
+      	<intercept-url pattern="/main" access="isAuthenticated()" />
+    
+        <form-login login-page="/login"
+                    username-parameter="id"
+                    password-parameter="password"
+                    default-target-url="/home"
+                    authentication-success-handler-ref="loginSuccessHandler"
+                    authentication-failure-url="/login_fail"
+                    always-use-default-target='false'
+                    login-processing-url="/loginProcess"                
+                    />
+                    
+         <logout logout-url="/logout" 
+         		 logout-success-url="/logout_success"
+         		 invalidate-session="true" 
+         		 delete-cookies="JSESSIONID"/>
+                   
+        <session-management>
+            <!--concurrency-control max-sessions="1" expired-url="/login_duplicate"/-->
+        </session-management>	
+    </http>
+ 
+	<!-- autowired -->  
+ 	<beans:bean id="userService" class="com.cons.man.services.UserService" /> 
+  	<beans:bean id="siteService" class="com.cons.man.services.SiteService" />
+ 	<beans:bean id="loginSuccessHandler" class="com.cons.man.util.LoginSuccessHandler"/>
+	
+	<!-- ROLE NAME should have prefix : 'ROLE_'  -->
+ 	<authentication-manager>
+		<authentication-provider ref="customAuthenticationProvider">
+		</authentication-provider>		
+	</authentication-manager>
+	<beans:bean id="customAuthenticationProvider" class="com.cons.man.util.CustomAuthenticationProvider"/>  
+</beans:beans>

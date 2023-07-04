@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cons.man.persistence.FileMapper">
+
+	<select id="getFileList" resultType="FileVO" parameterType="FileVO">
+   		SELECT * FROM FILE
+   		WHERE PARENT_ID = #{parent_id}
+   		AND TYPE = #{type}
+   </select>
+	
+	<insert id="insertFile"  parameterType="FileVO">
+    	INSERT INTO FILE(PARENT_ID, TYPE, VIRTNAME, ORGNAME,CONTENT_TYPE, FILE_SIZE, WRITE_TIME)
+    	VALUES(#{parent_id},#{type}, #{virtname},#{orgname}, #{content_type}, #{file_size}, NOW())  
+    </insert>
+	
+	<update id="updateFile"  parameterType="FileVO">
+		UPDATE FILE
+		SET
+			VIRTNAME = #{virtname}
+			,ORGNAME = #{orgname}
+			,content_type = #{content_type}
+			,FILE_SIZE = #{file_size}
+		WHERE 
+			PARENT_ID = #{parent_id}
+			AND TYPE = #{type}
+			AND IDX = #{idx}
+    </update>
+    
+	<delete id="deleteFile"  parameterType="FileVO">
+		DELETE FROM FILE
+		WHERE VIRTNAME = #{virtname}
+    </delete>
+    
+</mapper>
+

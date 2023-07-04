@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cons.man.persistence.MobileMapper">  
+	
+	<select id="getCurrentAppVersion" resultType="AppVersionCheckVO">
+		SELECT * 
+		FROM app_version_check
+		WHERE id = -1
+	</select>
+
+	<update id="updateLoginInfo" parameterType="String">
+		UPDATE user SET FCM_TOKEN =#{fcm_token} WHERE ID = #{id};
+	</update>
+   
+	<insert id="insertUserAppVersion" parameterType="AppVersionCheckVO">
+    	INSERT INTO APP_VERSION_CHECK(user_ID, app_ver, android_ver, etc, write_time)
+    	VALUES(#{user_id}, #{app_ver}, #{android_ver}, #{etc}, now())
+   	</insert>
+  
+	<select id="getUserList" resultType="UserVO" parameterType="Integer">
+		SELECT UV.*, B.idx as beacon_idx
+			FROM user_view UV
+			LEFT JOIN beacon B
+			ON UV.id = B.u_id 
+			AND B.role = 1
+		WHERE 
+	 		UV.site_id = #{site_id}      
+	    <if test="cont_id > 0">
+	        AND UV.cont_id = #{cont_id}
+	    </if>
+	</select>
+	
+	<select id="getUserContList" resultType="ContVO" parameterType="Integer">
+		SELECT UC.cont_id as id, C.name
+		FROM contractor C
+			JOIN 
+			(
+			SELECT distinct(cont_id) as cont_id
+			FROM user
+			WHERE useyn = 'Y'
+			) AS UC
+			ON C.id = UC.cont_id
+		WHERE C.site_id = #{site_id}
+	</select>
+	
+	<select id="getWorkerContList" resultType="ContVO" parameterType="Integer">
+		SELECT WC.cont_id as id, C.name
+		FROM contractor C
+			JOIN 
+			(
+			SELECT distinct(cont_id) as cont_id
+			FROM worker
+			WHERE delyn = 'N'
+			) AS WC
+			ON C.id = WC.cont_id
+		WHERE C.site_id = #{site_id}
+	</select>
+	
+	<select id="getContList" resultType="ContVO" parameterType="Integer">
+		SELECT id, name
+		FROM contractor 			
+		WHERE site_id = #{site_id}
+		AND useyn = 'Y'
+	</select>
+	
+	<select id="getWorkerList" resultType="WorkerVO" parameterType="Integer">
+		SELECT W.*,C.name AS cont_name, WT.t_name AS t_name 
+		FROM WORKER W 
+			LEFT JOIN w_type WT
+			ON W.t_id = WT.id
+			LEFT JOIN CONTRACTOR C
+			ON W.cont_id = C.ID
+		WHERE 
+	 		W.site_id = #{site_id}      
+	    <if test="cont_id > 0">
+	        AND W.cont_id = #{cont_id}
+	    </if>
+	</select>
+	
+	
+	<select id="getWorkTypeList" resultType="WorkTypeVO" parameterType="Integer">
+		SELECT * FROM w_type
+		WHERE
+			useyn = 'Y'
+		<if test="site_id > 0">
+   			AND site_id = #{site_id}
+   		</if>	
+	</select>
+	
+	<insert id="insertWorker" parameterType="WorkerVO" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+		INSERT INTO worker (site_id, cont_id, phone, gubun, name, jumin, t_id, btype,
+		 hiredate, edudate, sealed_date1, sealed_date2, sealed_date3, sealed_date4, last_update_time)
+		VALUES (#{site_id}, #{cont_id}, #{phone}, #{gubun}, #{name}, #{jumin}, #{t_id}, #{btype}, 
+		#{hiredate}, #{edudate}, #{sealed_date1}, #{sealed_date2}, #{sealed_date3}, #{sealed_date4}, NOW()
+		)
+	</insert>	
+	
+	<update id="updateWorker" parameterType="WorkerVO">
+		UPDATE worker
+		SET
+			cont_id = #{cont_id},			
+			name = #{name},
+			jumin = #{jumin},
+			t_id = #{t_id},
+			btype = #{btype},
+			hiredate = #{hiredate},
+			edudate = #{edudate},		
+			sealed_date1 = #{sealed_date1},
+			sealed_date2 = #{sealed_date2},
+			sealed_date3 = #{sealed_date3},
+			sealed_date4 = #{sealed_date4},
+			last_update_time = NOW()			
+		WHERE 
+		id = #{id}
+		AND phone= #{phone}
+	</update>	
+	
+	<select id="checkPhoneNumber" resultType="WorkerVO" parameterType="String">
+		SELECT W.id, W.phone, W.gubun, W.name, jumin, W.t_id, W.cont_id, W.site_id, T.t_name, W.btype 
+		FROM worker W, contractor C, w_type T
+		WHERE W.cont_id = C.id
+			AND W.t_id = T.id
+			AND W.phone = #{phone}
+			AND W.delyn = 'N'
+		LiMIT 1
+	</select>
+	
+</mapper>
+

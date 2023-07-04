@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cons.man.persistence.ScannerMapper">
+
+	<select id="getScannerList" resultType="ScannerVO" parameterType="Integer">
+		SELECT 
+			S.id,
+			(CASE
+				WHEN SS.app_type = 0 THEN 'Tablet'
+				ELSE 'Scanner'
+			END) AS `app_type`,
+			SS.site_id,
+			SS.place_id,
+			SS.section,
+			SS.phone_idx,
+			SS.scanner_mac,		
+			S.idx,
+			S.has_env,
+			SE.name as section_name,
+			S.time_out,
+			S.rssi_cut
+		FROM scanner_state SS
+		JOIN section SE
+			ON SS.site_id = SE.site_id
+			AND SS.place_id = SE.place_id
+			AND SS.section = SE.section
+		JOIN scanner S
+			ON SS.site_id = S.site_id
+			AND SS.place_id = S.place_id
+			AND SS.section = S.section
+		WHERE
+			S.site_id = #{site_id}
+		ORDER BY S.section
+ 	</select>
+ 	
+ 	<select id="getScannerManageList" resultType="ScannerVO" parameterType="Integer">
+		SELECT 
+			SE.name as section_name,
+			S.*			
+		FROM scanner S
+		JOIN section SE
+			ON SE.site_id = S.site_id
+			AND SE.place_id = S.place_id
+			AND SE.section = S.section
+		WHERE S.site_id = #{site_id}		
+		ORDER BY S.section
+ 	</select>
+ 	
+ 	
+ 	<update id="updateScannerTimeOut" parameterType="Integer" >
+		UPDATE scanner
+        SET 
+			time_out = #{time_out}
+		WHERE
+			section = #{section}
+   	</update>
+   	
+	<update id="updateScannerWaitOut" parameterType="Integer" >
+		UPDATE scanner
+        SET 
+			wait_out = #{wait_out}
+		WHERE
+			section = #{section}
+   	</update>
+   	
+   	<insert id="insertScannerData" parameterType="ScannerVO">
+ 		INSERT INTO scanner (id, scanner_mac_init, scanner_mac, site_id, section, section_id, idx) 
+ 		VALUES (
+	 		(select * from (select ifnull((max(CAST(id AS SIGNED))+1),'0') from scanner) a),
+	 		#{scanner_mac_init},
+	 		#{scanner_mac},
+	 		#{site_id},
+	 		#{section},
+	 		#{section},
+	 		#{section}
+ 		) 	
+	</insert>
+ 	
+	<delete id="deleteScannerData" parameterType="ScannerVO">
+ 		DELETE FROM scanner
+ 		WHERE
+ 			site_id = #{site_id}
+ 			AND scanner_mac = #{scanner_mac}
+ 			AND section = #{section}
+ 			AND idx = #{idx}
+ 	</delete> 	
+ 	
+	<update id="activeSectionState" parameterType="StateVO" >
+		UPDATE state
+        SET 
+			state = -1
+		WHERE
+			id = #{section}
+			AND site_id = #{site_id}  
+   	</update>
+   	
+	<update id="inActiveSectionState" parameterType="StateVO" >
+		UPDATE state
+        SET 
+			state = 99
+		WHERE
+			id = #{section}
+			AND site_id = #{site_id}  
+   	</update> 	
+ 
+</mapper>

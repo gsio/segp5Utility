@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cons.man.persistence.LocationMapper">
+
+	<select id="getInoutData" parameterType="String" resultType="InoutVO">
+		SELECT * 
+			FROM seg.INOUT
+		WHERE
+			MD5(beacon_mac) = MD5(#{beacon_mac}) 
+			AND is_end = 0
+   </select>
+   
+	<update id="changeStartTime" parameterType="String">   
+		UPDATE seg.INOUT
+		SET 
+			start_time = #{start_time}
+		WHERE 
+			MD5(beacon_mac) = MD5(#{beacon_mac})  		
+			AND is_end = 0	
+   </update>
+   
+</mapper>

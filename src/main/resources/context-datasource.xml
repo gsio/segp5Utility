@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="dataSourceSpied" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" >
+	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+	<property name="url" value="jdbc:mysql://database-segp4.cfdrusaemzkj.ap-northeast-2.rds.amazonaws.com:3306/seg?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC&amp;zeroDateTimeBehavior=convertToNull"/> 
+	<property name="username" value="admin" />
+	<property name="password" value="wldptmepdlxj!!1" />    
+	<property name="validationQuery" value="select 1" /> 
+</bean>
+
+<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+	<constructor-arg ref="dataSourceSpied" />
+	<property name="logFormatter">
+		<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+			<property name="loggingType" value="MULTI_LINE" />
+			<property name="sqlPrefix" value="SQL         :  "/>
+		</bean>
+	</property>
+</bean>
+
+</beans>

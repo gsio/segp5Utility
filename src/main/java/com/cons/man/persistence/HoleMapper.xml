@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cons.man.persistence.HoleMapper">
+
+	<select id="getHoleList" resultType="HoleVO" parameterType="Integer">
+		SELECT H.id,
+			H.site_id, H.place_id, H.section, S.name as section_name,
+			H.idx as hole_idx, H.name as hole_name,
+			B.state as battery, B.write_time as last_scan_time 
+		FROM hole H
+			LEFT JOIN section S
+			ON H.site_id = S.site_id
+			AND H.place_id = S.place_id
+			AND H.section = S.section
+			LEFT JOIN battery B
+			ON B.mac_addr = H.mac_addr
+		WHERE H.SITE_ID = #{site_id}
+		ORDER BY H.idx;
+ 	</select> 
+ 	
+ 	<select id="getUnUseHoleList" resultType="HoleVO" parameterType="Integer">
+		SELECT H.id,
+			H.site_id, H.place_id, H.section, S.name as section_name,
+			H.idx as hole_idx, H.name as hole_name,
+			B.state as battery, B.write_time as last_scan_time 
+		FROM hole H
+			LEFT JOIN section S
+			ON H.site_id = S.site_id
+			AND H.place_id = S.place_id
+			AND H.section = S.section
+			LEFT JOIN battery B
+			ON B.mac_addr = H.mac_addr
+		WHERE H.section is NULL
+		ORDER BY H.idx 
+ 	</select> 
+ 	
+ 	 <select id="getUseHoleList" resultType="HoleVO" parameterType="Integer">
+		SELECT * FROM hole_view
+		WHERE id is NOT NULL
+		ORDER BY section
+ 	</select> 
+ 	
+ 	<select id="getHoleAssignSectionList" resultType="HoleVO" parameterType="Integer">
+ 		SELECT *
+		FROM hole_view
+		WHERE SITE_ID = #{site_id}
+		ORDER BY section_id;
+ 	</select> 	
+ 	
+ 	<select id="getHoleManageList" resultType="HoleVO" parameterType="Integer">
+		SELECT H.*, S.name as section_name, H.idx as hole_idx
+			FROM hole H
+			LEFT JOIN section S 
+			ON H.site_id = S.site_id 
+			AND H.place_id = S.place_id
+			AND H.section = S.section
+		WHERE H.site_id = #{site_id}  
+		order by H.idx 
+ 	</select>
+ 	
+ 	<select id="checkHoleDuplicate" resultType="HoleVO" parameterType="HoleVO">
+ 		SELECT *
+		FROM hole
+		WHERE 
+			mac_addr = #{mac_addr}
+			<if test="idx >= 0">
+			OR idx = #{idx}		
+			</if>
+ 	</select>
+ 	
+ 	<select id="getHoleMacAddrByIdx" resultType="HoleVO" parameterType="Integer">
+ 		SELECT *
+		FROM hole
+		WHERE 
+			site_id = #{site_id}
+			AND idx = #{idx}  
+ 	</select>
+ 	
+ 	<insert id="insertHoleItem" parameterType="HoleVO">
+ 		INSERT INTO hole (id, site_id, idx, mac_addr) 
+ 		VALUES (
+	 		(select * from (select ifnull((max(CAST(id AS SIGNED))+1),'0') from hole) a),
+	 		#{site_id},
+	 		#{idx},
+	 		#{mac_addr}
+ 		) 	
+ 	</insert>
+ 	
+ 	<delete id="deleteHoleItem" parameterType="HoleVO">
+ 		DELETE FROM hole
+ 		WHERE
+ 			idx = #{idx}
+ 			AND mac_addr = #{mac_addr}
+ 	</delete>
+ 	
+	<update id="updateHoleMacAddr" parameterType="HoleVO" >
+		UPDATE hole
+        SET 
+			mac_addr = #{mac_addr}
+		WHERE
+			site_id = #{site_id}
+			AND idx = #{idx}  
+   	</update>
+   	
+   	<update id="unAssignHoleData" parameterType="Integer" >
+		UPDATE hole
+        SET 
+			section = null
+		WHERE
+			id = #{id}
+   	</update>
+   	
+	<update id="updateHoleData" parameterType="Integer" >
+		UPDATE hole
+        SET 
+			section = #{section}
+		WHERE
+			id = #{id}
+   	</update>
+   	
+   	<update id="updateHoleName" parameterType="String" >
+		UPDATE hole
+        SET 
+			group_name = #{group_name}
+		WHERE
+			id = #{id}
+   	</update>
+ 
+</mapper>

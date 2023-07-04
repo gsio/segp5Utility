@@ -1,0 +1,89 @@
+
+#riskTable tr {
+	cursor: pointer;
+}
+
+#searchForm {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: stretch;
+    align-content: center;
+}
+
+.content_multi_box .item-box > div {
+    max-width: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    height: 35px;
+    margin: 5px;
+}
+
+.content_multi_box .date-item-box {
+    width: 450px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    height: 35px;
+    margin: 5px;
+}
+
+.content_multi_box .select-title {
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;    
+	flex: 0 0 5%;
+    min-width: 50px;
+}
+
+.content_multi_box .date-title {
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;    
+	flex: 0 0 5%;
+    min-width: 80px;
+}
+
+.content_multi_box .select-content {
+    min-width: 200px;
+    height: 100% !important;
+    flex: 0 0 44%;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;    
+    text-align-last: left;
+}
+
+.content_multi_box .date-item-box .datepicker {
+    text-align: center;
+    font-weight: 600;
+	border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    background: #FFF;
+    cursor: pointer;
+	max-width: 150px;
+}
+
+.table .mobile-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.table .mobile-item {
+    font-size: 14px;
+    display: flex;
+    padding: 3px;
+    font-weight: 600;
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cons.man.persistence.RoleMapper">  
+
+	<select id="getRoleList" resultType="RoleVO" parameterType="Integer">
+		SELECT name, code, type, comment
+  	 	FROM role
+   	</select>
+   
+   	<select id="getRoleListByType" resultType="RoleVO" parameterType="Integer">
+		SELECT * 
+		From ROLE
+		WHERE TYPE = #{type};
+	</select>
+	
+	<select id="getRoleCodeList" resultType="RoleVO" parameterType="Integer">
+		SELECT TYPE,CODE,NAME,`GROUP` FROM ROLE
+		GROUP BY TYPE,CODE, NAME, `GROUP`;
+	</select>
+   
+	<select id="getRoleCodeListWithCnt" resultType="RoleVO" parameterType="Integer">
+		SELECT R.NAME, R.CODE, 
+		CASE WHEN U.ID IS NOT NULL
+		THEN COUNT(U.ID)
+		ELSE 0
+		END AS USERNUM
+	  	FROM 
+  	 	ROLE R LEFT OUTER JOIN USER U 
+    	ON R.CODE = U.ROLE_CODE
+     	AND U.USEYN = 'Y'	      
+     	GROUP BY R.CODE;
+	</select>
+  
+</mapper>
+

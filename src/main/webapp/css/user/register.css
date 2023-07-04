@@ -1,0 +1,167 @@
+
+#regUserTable {
+	width: 100% !important;
+}
+
+.table-container {
+    max-width: 1000px;
+    width: 100%;
+}
+
+.content_table_box  {
+	display: flex;
+    align-items: center;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+#regUserTable th {
+    min-width: 150px;
+	background: #FFF;
+}
+
+#regUserTable th.required {
+	color: #FF3547;
+	font-weight: 600;		
+}
+
+#regUserTable td input, #regUserTable td select{
+	height: 40px;
+	font-size: 0.9em;	
+	max-width: 100% !important;
+	background: #FFF;
+}
+
+#regUserTable .size-fix {
+    max-width: 250px;
+    max-height: 250px;
+    border: 1px solid #D4D4D4;
+    margin-bottom: 10px;
+}
+
+#regUserTable .file-input-hidden {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    background: red;
+}
+
+#regUserTable .img_btn_wrapper {
+	height: 40px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#regUserTable .img_btn_box {
+    height: 100%;
+    min-width: 100px;    
+	max-width: 120px;
+    flex: 0 0 40px;
+    box-shadow: 0 0 12px 0 rgb(0 0 0 / 10%);
+    border-radius: 5px;
+    font-size: 1em;
+    color: #FFF;
+    float: right;
+    text-align: center;
+    line-height: 40px;
+    margin-left: 5px;
+    padding: 0;
+    position: relative;
+    cursor: pointer;
+} 
+
+#regUserTable .item {
+    height: 40px;
+    max-width: 100% !important;
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    color: #495057;
+    background-color: #dedede;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    font-size: 0.85em;
+    cursor: not-allowed;
+    font-weight: 600;
+}
+
+#regUserTable #certkey_box {
+    display: none;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: center;
+    align-content: center;
+	margin-top: 10px;
+}
+
+#regUserTable #certkey_box .info-title-box {
+    width: 100%;
+    text-align: left;
+    font-size: 1em;
+    font-weight: 600;
+    border-left: 3px solid #153A6E;
+    height: 20px;
+    line-height: 20px;
+    padding-left: 8px;
+    color: #223540;
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+#regUserTable #certkey_box .default-item-box {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    flex-direction: row;    
+	margin-top: 5px;
+}
+
+#regUserTable #certkey_box .default-item-box .title{
+    min-width: 100px;
+    width: 5%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    border: 1px solid #ced4da;
+    height: 40px;
+    line-height: 40px;
+    background: #ffffff;
+}
+
+#regUserTable #certkey_box .default-item-box .content{
+    height: 100% !important;
+    padding: 0;
+    font-size: 1em;
+    border: none;
+    font-weight: 600;
+	width: 100%;
+	position: relative;
+}
+
+#regUserTable #certkey_box .default-item-box .content input{
+	width: 100%;
+}
+
+#regUserTable #certkey_box .default-item-box .content #countDown {
+    position: absolute;
+    top: 7px;
+    right: 10px;
+    font-size: 16px;
+    color: #e30512;
+}
+
+#resendMsgCertKey {
+	display: none;
+}

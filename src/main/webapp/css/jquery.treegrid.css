@@ -1,0 +1,50 @@
+.treegrid-indent {
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	position: relative;
+}
+
+.treegrid-expander {
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+}
+
+.treegrid-expander-expanded {
+	background-image: url(../img/collapse.png);
+}
+
+.treegrid-expander-collapsed {
+	background-image: url(../img/expand.png);
+}
+
+.treegrid_1 {
+	background-color: #E6EBF9;
+	font-weight: bold;
+}
+
+.treegrid_2 {
+	background-color: #F3F5FA;
+	font-weight: bold;
+}
+
+.treegrid_2 td {
+	font-weight: bold;
+	border-bottom: solid 1px #aaaaaa;
+}
+
+.treegrid_3 {
+	font-weight: bold;
+	color: rgba(64, 31, 255, 1);
+}
+
+.treegrid_3:hover {
+	background-color: #E6EBF9;
+}
+
+.treegrid_4 {
+	
+}

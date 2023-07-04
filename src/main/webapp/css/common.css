@@ -1,0 +1,566 @@
+body {
+	scrollbar-base-color: #DFDFDF;
+	scrollbar-arrow-color: rgba(255, 255, 255, 0);
+	scrollbar-highlight-color: rgba(255, 255, 255, 0);
+	height: 100vh;
+}
+
+.strong {
+	font-weight: bold;
+}
+
+.push {
+	height: 55px;
+}
+
+.footer {
+	background-color: #f5f5f5;
+	height: 5vh;
+	float: left;
+	width: 100%;
+	color: #a3a092;
+	font-size: 11px;
+	position: fixed;
+	bottom: 0pt;
+	left: 0pt;
+	z-index: 9999;
+}
+
+.footer .box {
+	height: 100%;
+	float: left;
+}
+
+.table thead>tr>th {
+	vertical-align: middle;
+}
+
+#startDateInput {
+	cursor: pointer;
+	background: url('../images/cal_icon.png') no-repeat right;
+	background-size: 23px 23px;
+}
+
+#endDateInput {
+	cursor: pointer;
+	background: url('../images/cal_icon.png') no-repeat right;
+	background-size: 23px 23px;
+}
+
+.formError {
+	color: red;
+}
+
+.targetTR {
+	cursor: pointer;
+}
+
+/**tree - bootstrap**/
+.tree {
+	min-height: 20px;
+	padding: 19px;
+	margin-bottom: 20px;
+	background-color: #fbfbfb;
+	border: 1px solid #999;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05)
+}
+
+.tree li {
+	list-style-type: none;
+	margin: 0;
+	padding: 10px 5px 0 5px;
+	position: relative
+}
+
+.tree li::before, .tree li::after {
+	content: '';
+	left: -20px;
+	position: absolute;
+	right: auto
+}
+
+.tree li::before {
+	border-left: 1px solid #999;
+	bottom: 50px;
+	height: 100%;
+	top: 0;
+	width: 1px
+}
+
+.tree li::after {
+	border-top: 1px solid #999;
+	height: 20px;
+	top: 25px;
+	width: 25px
+}
+
+.tree li span {
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border: 1px solid #999;
+	border-radius: 5px;
+	display: inline-block;
+	padding: 3px 8px;
+	text-decoration: none
+}
+
+.tree li.parent_li>span {
+	cursor: pointer
+}
+
+.tree>ul>li::before, .tree>ul>li::after {
+	border: 0
+}
+
+.tree li:last-child::before {
+	height: 30px
+}
+
+.tree li.parent_li>span:hover, .tree li.parent_li>span:hover+ul li span
+	{
+	background: #eee;
+	border: 1px solid #94a0b4;
+	color: #000
+}
+
+/*
+Force table width to 100%
+*/
+table.table-fixedheader {
+	width: 100%;
+}
+/*
+Set table elements to block mode.  (Normally they are inline).
+This allows a responsive table, such as one where columns can be stacked
+if the display is narrow.
+*/
+table.table-fixedheader, table.table-fixedheader>thead, table.table-fixedheader>tbody,
+	table.table-fixedheader>thead>tr, table.table-fixedheader>tbody>tr,
+	table.table-fixedheader>thead>tr>th, table.table-fixedheader>tbody>td {
+	display: block;
+}
+
+table.table-fixedheader>thead>tr:after, table.table-fixedheader>tbody>tr:after
+	{
+	content: ' ';
+	display: block;
+	visibility: hidden;
+	clear: both;
+}
+/*
+When scrolling the table, actually it is only the tbody portion of the
+table that scrolls (not the entire table: we want the thead to remain
+fixed).  We must specify an explicit height for the tbody.  We include
+100px as a default, but it can be overridden elsewhere.
+
+Also, we force the scrollbar to always be displayed so that the usable
+width for the table contents doesn't change (such as becoming narrower
+when a scrollbar is visible and wider when it is not).
+*/
+table.table-fixedheader>tbody {
+	overflow-y: scroll;
+	height: 500px;
+}
+/*
+We really don't want to scroll the thead contents, but we want to force
+a scrollbar to be displayed anyway so that the usable width of the thead
+will exactly match the tbody.
+*/
+table.table-fixedheader>thead {
+	overflow-y: scroll;
+}
+/*
+For browsers that support it (webkit), we set the background color of
+the unneeded scrollbar in the thead to make it invisible.  (Setting
+visiblity: hidden defeats the purpose, as this alters the usable width
+of the thead.)
+*/
+table.table-fixedheader>thead::-webkit-scrollbar {
+	background-color: inherit;
+}
+
+table.table-fixedheader>thead>tr>th:after, table.table-fixedheader>tbody>tr>td:after
+	{
+	content: ' ';
+	display: table-cell;
+	visibility: hidden;
+	clear: both;
+}
+
+/*
+We want to set <th> and <td> elements to float left.
+We also must explicitly set the width for each column (both for the <th>
+and the <td>).  We set to 20% here a default placeholder, but it can be
+overridden elsewhere.
+*/
+table.table-fixedheader>thead tr th, table.table-fixedheader>tbody tr td
+	{
+	float: left;
+	word-wrap: break-word;
+}
+
+.clickableTR {
+	cursor: pointer;
+}
+
+.file_link {
+	cursor: pointer;
+	color: blue;
+	font-weight: bold;
+}
+
+.list_title {
+	font-size: 29px;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 1%;
+}
+
+.top_gradient_bar {
+	height: 0.7vh;
+	width: 100%;
+	margin-top: 5.3vh;
+	background: #2f59a5; /* Old browsers */
+	background: -moz-linear-gradient(left, #2f59a5 0%, #349880 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #2f59a5 0%, #349880 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #2f59a5 0%, #349880 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2f59a5',
+		endColorstr='#349880', GradientType=1); /* IE6-9 */
+}
+
+.width15 {
+	width: 15%;
+}
+
+/**bootstrap4.0 mport**/
+.btn-secondary {
+	color: #292b2c;
+	background-color: #fff;
+	border-color: #ccc
+}
+
+.btn-secondary:hover {
+	color: #292b2c;
+	background-color: #e6e6e6;
+	border-color: #adadad
+}
+
+.btn-secondary.focus, .btn-secondary:focus {
+	-webkit-box-shadow: 0 0 0 2px rgba(204, 204, 204, .5);
+	box-shadow: 0 0 0 2px rgba(204, 204, 204, .5)
+}
+
+.btn-secondary.disabled, .btn-secondary:disabled {
+	background-color: #fff;
+	border-color: #ccc
+}
+
+.btn-secondary.active, .btn-secondary:active, .show>.btn-secondary.dropdown-toggle
+	{
+	color: #292b2c;
+	background-color: #e6e6e6;
+	background-image: none;
+	border-color: #adadad
+}
+
+.tooltip {
+	position: absolute;
+	z-index: 1070;
+	display: block;
+	font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
+		Roboto, "Helvetica Neue", Arial, sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	letter-spacing: normal;
+	line-break: auto;
+	line-height: 1.5;
+	text-align: left;
+	text-align: start;
+	text-decoration: none;
+	text-shadow: none;
+	text-transform: none;
+	white-space: normal;
+	word-break: normal;
+	word-spacing: normal;
+	font-size: .875rem;
+	word-wrap: break-word;
+	opacity: 0
+}
+
+.tooltip.show {
+	opacity: 0.9
+}
+
+.tooltip.bs-tether-element-attached-bottom, .tooltip.tooltip-top {
+	padding: 5px 0;
+	margin-top: -3px
+}
+
+.tooltip.bs-tether-element-attached-bottom .tooltip-inner::before,
+	.tooltip.tooltip-top .tooltip-inner::before {
+	bottom: 0;
+	left: 50%;
+	margin-left: -5px;
+	content: "";
+	border-width: 5px 5px 0;
+	border-top-color: #000
+}
+
+.tooltip.bs-tether-element-attached-left, .tooltip.tooltip-right {
+	padding: 0 5px;
+	margin-left: 3px
+}
+
+.tooltip.bs-tether-element-attached-left .tooltip-inner::before,
+	.tooltip.tooltip-right .tooltip-inner::before {
+	top: 50%;
+	left: 0;
+	margin-top: -5px;
+	content: "";
+	border-width: 5px 5px 5px 0;
+	border-right-color: #000
+}
+
+.tooltip.bs-tether-element-attached-top, .tooltip.tooltip-bottom {
+	padding: 5px 0;
+	margin-top: 3px
+}
+
+.tooltip.bs-tether-element-attached-top .tooltip-inner::before, .tooltip.tooltip-bottom .tooltip-inner::before
+	{
+	top: 0;
+	left: 50%;
+	margin-left: -5px;
+	content: "";
+	border-width: 0 5px 5px;
+	border-bottom-color: #000
+}
+
+.tooltip.bs-tether-element-attached-right, .tooltip.tooltip-left {
+	padding: 0 5px;
+	margin-left: -3px
+}
+
+.tooltip.bs-tether-element-attached-right .tooltip-inner::before,
+	.tooltip.tooltip-left .tooltip-inner::before {
+	top: 50%;
+	right: 0;
+	margin-top: -5px;
+	content: "";
+	border-width: 5px 0 5px 5px;
+	border-left-color: #000
+}
+
+.tooltip-inner {
+	max-width: 200px;
+	padding: 3px 8px;
+	color: #fff;
+	text-align: center;
+	background-color: #000;
+	border-radius: .25rem
+}
+
+.tooltip-inner::before {
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-color: transparent;
+	border-style: solid
+}
+
+.cursor-cell {
+	cursor: cell;
+}
+
+.table .detail_th {
+	border: 1px solid #efefef;
+	background-color: #d9edf7;
+}
+
+.table .detail_td {
+	border: 1px solid #efefef;
+}
+
+.table .row {
+	overflow: hidden;
+}
+
+.table .row [class*="col-"] {
+	padding-top: 5px;
+	margin-bottom: -99999px;
+	padding-bottom: 100003px;
+}
+
+.date_input_form {
+	background-color: #eeeeee;
+	cursor: pointer;
+}
+
+.table th {
+	text-align: center !important;
+}
+
+.comment_userinfo {
+	
+}
+
+.comment_date {
+	font-size: 11px;
+	color: #666464;
+}
+
+#bs-navbar {
+	line-height: 1.3;
+}
+
+#bs-navbar .__nav {
+	background-color: #19212b;
+	color: white;
+	z-index: 999;
+}
+
+#main_navbar .nav>li>a:hover, #main_navbar .nav>li>a:focus {
+	text-decoration: none;
+	background-color: transparent;
+	color: white;
+	font-weight: bold;
+}
+
+.btn {
+	font-size: 1.2rem;
+}
+
+@media ( min-width : 768px) {
+	#bs-navbar {
+		max-width: 250px;
+		max-height: 650px;
+		padding-left: 0;
+		display: block !important;
+	}
+	#bs-navbar .__nav {
+		position: fixed;
+		overflow-y: auto;
+		overflow-x: hidden;
+		height: 93vh;
+		width: 13%;
+		margin-bottom: 20px;
+		padding-bottom: 120px;
+	}
+	.waves-effect {
+		min-width: 200px;
+	}
+	.show-mobile {
+		display: none;
+	}
+	#__siteList {
+		max-height: 500px;
+		display: inline-block;
+		overflow-y: auto;
+		position: absolute;
+		z-index: 999;
+	}
+}
+
+@media ( max-width : 767px) {
+	#__web_header {
+		display: none;
+	}
+	.footer {
+		display: none;
+	}
+	.show-mobile {
+		
+	}
+	.show-web {
+		display: none;
+	}
+	#__siteList {
+		max-height: 500px;
+		display: inline-block;
+		overflow-y: auto;
+		z-index: 999;
+	}
+	#main_navbar .nav>li a {
+		font-size: 14px;
+	}
+}
+
+.table-break-all {
+	table-layout: fixed;
+	word-break: break-all;
+}
+
+.btn-group .active {
+	background-color: #5cb85c !important;
+	border-color: #4cae4c !important;
+	color: white;
+}
+
+.no-padding {
+	padding: 0px;
+}
+
+#__top_header {
+	height: 6vh;
+	padding: 0px;
+	position: fixed;
+	z-index: 999;
+	background-color: white;
+	top: 0%;
+}
+
+#main_content {
+	margin-left: 13%;
+	width: 87%;
+	overflow: auto;
+	margin-bottom: 6vh;
+}
+
+#container {
+	padding: 2%;
+}
+
+.nav_main_menu {
+	border-bottom: 3px solid #a2a2a2;
+	height: 6vh;
+	padding: 0;
+	margin: 0;
+	text-align: left;
+	line-height: 6vh;
+	padding-left: 5%;
+	font-size: 2vh;
+}
+
+#__web_header {
+	background-color: white;
+	float: left;
+	height: 100%;
+	width: 100%;
+}
+
+#__web_header .header_box {
+	height: 5.3vh;
+	line-height: 5.3vh;
+	float: right;
+	margin-left: 1%;
+}
+
+#main_navbar .nav>li a {
+	font-size: 1.6vh;
+	line-height: 4vh;
+	padding: 0 0 0 10px;
+	margin: 0;
+	color: #D4D4D4;
+}
+
+#main_navbar .nav>li {
+	padding: 0;
+}

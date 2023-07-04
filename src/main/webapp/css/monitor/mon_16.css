@@ -1,0 +1,2701 @@
+.tank {
+	float: left;
+	line-height: 2vh;
+	color: #fff;
+	box-shadow: none;
+	-o-transition: none;
+	transition: width .6s ease;
+	position: relative;
+}
+
+.tank_num, .tank_count {
+	position: absolute;
+}
+
+.tank_count {
+	font-weight: bold;
+	color: #162136;
+}
+
+.tank_info {
+	border-bottom: 0.1vh solid white;
+    line-height: 5vh;
+    height: 6vh;
+}
+
+.tank_info>div {
+	display: inline-block;
+}
+
+.tank_info>.tank_num_box {
+	color: black;
+}
+
+.tank_info>.num_box_type_1 {	
+    font-size: 1vw;
+    width: 5vh;
+    height: 5vh;
+}
+
+.tank_info>.num_box_type_2 {	
+	font-size: 0.9vw;
+    width: 18vh;
+    height: 5vh;
+}
+
+.tank_num_box>div {
+	display: inline-block;
+	border: 0.1vh solid white;
+	border-radius: 1vh;
+	text-align: center;
+	height: 5vh;
+    width: 100%;
+}
+
+.tank_info>.tank_state {	
+	margin-left: 1.5%;
+}
+
+.tank_info>.tank_has_env .fa-tint {
+	color: #61ae65;
+    font-size: 3vh;
+	line-height: 5vh;
+}
+
+.tank_info>.tank_has_env .fa-tint-slash {
+	color: #a62b23;
+    font-size: 3vh;
+	padding: 1.5vh 0 0 0;
+}
+
+.tank_info>.state_box_type_1 {
+    width: 25vh;
+    font-size: 1vw;
+}
+
+.tank_info>.state_box_type_2 {
+	font-size: 0.9vw;
+}
+
+.tank_info>.tank_has_hole {
+	float: right;
+	height: 5vh;
+    width: 5vh;
+    text-align: center;
+}
+
+.tank_info>.tank_has_hole > img{
+	height: 100%;
+	widows: 100%;
+}
+
+.tank_info>.tank_has_env {
+	float: right;
+	height: 5vh;
+    width: 5vh;
+    text-align: center;
+}
+
+.tank_info>.tank_detail {
+	width: 5%;
+	cursor: pointer;
+	font-size: 1vw;
+	text-align: right;
+}
+
+.tank_info .bar {
+	font-size: 1.4vw;
+	font-weight: 100;
+	padding: 0 1vh 0 1vh;
+}
+
+svg,polygon  {margin:0; padding:0;}
+
+
+#_section_2F {
+	background-image: url(../../images/monitor/16/map_2F.png);	
+}
+
+#_section_3F {
+	background-image: url(../../images/monitor/16/map_3F.png);	
+}
+
+#_section_5F {
+	background-image: url(../../images/monitor/16/map_5F.png);	
+}
+
+.tank {
+	float: left;
+	line-height: 2vh;
+	color: #fff;
+	box-shadow: none;
+	-o-transition: none;
+	transition: width .6s ease;
+	position: relative;
+	cursor: pointer;
+}
+.tank_num, .tank_name, .tank_count {
+	position: absolute;
+}
+
+
+.__type_0 >.tank_num {
+	font-size: 1.5vh;
+    top: 0.3vh;
+    left: 0.3vh;
+}
+
+.__type_0 > .tank_count {
+	bottom: 0.3vh;
+	right: 0.3vh;
+	font-size: 2vh;
+	font-weight: bold;
+	color: #162136;
+}
+
+.__type_1 >.tank_num {
+	font-size: 1.5vh;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.__type_1 > .tank_count {
+	right: 0;
+}
+
+.__type_2 >.tank_num {
+	font-size: 2.5vh;
+    top: 1.5vh;
+    left: 1vh;
+	display: none;
+}
+
+.__type_2 > .tank_count {
+	bottom: 1vh;
+	right: 1vh;
+	font-size: 3vh;
+	font-weight: bold;
+	color: #162136;
+}
+
+.Floor_2{
+    border: 1px solid #ff000000;
+}
+
+.Floor_3{
+    border: 1px solid #ff000000;
+}
+
+.Floor_5{
+    border: 1px solid #ff000000;
+}
+
+.Floor_6{
+    border: 1px solid #ff000000;
+}
+
+.tank{
+	position: absolute;
+}
+
+/*************** 2F ***************/
+.Floor_2 > .__tank_1 {
+    top: 10%;
+    left: 1.3%;
+    width: 12%;
+    height: 83.4%;
+}
+
+.Floor_2 > .__tank_2 {
+    top: 10%;
+    left: 15.3%;
+    width: 12%;
+    height: 83.4%;
+}
+
+.Floor_2 > .__tank_3 {
+    top: 10%;
+    left: 29.3%;
+    width: 12%;
+    height: 83.4%;
+}
+
+.Floor_2 > .__tank_4 {
+    top: 10%;
+    left: 43.7%;
+    width: 12%;
+    height: 83.4%;
+}
+
+.Floor_2 > .__tank_5 {
+    top: 10%;
+    left: 57.7%;
+    width: 12%;
+    height: 83.4%;
+}
+
+.Floor_2 > .__tank_6 {
+    top: 10%;
+    left: 71.8%;
+    width: 12%;
+    height: 83.4%;
+}
+
+.Floor_2 > .__tank_7 {
+    top: 10%;
+    left: 86.1%;
+    width: 5.6%;
+    height: 83.4%;
+}
+
+.Floor_2 > .__tank_8 {
+    top: 10%;
+    left: 93%;
+    width: 5.6%;
+    height: 83.4%;
+}
+
+/*-----------------------------------*/
+
+.Floor_2 > .__tank_9 {
+    top: 10%;
+    left: 1%;
+    width: 5.2%;
+    height: 36%;
+}
+
+.Floor_2 > .__tank_10 {
+    top: 58%;
+    left: 1%;
+    width: 5.2%;
+    height: 36%;
+}
+
+.Floor_2 > .__tank_11 {
+    top: 10%;
+    left: 7.8%;
+    width: 10.5%;
+    height: 82.5%;
+}
+
+.Floor_2 > .__tank_12 {
+    top: 10%;
+    left: 20.5%;
+    width: 10.5%;
+    height: 82.5%;
+}
+
+.Floor_2 > .__tank_13 {
+	top: 10%;
+    left: 33%;
+    width: 5%;
+    height: 82.5%;
+}
+
+.Floor_2 > .__tank_14 {
+	top: 10%;
+    left: 39.2%;
+    width: 5%;
+    height: 82.5%;
+}
+
+.Floor_2 > .__tank_15 {
+    top: 10%;
+    left: 45.8%;
+    width: 10.7%;
+    height: 82.5%;
+}
+
+.Floor_2 > .__tank_16 {
+    top: 10%;
+    left: 58.5%;
+    width: 10.7%;
+    height: 82.5%;
+}
+
+.Floor_2 > .__tank_17 {
+	top: 10%;
+    left: 70.9%;
+    width: 12.6%;
+    height: 82.5%;
+}
+
+.Floor_2 > .__tank_18 {
+	top: 10%;
+    left: 85.9%;
+    width: 12.6%;
+    height: 82.5%;
+}
+
+/*-----------------------------------*/
+
+.Floor_2 > .__tank_19 {
+    top: 6%;
+    left: 26.7%;
+    width: 7.5%;
+    height: 11.7%;
+}
+
+.Floor_2 > .__tank_20 {
+    top: 22%;
+    left: 26.7%;
+    width: 7.5%;
+    height: 11.7%;
+}
+
+.Floor_2 > .__tank_101 {
+    top: 39.6%;
+    left: 2.7%;
+    width: 31.5%;
+    height: 26%;
+}
+
+.Floor_2 > .__tank_102 {
+    top: 70.6%;
+    left: 2.7%;
+    width: 31.5%;
+    height: 26%;
+}
+
+.Floor_2 > .__tank_103 {
+	top: 6%;
+    left: 36.8%;
+    width: 61%;
+    height: 43%;
+}
+
+.Floor_2 > .__tank_104 {
+    top: 53.5%;
+    left: 36.8%;
+    width: 61%;
+    height: 43%;
+}
+
+/*-----------------------------------*/
+
+.Floor_2 > .__tank_105 {
+    top: 6%;
+    left: 2%;
+    width: 16.6%;
+    height: 73.5%;
+}
+
+.Floor_2 > .__tank_106 {
+	top: 6%;
+    left: 21.2%;
+    width: 16.6%;
+    height: 73.5%;
+}
+
+.Floor_2 > .__tank_107 {
+	top: 6%;
+    left: 40.2%;
+    width: 16.6%;
+    height: 73.5%;
+}
+
+.Floor_2 > .__tank_108 {
+    top: 6%;
+    left: 59.1%;
+    width: 16.6%;
+    height: 73.5%;
+}
+
+.Floor_2 > .__tank_21 {
+	top: 6%;
+    left: 78%;
+    width: 19.9%;
+    height: 28%;
+}
+
+.Floor_2 > .__tank_22 {
+    top: 38.4%;
+    left: 78%;
+    width: 19.9%;
+    height: 28%;
+}
+
+.Floor_2 > .__tank_23 {
+    top: 70.4%;
+    left: 78%;
+    width: 11.7%;
+    height: 11%;
+}
+
+.Floor_2 > .__tank_24 {
+    top: 86%;
+    left: 78%;
+    width: 11.7%;
+    height: 11%;
+}
+
+/*-----------------------------------*/
+
+.Floor_2 > .__tank_25 {
+    top: 8.7%;
+    left: 10%;
+    width: 79.9%;
+    height: 39%;
+}
+
+.Floor_2 > .__tank_26 {
+    top: 56.7%;
+    left: 10%;
+    width: 79.9%;
+    height: 39%;
+}
+
+/*-----------------------------------*/
+
+.Floor_2 > .__tank_53 {
+    top: 67.5%;
+    left: 1.6%;
+    width: 50.4%;
+    height: 19.5%;
+}
+
+.Floor_2 > .__tank_54 {
+    top: 67.5%;
+    left: 54.3%;
+    width: 14%;
+    height: 19.5%;
+}
+
+.Floor_2 > .__tank_55 {
+    top: 67.5%;
+    left: 70%;
+    width: 28.4%;
+    height: 19.5%;
+}
+
+.Floor_2 > .__tank_56 {
+    top: 46.5%;
+    left: 1.6%;
+    width: 50.4%;
+    height: 18.5%;
+}
+
+.Floor_2 > .__tank_57 {
+    top: 46.5%;
+    left: 54.3%;
+    width: 17.7%;
+    height: 18.5%;
+}
+
+.Floor_2 > .__tank_58 {
+    top: 46.5%;
+    left: 74%;
+    width: 16.2%;
+    height: 18.5%;
+}
+
+.Floor_2 > .__tank_59 {
+    top: 46.5%;
+    left: 92%;
+    width: 6.2%;
+    height: 18.5%;
+}
+
+.Floor_2 > .__tank_60 {
+    top: 25%;
+    left: 1.6%;
+    width: 50.4%;
+    height: 18.5%;
+}
+
+.Floor_2 > .__tank_61 {
+    top: 25%;
+    left: 54.3%;
+    width: 14%;
+    height: 18.5%;
+}
+
+.Floor_2 > .__tank_62 {
+    top: 25%;
+    left: 70%;
+    width: 28.4%;
+    height: 18.5%;
+}
+
+.Floor_2 > .__tank_63 {
+    top: 4%;
+    left: 1.6%;
+    width: 50.4%;
+    height: 18.5%;
+}
+
+.Floor_2 > .__tank_64 {
+	top: 4%;
+    left: 54.3%;
+    width: 17.7%;
+    height: 18.5%;
+}
+
+.Floor_2 > .__tank_65 {
+    top: 4%;
+    left: 74%;
+    width: 16.2%;
+    height: 18.5%;
+}
+
+.Floor_2 > .__tank_66 {
+    top: 4%;
+    left: 92%;
+    width: 6.2%;
+    height: 18.5%;
+}
+
+.Floor_2 > .__tank_31 {
+    top: 89.5%;
+    left: 28.3%;
+    width: 5.8%;
+    height: 9%;
+}
+
+.Floor_2 > .__tank_32 {
+    top: 89.5%;
+    left: 45%;
+    width: 5.8%;
+    height: 9%;
+}
+
+.Floor_2 > .__tank_33 {
+    top: 89.5%;
+    left: 73.8%;
+    width: 5.7%;
+    height: 9%;
+}
+
+.Floor_2 > .__tank_34 {
+    top: 89.5%;
+    left: 93.3%;
+    width: 5.7%;
+    height: 9%;
+}
+
+/*-----------------------------------*/
+
+.Floor_2 > .__tank_27 {
+    top: 4.6%;
+    left: 5%;
+    width: 90.2%;
+    height: 44.8%;
+}
+
+.Floor_2 > .__tank_28 {
+	top: 53.3%;
+    left: 5%;
+    width: 90.2%;
+    height: 44.8%;
+}
+
+/*-----------------------------------*/
+
+.Floor_2 > .__tank_87 {
+    top: 68%;
+    left: 2%;
+    width: 28.4%;
+    height: 19%;
+}
+
+.Floor_2 > .__tank_88 {
+    top: 68%;
+    left: 32%;
+    width: 13.9%;
+    height: 19%;
+}
+
+.Floor_2 > .__tank_89 {
+    top: 68%;
+    left: 48%;
+    width: 50%;
+    height: 19%;
+}
+
+.Floor_2 > .__tank_90 {
+    top: 46%;
+    left: 2%;
+    width: 6.7%;
+    height: 19%;
+}
+
+.Floor_2 > .__tank_91 {
+	top: 46%;
+    left: 10.3%;
+    width: 16.2%;
+    height: 19%;
+}
+
+.Floor_2 > .__tank_92 {
+	top: 46%;
+    left: 28.2%;
+    width: 17.7%;
+    height: 19%;
+}
+
+.Floor_2 > .__tank_93 {
+    top: 46%;
+    left: 48%;
+    width: 50%;
+    height: 19%;
+}
+
+.Floor_2 > .__tank_94 {
+    top: 25%;
+    left: 2%;
+    width: 28.4%;
+    height: 19%;
+}
+
+.Floor_2 > .__tank_95 {
+    top: 25%;
+    left: 32%;
+    width: 13.9%;
+    height: 19%;
+}
+
+.Floor_2 > .__tank_96 {
+  	top: 25%;
+    left: 48%;
+    width: 50%;
+    height: 19%;
+}
+
+.Floor_2 > .__tank_97 {
+    top: 3.5%;
+    left: 2%;
+    width: 6.7%;
+    height: 19%;
+}
+
+.Floor_2 > .__tank_98 {
+	top: 3.5%;
+    left: 10.3%;
+    width: 16.2%;
+    height: 19%;
+}
+
+.Floor_2 > .__tank_99 {
+	top: 3.5%;
+    left: 28.2%;
+    width: 17.7%;
+    height: 19%;
+}
+
+.Floor_2 > .__tank_100 {
+    top: 3.5%;
+    left: 48%;
+    width: 50%;
+    height: 19%;
+}
+
+.Floor_2 > .__tank_35 {
+    top: 89.5%;
+    left: 20.8%;
+    width: 5.7%;
+    height: 8.8%;
+}
+
+.Floor_2 > .__tank_36 {
+	top: 89.5%;
+    left: 37.8%;
+    width: 6%;
+    height: 8.8%;
+}
+
+/*-----------------------------------*/
+
+.Floor_2 > .__tank_37 {
+    top: 77.5%;
+    left: 2%;
+    width: 50%;
+    height: 20.5%;
+}
+
+.Floor_2 > .__tank_38 {
+	top: 77.5%;
+    left: 54.2%;
+    width: 14%;
+    height: 20.5%;
+}
+
+.Floor_2 > .__tank_39 {
+	top: 77.5%;
+    left: 69.7%;
+    width: 28.3%;
+    height: 20.5%;
+}
+
+.Floor_2 > .__tank_40 {
+    top: 53.5%;
+    left: 2%;
+    width: 50%;
+    height: 20.5%;
+}
+
+.Floor_2 > .__tank_41 {
+	top: 53.5%;
+    left: 54.2%;
+	width: 17.7%;
+    height: 20.5%;
+}
+
+.Floor_2 > .__tank_42 {
+	top: 53.5%;
+    left: 73.6%;
+    width: 16.4%;
+    height: 20.5%;
+}
+
+.Floor_2 > .__tank_43 {
+    top: 53.5%;
+    left: 91.7%;
+    width: 6.3%;
+    height: 20.5%;
+}
+
+.Floor_2 > .__tank_44 {
+    top: 28.5%;
+    left: 2%;
+    width: 50%;
+    height: 20.5%;
+}
+
+.Floor_2 > .__tank_45 {
+    top: 28.5%;
+    left: 54.2%;
+    width: 14%;
+    height: 20.5%;
+}
+
+.Floor_2 > .__tank_46 {
+    top: 28.5%;
+    left: 69.7%;
+    width: 28.3%;
+    height: 20.5%;
+}
+
+.Floor_2 > .__tank_47 {
+    top: 4.5%;
+    left: 2%;
+    width: 50%;
+    height: 20.5%;
+}
+
+.Floor_2 > .__tank_48 {
+    top: 4.5%;
+    left: 54.2%;
+	width: 17.7%;
+    height: 20.5%;
+}
+
+.Floor_2 > .__tank_49 {
+    top: 4.5%;
+    left: 73.6%;
+    width: 16.4%;
+    height: 20.5%;
+}
+
+.Floor_2 > .__tank_50 {
+    top: 4.5%;
+    left: 91.7%;
+    width: 6.3%;
+    height: 20.5%;
+}
+
+/*-----------------------------------*/
+
+.Floor_2 > .__tank_29 {
+    top: 4.6%;
+    left: 4.3%;
+    width: 91.9%;
+    height: 42.8%;
+}
+
+.Floor_2 > .__tank_30 {
+    top: 52.5%;
+    left: 4.3%;
+    width: 91.9%;
+    height: 42.8%;
+}
+
+/*-----------------------------------*/
+
+.Floor_2 > .__tank_71 {
+    top: 76.5%;
+    left: 2.3%;
+    width: 28%;
+    height: 21.3%;
+}
+
+.Floor_2 > .__tank_72 {
+    top: 76.5%;
+    left: 32%;
+    width: 13.9%;
+    height: 21.3%;
+}
+
+.Floor_2 > .__tank_73 {
+    top: 76.5%;
+    left: 48%;
+    width: 50%;
+    height: 21.3%;
+}
+
+.Floor_2 > .__tank_74 {
+    top: 51.5%;
+    left: 2.3%;
+    width: 6.5%;
+    height: 21.3%;
+}
+
+.Floor_2 > .__tank_75 {
+    top: 51.5%;
+	left: 10.3%;
+    width: 16.2%;
+    height: 21.3%;
+}
+
+.Floor_2 > .__tank_76 {
+	top: 51.5%;
+	left: 28.2%;
+    width: 17.7%;
+    height: 21.3%;
+}
+
+.Floor_2 > .__tank_77 {
+    top: 51.5%;
+    left: 48%;
+    width: 50%;
+    height: 21.3%;
+}
+
+.Floor_2 > .__tank_78 {
+    top: 27.5%;
+    left: 2.3%;
+    width: 28%;
+    height: 21.3%;
+}
+
+.Floor_2 > .__tank_79 {
+    top: 27.5%;
+    left: 32%;
+    width: 13.9%;
+    height: 21.3%;
+}
+
+.Floor_2 > .__tank_80 {
+    top: 27.5%;
+    left: 48%;
+    width: 50%;
+    height: 21.3%;
+}
+
+.Floor_2 > .__tank_81 {
+    top: 2.5%;
+    left: 2.3%;
+    width: 6.5%;
+    height: 21.3%;
+}
+
+.Floor_2 > .__tank_82 {
+	top: 2.5%;
+	left: 10.3%;
+    width: 16.2%;
+    height: 21.3%;
+}
+
+.Floor_2 > .__tank_83 {
+	top: 2.5%;
+	left: 28.2%;
+    width: 17.7%;
+    height: 21.3%;
+}
+
+.Floor_2 > .__tank_84 {
+	top: 2.5%;
+    left: 48%;
+    width: 50%;
+    height: 21.3%;
+}
+
+/*************** 2F END ***************/
+
+
+
+/*************** 3F ***************/
+
+.Floor_3 > .__tank_101 {
+	top: 38.1%;
+    left: 2.2%;
+    width: 31.7%;
+    height: 26%;
+}
+
+.Floor_3 > .__tank_102 {
+	top: 69.1%;
+    left: 2.2%;
+    width: 31.7%;
+    height: 26%;
+}
+
+.Floor_3 > .__tank_103 {
+    top: 6%;
+    left: 37%;
+    width: 60%;
+    height: 41%;
+}
+
+.Floor_3 > .__tank_104 {
+    top: 53%;
+    left: 37%;
+    width: 60%;
+    height: 41%;
+}
+
+/*-----------------------------------*/
+
+.Floor_3 > .__tank_105 {
+    top: 5.3%;
+    left: 2%;
+    width: 22%;
+    height: 92%;
+}
+
+.Floor_3 > .__tank_106 {
+    top: 5.3%;
+    left: 26.5%;
+    width: 22%;
+    height: 92%;
+}
+
+.Floor_3 > .__tank_107 {
+    top: 5.3%;
+    left: 51.1%;
+    width: 22%;
+    height: 92%;
+}
+
+.Floor_3 > .__tank_108 {
+    top: 5.3%;
+    left: 75.6%;
+    width: 22%;
+    height: 92%;
+}
+
+/*-----------------------------------*/
+
+.Floor_3 > .__tank_109 {
+    top: 58.3%;
+    left: 3%;
+    width: 29.3%;
+    height: 12.5%;
+}
+
+.Floor_3 > .__tank_110 {
+    top: 72.3%;
+    left: 3%;
+    width: 29.3%;
+    height: 12.5%;
+}
+
+.Floor_3 > .__tank_111 {
+    top: 86.6%;
+    left: 3%;
+    width: 29.3%;
+    height: 12.5%;
+}
+
+.Floor_3 > .__tank_112 {
+    top: 86.6%;
+    left: 35.5%;
+    width: 29.3%;
+    height: 12.5%;
+}
+
+.Floor_3 > .__tank_113 {
+    top: 86.6%;
+    left: 68.2%;
+    width: 29.1%;
+    height: 12.5%;
+}
+
+.Floor_3 > .__tank_114 {
+ 	top: 72.3%;
+    left: 68.2%;
+    width: 29.1%;
+    height: 12.5%;
+}
+
+.Floor_3 > .__tank_115 {
+    top: 58.3%;
+    left: 68.2%;
+    width: 29.1%;
+    height: 12.5%;
+}
+
+.Floor_3 > .__tank_116 {
+    top: 30.3%;
+    left: 68.2%;
+    width: 29.1%;
+    height: 12.5%;
+}
+
+.Floor_3 > .__tank_117 {
+    top: 16.3%;
+    left: 68.2%;
+    width: 29.1%;
+    height: 12.5%;
+}
+
+.Floor_3 > .__tank_118 {
+    top: 2.3%;
+    left: 68.2%;
+    width: 29.1%;
+    height: 12.5%;
+}
+
+/*-----------------------------------*/
+
+.Floor_3 > .__tank_53 {
+    top: 77.1%;
+    left: 1.2%;
+    width: 38.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_54 {
+	top: 77.1%;
+    left: 41.7%;
+    width: 10.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_55 {
+    top: 77.1%;
+    left: 53.7%;
+    width: 21.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_56 {
+    top: 52.5%;
+    left: 1.2%;
+    width: 38.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_57 {
+    top: 52.5%;
+    left: 41.6%;
+    width: 13.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_58 {
+    top: 52.5%;
+    left: 56.9%;
+    width: 12.6%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_59 {
+    top: 52.5%;
+    left: 70.9%;
+    width: 4.6%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_60 {
+    top: 28.1%;
+    left: 1.2%;
+    width: 38.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_61 {
+	top: 28.1%;
+    left: 41.7%;
+    width: 10.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_62 {
+    top: 28.1%;
+    left: 53.7%;
+    width: 21.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_63 {
+    top: 4%;
+    left: 1.2%;
+    width: 38.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_64 {
+    top: 4%;
+    left: 41.6%;
+    width: 13.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_65 {
+    top: 4%;
+    left: 56.9%;
+    width: 12.6%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_66 {
+    top: 4%;
+    left: 70.9%;
+    width: 4.6%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_67 {
+    top: 53%;
+    left: 77.1%;
+    width: 21.8%;
+    height: 45%;
+}
+
+.Floor_3 > .__tank_68 {
+	top: 4%;
+    left: 77.1%;
+    width: 21.8%;
+    height: 45%;
+}
+
+/*-----------------------------------*/
+.Floor_3 > .__tank_85 {
+    top: 53%;
+    right: 77.1%;
+    width: 21.8%;
+    height: 45%;
+}
+
+.Floor_3 > .__tank_86 {
+	top: 4%;
+    right: 77.1%;
+    width: 21.8%;
+    height: 45%;
+}
+
+
+.Floor_3 > .__tank_87 {
+    top: 77.1%;
+    right: 53.7%;
+    width: 21.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_88 {
+    top: 77.1%;
+    right: 41.7%;
+    width: 10.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_89 {
+    top: 77.1%;
+    right: 1.2%;
+    width: 38.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_90 {
+    top: 52.5%;
+	right: 70.7%;
+    width: 4.9%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_91 {
+    top: 52.5%;
+    right: 56.9%;
+    width: 12.6%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_92 {
+    top: 52.5%;
+    right: 41.6%;
+    width: 13.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_93 {
+    top: 52.5%;
+    right: 1.2%;
+    width: 38.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_94 {
+    top: 28.1%;
+    right: 53.7%;
+    width: 21.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_95 {
+	top: 28.1%;
+    right: 41.7%;
+    width: 10.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_96 {
+    top: 28.1%;
+    right: 1.2%;
+    width: 38.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_97 {
+    top: 4%;
+	right: 70.7%;
+    width: 4.9%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_98 {
+    top: 4%;
+    right: 56.9%;
+    width: 12.6%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_99 {
+    top: 4%;
+    right: 41.6%;
+    width: 13.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_100 {
+    top: 4%;
+    right: 1.2%;
+    width: 38.8%;
+    height: 21%;
+}
+/*-----------------------------------*/
+
+.Floor_3 > .__tank_37 {
+    top: 77.1%;
+    left: 1.2%;
+    width: 38.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_38 {
+	top: 77.1%;
+    left: 41.7%;
+    width: 10.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_39 {
+    top: 77.1%;
+    left: 53.7%;
+    width: 21.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_40 {
+    top: 52.5%;
+    left: 1.2%;
+    width: 38.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_41 {
+    top: 52.5%;
+    left: 41.6%;
+    width: 13.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_42 {
+    top: 52.5%;
+    left: 56.9%;
+    width: 12.6%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_43 {
+    top: 52.5%;
+    left: 70.9%;
+    width: 4.6%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_44 {
+    top: 28.1%;
+    left: 1.2%;
+    width: 38.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_45 {
+	top: 28.1%;
+    left: 41.7%;
+    width: 10.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_46 {
+    top: 28.1%;
+    left: 53.7%;
+    width: 21.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_47 {
+    top: 4%;
+    left: 1.2%;
+    width: 38.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_48 {
+    top: 4%;
+    left: 41.6%;
+    width: 13.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_49 {
+    top: 4%;
+    left: 56.9%;
+    width: 12.6%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_50 {
+    top: 4%;
+    left: 70.9%;
+    width: 4.6%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_51 {
+    top: 53%;
+    left: 77.1%;
+    width: 21.8%;
+    height: 45%;
+}
+
+.Floor_3 > .__tank_52 {
+	top: 4%;
+    left: 77.1%;
+    width: 21.8%;
+    height: 45%;
+}
+
+
+/*-----------------------------------*/
+.Floor_3 > .__tank_69 {
+    top: 53%;
+    right: 77.1%;
+    width: 21.8%;
+    height: 45%;
+}
+
+.Floor_3 > .__tank_70 {
+	top: 4%;
+    right: 77.1%;
+    width: 21.8%;
+    height: 45%;
+}
+
+
+.Floor_3 > .__tank_71 {
+    top: 77.1%;
+    right: 53.7%;
+    width: 21.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_72 {
+    top: 77.1%;
+    right: 41.7%;
+    width: 10.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_73 {
+    top: 77.1%;
+    right: 1.2%;
+    width: 38.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_74 {
+    top: 52.5%;
+	right: 70.7%;
+    width: 4.9%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_75 {
+    top: 52.5%;
+    right: 56.9%;
+    width: 12.6%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_76 {
+    top: 52.5%;
+    right: 41.6%;
+    width: 13.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_77 {
+    top: 52.5%;
+    right: 1.2%;
+    width: 38.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_78 {
+    top: 28.1%;
+    right: 53.7%;
+    width: 21.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_79 {
+	top: 28.1%;
+    right: 41.7%;
+    width: 10.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_80 {
+    top: 28.1%;
+    right: 1.2%;
+    width: 38.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_81 {
+    top: 4%;
+	right: 70.7%;
+    width: 4.9%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_82 {
+    top: 4%;
+    right: 56.9%;
+    width: 12.6%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_83 {
+    top: 4%;
+    right: 41.6%;
+    width: 13.8%;
+    height: 21%;
+}
+
+.Floor_3 > .__tank_84 {
+    top: 4%;
+    right: 1.2%;
+    width: 38.8%;
+    height: 21%;
+}
+
+/*************** 3F END ***************/
+
+
+
+/*************** 5F ***************/
+.Floor_5 > .__tank_215 {
+	top: 53.2%;
+    left: 1.4%;
+    width: 9.6%;
+    height: 41%;
+}
+
+.Floor_5 > .__tank_216 {
+	top: 53.2%;
+    left: 12.4%;
+    width: 9.6%;
+    height: 41%;
+}
+
+.Floor_5 > .__tank_217 {
+	top: 53.2%;
+    left: 23.4%;
+    width: 9.6%;
+    height: 41%;
+}
+
+.Floor_5 > .__tank_218 {
+    top: 53.2%;
+    left: 34.2%;
+    width: 9.6%;
+    height: 41%;
+}
+
+.Floor_5 > .__tank_219 {
+    top: 53.2%;
+    left: 45.2%;
+    width: 9.6%;
+    height: 41%;
+}
+
+.Floor_5 > .__tank_220 {
+    top: 53.2%;
+    left: 56.1%;
+    width: 9.6%;
+    height: 41%;
+}
+
+.Floor_5 > .__tank_221 {
+    top: 53.2%;
+    left: 67%;
+    width: 9.6%;
+    height: 41%;
+}
+
+.Floor_5 > .__tank_222 {
+    top: 53.2%;
+    left: 78%;
+    width: 9.7%;
+    height: 41%;
+}
+
+.Floor_5 > .__tank_223 {
+    top: 53.2%;
+    left: 88.8%;
+    width: 9.6%;
+    height: 41%;
+}
+
+.Floor_5 > .__tank_224 {
+    top: 5.2%;
+    left: 1.4%;
+    width: 4.7%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_225 {
+    top: 5.2%;
+    left: 6.3%;
+    width: 4.7%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_226 {
+    top: 27%;
+    left: 1.4%;
+    width: 4.7%;
+    height: 20%;
+}
+
+.Floor_5 > .__tank_227 {
+    top: 27%;
+    left: 6.3%;
+    width: 4.7%;
+    height: 20%;
+}
+
+.Floor_5 > .__tank_228 {
+    top: 5.2%;
+    left: 12.4%;
+    width: 4.7%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_229 {
+    top: 5.2%;
+    left: 17.3%;
+    width: 4.7%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_230 {
+    top: 27%;
+    left: 12.4%;
+    width: 4.7%;
+    height: 20%;
+}
+
+.Floor_5 > .__tank_231 {
+    top: 27%;
+ 	left: 17.3%;
+    width: 4.7%;
+    height: 20%;
+}
+
+
+.Floor_5 > .__tank_232 {
+    top: 5.2%;
+    left: 23.4%;
+    width: 4.7%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_233 {
+    top: 5.2%;
+    left: 28.3%;
+    width: 4.7%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_234 {
+    top: 27%;
+	left: 23.4%;
+    width: 4.7%;
+    height: 20%;
+}
+
+.Floor_5 > .__tank_235 {
+    top: 27%;
+ 	left: 28.3%;
+    width: 4.7%;
+    height: 20%;
+}
+
+.Floor_5 > .__tank_236 {
+    top: 5.2%;
+    left: 34.2%;
+    width: 4.7%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_237 {
+    top: 5.2%;
+    left: 39.1%;
+    width: 4.7%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_238 {
+    top: 27%;
+	left: 34.2%;
+    width: 4.7%;
+    height: 20%;
+}
+
+.Floor_5 > .__tank_239 {
+    top: 27%;
+ 	left: 39.1%;
+    width: 4.7%;
+    height: 20%;
+}
+
+.Floor_5 > .__tank_240 {
+    top: 27%;
+	left: 45.2%;
+    width: 4.7%;
+    height: 20%;
+}
+
+.Floor_5 > .__tank_241 {
+    top: 27%;
+ 	left: 50.1%;
+    width: 4.7%;
+    height: 20%;
+}
+
+.Floor_5 > .__tank_242 {
+    top: 27%;
+	left: 56.1%;
+    width: 4.7%;
+    height: 20%;
+}
+
+.Floor_5 > .__tank_243 {
+    top: 27%;
+ 	left: 61%;
+    width: 4.7%;
+    height: 20%;
+}
+
+.Floor_5 > .__tank_244 {
+    top: 27%;
+	left: 67%;
+    width: 4.7%;
+    height: 20%;
+}
+
+.Floor_5 > .__tank_245 {
+    top: 27%;
+ 	left: 71.9%;
+    width: 4.7%;
+    height: 20%;
+}
+
+.Floor_5 > .__tank_246 {
+    top: 27%;
+	left: 78%;
+    width: 4.7%;
+    height: 20%;
+}
+
+.Floor_5 > .__tank_247 {
+    top: 27%;
+ 	left: 82.9%;
+    width: 4.7%;
+    height: 20%;
+}
+
+.Floor_5 > .__tank_248 {
+    top: 5.2%;
+    left: 88.8%;
+    width: 4.7%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_249 {
+    top: 5.2%;
+    left: 93.7%;
+    width: 4.7%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_250 {
+    top: 27%;
+    left: 88.8%;
+    width: 4.7%;
+    height: 20%;
+}
+
+.Floor_5 > .__tank_251 {
+    top: 27%;
+    left: 93.7%;
+    width: 4.7%;
+    height: 20%;
+}
+
+/*-----------------------------------*/
+
+.Floor_5 > .__tank_252 {
+    top: 53.2%;
+    left: 1.5%;
+    width: 11%;
+    height: 41%;
+}
+
+.Floor_5 > .__tank_253 {
+    top: 53.2%;
+    left: 14%;
+    width: 11%;
+    height: 41%;
+}
+
+
+.Floor_5 > .__tank_254 {
+    top: 53.2%;
+    left: 26.3%;
+    width: 11%;
+    height: 41%;
+}
+
+.Floor_5 > .__tank_255 {
+    top: 53.2%;
+    left: 38.4%;
+    width: 11%;
+    height: 41%;
+}
+
+.Floor_5 > .__tank_256 {
+    top: 53.2%;
+    left: 50.8%;
+    width: 11%;
+    height: 41%;
+}
+
+.Floor_5 > .__tank_257 {
+    top: 53.2%;
+    left: 63.1%;
+    width: 11%;
+    height: 41%;
+}
+
+.Floor_5 > .__tank_258 {
+    top: 53.2%;
+    left: 75.6%;
+    width: 11%;
+    height: 41%;
+}
+
+.Floor_5 > .__tank_259 {
+    top: 53.2%;
+    left: 87.8%;
+    width: 11%;
+    height: 41%;
+}
+
+.Floor_5 > .__tank_260 {
+    top: 5.2%;
+    left: 1.5%;
+    width: 5.6%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_261 {
+    top: 5.2%;
+    left: 7.3%;
+	width: 5.3%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_262 {
+    top: 27%;
+    left: 1.5%;
+    width: 5.6%;
+	height: 19.5%;
+}
+
+.Floor_5 > .__tank_263 {
+    top: 27%;
+    left: 7.3%;
+	width: 5.3%;
+	height: 19.5%;
+}
+
+.Floor_5 > .__tank_264 {
+    top: 5.2%;
+    left: 14%;
+    width: 5.5%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_265 {
+    top: 5.2%;
+    left: 19.6%;
+	width: 5.5%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_266 {
+    top: 27%;
+    left: 14%;
+    width: 5.5%;
+	height: 19.5%;
+}
+
+.Floor_5 > .__tank_267 {
+    top: 27%;
+    left: 19.6%;
+	width: 5.5%;
+	height: 19.5%;
+}
+
+.Floor_5 > .__tank_268 {
+    top: 5.2%;
+    left: 26.3%;
+    width: 5.5%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_269 {
+    top: 5.2%;
+    left: 31.9%;
+	width: 5.4%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_270 {
+    top: 27%;
+    left: 26.3%;
+    width: 5.5%;
+	height: 19.5%;
+}
+
+.Floor_5 > .__tank_271 {
+    top: 27%;
+	left: 31.9%;
+	width: 5.4%;
+	height: 19.5%;
+}
+
+.Floor_5 > .__tank_272 {
+    top: 27%;
+    left: 38.4%;
+    width: 5.5%;
+	height: 19.5%;
+}
+
+.Floor_5 > .__tank_273 {
+    top: 27%;
+    left: 44%;
+	width: 5.4%;
+	height: 19.5%;
+}
+
+.Floor_5 > .__tank_274 {
+    top: 27%;
+    left: 50.8%;
+    width: 5.5%;
+	height: 19.5%;
+}
+
+.Floor_5 > .__tank_275 {
+    top: 27%;
+    left: 56.4%;
+	width: 5.4%;
+	height: 19.5%;
+}
+
+.Floor_5 > .__tank_276 {
+    top: 27%;
+    left: 63.1%;
+    width: 5.4%;
+	height: 19.5%;
+}
+
+.Floor_5 > .__tank_277 {
+    top: 27%;
+    left: 68.7%;
+	width: 5.4%;
+	height: 19.5%;
+}
+
+.Floor_5 > .__tank_278 {
+    top: 5.2%;
+    left: 75.6%;
+    width: 5.5%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_279 {
+    top: 5.2%;
+    left: 81.2%;
+	width: 5.4%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_280 {
+    top: 27%;
+    left: 75.6%;
+    width: 5.5%;
+	height: 19.5%;
+}
+
+.Floor_5 > .__tank_281 {
+    top: 27%;
+    left: 81.2%;
+	width: 5.4%;
+	height: 19.5%;
+}
+
+.Floor_5 > .__tank_282 {
+    top: 5.2%;
+    left: 87.8%;
+    width: 5.5%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_283 {
+    top: 5.2%;
+    left: 93.4%;
+	width: 5.4%;
+    height: 20.5%;
+}
+
+.Floor_5 > .__tank_284 {
+    top: 27%;
+    left: 87.8%;
+    width: 5.5%;
+	height: 19.5%;
+}
+
+.Floor_5 > .__tank_285 {
+    top: 27%;
+    left: 93.4%;
+	width: 5.4%;
+	height: 19.5%;
+}
+
+/*-----------------------------------*/
+
+.Floor_5 > .__tank_191 {
+	top: 76.2%;
+    left: 2.8%;
+    width: 21.6%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_192 {
+	top: 76.2%;
+    left: 27.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_193 {
+	top: 87.2%;
+    left: 27.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_194 {
+	top: 76.2%;
+    left: 62.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_195 {
+	top: 87.2%;
+    left: 62.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_196 {
+	top: 76.2%;
+    left: 76.2%;
+    width: 21.6%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_197 {
+    top: 51.7%;
+    left: 2.8%;
+    width: 21.6%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_198 {
+    top: 51.7%;
+    left: 27.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_199 {
+    top: 62.7%;
+    left: 27.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_200 {
+    top: 51.7%;
+    left: 62.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_201 {
+    top: 62.7%;
+    left: 62.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_202 {
+    top: 51.7%;
+    left: 76.2%;
+    width: 21.6%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_203 {
+    top: 27.3%;
+    left: 2.8%;
+    width: 21.6%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_204 {
+    top: 27.3%;
+    left: 27.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_205 {
+    top: 38.3%;
+    left: 27.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_206 {
+    top: 27.3%;
+    left: 62.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_207 {
+    top: 38.3%;
+    left: 62.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_208 {
+    top: 27.3%;
+    left: 76.2%;
+    width: 21.6%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_209 {
+    top: 3%;
+    left: 2.8%;
+    width: 21.6%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_210 {
+    top: 3%;
+    left: 27.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_211 {
+    top: 14%;
+    left: 27.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_212 {
+    top: 3%;
+    left: 62.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_213 {
+	top: 14%;
+    left: 62.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_214 {
+	top: 3%;
+    left: 76.2%;
+    width: 21.6%;
+    height: 20.8%;
+}
+
+/*-----------------------------------*/
+
+.Floor_5 > .__tank_135 {
+    top: 76%;
+    left: 0.6%;
+    width: 45.2%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_136 {
+    top: 76%;
+    left: 46.8%;
+    width: 20.9%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_137 {
+	top: 76%;
+    left: 68.7%;
+    width: 14.7%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_138 {
+	top: 51.7%;
+    left: 0.6%;
+    width: 55.2%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_139 {
+    top: 51.7%;
+    left: 56.8%;
+    width: 7.1%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_140 {
+    top: 51.7%;
+    left: 64.8%;
+    width: 14.7%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_141 {
+	top: 51.7%;
+    left: 80.4%;
+    width: 3%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_142 {
+	top: 27.2%;
+    left: 0.6%;
+    width: 45.2%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_143 {
+	top: 27.2%;
+    left: 46.8%;
+    width: 20.9%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_144 {
+	top: 27.2%;
+    left: 68.7%;
+    width: 14.7%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_145 {
+	top: 2.7%;
+    left: 0.6%;
+    width: 55.2%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_146 {
+    top: 2.7%;
+    left: 56.8%;
+    width: 7.1%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_147 {
+    top: 2.7%;
+    left: 64.8%;
+    width: 14.7%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_148 {
+	top: 2.7%;
+    left: 80.4%;
+    width: 3%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_149 {
+    top: 51.4%;
+    left: 84.4%;
+    width: 14.5%;
+    height: 45.6%;
+}
+
+.Floor_5 > .__tank_150 {
+    top: 2.7%;
+    left: 84.4%;
+    width: 14.5%;
+    height: 45%;
+}
+
+/*-----------------------------------*/
+
+.Floor_5 > .__tank_151 {
+	top: 76.2%;
+    left: 2.8%;
+    width: 21.6%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_152 {
+	top: 76.2%;
+    left: 27.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_153 {
+    top: 76.2%;
+    left: 38.9%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_154 {
+	top: 87.2%;
+    left: 27.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_155 {
+    top: 87.2%;
+    left: 38.9%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_156 {
+	top: 76.2%;
+    left: 51.7%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_157 {
+	top: 76.2%;
+    left: 62.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_158 {
+	top: 87.2%;
+    left: 51.7%;
+    width: 10.5%;
+    height: 9.8%
+}
+
+.Floor_5 > .__tank_159 {
+	top: 87.2%;
+    left: 62.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_160 {
+	top: 76.2%;
+    left: 76.2%;
+    width: 21.6%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_161 {
+    top: 51.7%;
+    left: 2.8%;
+    width: 21.6%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_162 {
+    top: 51.7%;
+    left: 27.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_163 {
+	top: 51.7%;
+    left: 38.9%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_164 {
+    top: 62.7%;
+    left: 27.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_165 {
+    top: 62.7%;
+    left: 38.9%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_166 {
+    top: 51.7%;
+    left: 51.7%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_167 {
+    top: 51.7%;
+    left: 62.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_168 {
+	top: 62.7%;
+    left: 51.7%;
+    width: 10.5%;
+    height: 9.8%
+}
+
+.Floor_5 > .__tank_169 {
+    top: 62.7%;
+    left: 62.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_170 {
+    top: 51.7%;
+    left: 76.2%;
+    width: 21.6%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_171 {
+    top: 27.3%;
+    left: 2.8%;
+    width: 21.6%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_172 {
+    top: 27.3%;
+    left: 27.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_173 {
+    top: 27.3%;
+    left: 38.9%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_174 {
+    top: 38.3%;
+    left: 27.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_175 {
+    top: 38.3%;
+    left: 38.9%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_176 {
+    top: 27.3%;
+    left: 51.7%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_177 {
+    top: 27.3%;
+    left: 62.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_178 {
+    top: 38.3%;
+    left: 51.7%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_179 {
+    top: 38.3%;
+    left: 62.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_180 {
+    top: 27.3%;
+    left: 76.2%;
+    width: 21.6%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_181 {
+    top: 3%;
+    left: 2.8%;
+    width: 21.6%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_182 {
+    top: 3%;
+    left: 27.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_183 {
+    top: 3%;
+    left: 38.9%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_184 {
+    top: 14%;
+    left: 27.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_185 {
+    top: 14%;
+    left: 38.9%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_186 {
+    top: 3%;
+    left: 51.7%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_187 {
+    top: 3%;
+    left: 62.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_188 {
+	top: 14%;
+    left: 51.7%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_189 {
+	top: 14%;
+    left: 62.8%;
+    width: 10.6%;
+    height: 9.8%;
+}
+
+.Floor_5 > .__tank_190 {
+	top: 3%;
+    left: 76.2%;
+    width: 21.6%;
+    height: 20.8%;
+}
+
+/*-----------------------------------*/
+
+.Floor_5 > .__tank_119 {
+    top: 76%;
+    left: 0.6%;
+    width: 45.2%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_120 {
+    top: 76%;
+    left: 46.8%;
+    width: 20.9%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_121 {
+	top: 76%;
+    left: 68.7%;
+    width: 14.7%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_122 {
+	top: 51.7%;
+    left: 0.6%;
+    width: 55.2%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_123 {
+    top: 51.7%;
+    left: 56.8%;
+    width: 7.1%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_124 {
+    top: 51.7%;
+    left: 64.8%;
+    width: 14.7%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_125 {
+	top: 51.7%;
+    left: 80.4%;
+    width: 3%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_126 {
+	top: 27.2%;
+    left: 0.6%;
+    width: 45.2%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_127 {
+	top: 27.2%;
+    left: 46.8%;
+    width: 20.9%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_128 {
+	top: 27.2%;
+    left: 68.7%;
+    width: 14.7%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_129 {
+	top: 2.7%;
+    left: 0.6%;
+    width: 55.2%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_130 {
+    top: 2.7%;
+    left: 56.8%;
+    width: 7.1%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_131 {
+    top: 2.7%;
+    left: 64.8%;
+    width: 14.7%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_132 {
+	top: 2.7%;
+    left: 80.4%;
+    width: 3%;
+    height: 20.8%;
+}
+
+.Floor_5 > .__tank_133 {
+    top: 51.4%;
+    left: 84.4%;
+    width: 14.5%;
+    height: 45.6%;
+}
+
+.Floor_5 > .__tank_134 {
+    top: 2.7%;
+    left: 84.4%;
+    width: 14.5%;
+    height: 45%;
+}
+
+
