@@ -29,6 +29,9 @@
     
     	<intercept-url pattern="/gsil" access="isAuthenticated()" /> 
     	
+    	<!-- QR Login -->
+    	<intercept-url pattern="/qrAttend/**" access="permitAll" />
+    	
     	<!-- login -->
       	<intercept-url pattern="/m_login" access="permitAll" />  
         <intercept-url pattern="/login" access="permitAll" />     

@@ -81,7 +81,7 @@ public class WorkerController {
 	}
 	
 	@RequestMapping(value = {"/registerWorker"})	
-	public void registerWorker(@RequestParam(value="id",defaultValue="0")int id,
+	public String registerWorker(@RequestParam(value="id",defaultValue="0")int id,
 		HttpServletRequest request, Model model, HttpSession session) {
 		
 		WorkerVO workerVO = null;		
@@ -106,7 +106,8 @@ public class WorkerController {
 		model.addAttribute("contList", contList);
 		model.addAttribute("workerVO", workerVO);
 		model.addAttribute("wtypeList", wtypeList);
-		session.setAttribute("contentView", "menu_record");//TODO: change workerList
+		session.setAttribute("contentView", "menu_record");
+		return "register_worker";
 	}
 	
 	@RequestMapping(value = "insertWorker")
@@ -133,7 +134,7 @@ public class WorkerController {
 			return "registerWorker";
 		}
 		else{//성공시 list로 이동
-			return "redirect:recordList";
+			return "redirect:menu_record";
 		}
 	}
 	
@@ -161,7 +162,7 @@ public class WorkerController {
 		}
 		else{
 			//성공시 list로 이동
-			return "redirect:recordList";
+			return "redirect:menu_record";
 		}
 	}
 	
@@ -278,7 +279,7 @@ public class WorkerController {
 		HttpServletRequest request) {
 		UserVO userInfo = (UserVO) session.getAttribute("userLoginInfo");
 		workerService.deleteWorker(userInfo.getSite_id(), id);
-		return "redirect:recordList";		
+		return "redirect:menu_record";		
 	}
 	
 	@RequestMapping(value = "/json/uploadWorkerImage")
@@ -343,8 +344,8 @@ public class WorkerController {
 		}
 	}
 	
-	@RequestMapping(value = { "/excel_worker" })
-	public String excel_worker(HttpSession session, Model model) 
+	@RequestMapping(value = { "/registerWorkerExcel" })
+	public String registerWorkerExcel(HttpSession session, Model model) 
 		throws Exception 
 	{
 		WorkerVO workerVO = null;		
@@ -361,6 +362,6 @@ public class WorkerController {
 		model.addAttribute("workerVO", workerVO);
 		model.addAttribute("wtypeList", wtypeList);
 		
-		return "etc/excel_worker";
+		return "excel/registerWorkerExcel";
 	}
 }

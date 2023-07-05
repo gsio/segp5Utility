@@ -38,7 +38,7 @@
 
 		var isLogin = '${sessionScope.isLogin}';
 		if (isLogin) {
-			location.href = "recordList";
+			location.href = "menu_record";
 		}
 	});
 

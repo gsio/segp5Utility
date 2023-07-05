@@ -29,8 +29,7 @@
    	</select>  
   
 	<select id="getUserList" resultType="UserVO" parameterType="UserVO">
-		SELECT U.*, C.NAME AS cont_name, C.TYPE AS cont_type, R.NAME AS role_name,
-			(SELECT IDX FROM BEACON WHERE U_ID = U.ID AND role = 1 LIMIT 0, 1) AS beacon_idx
+		SELECT U.*, C.NAME AS cont_name, C.TYPE AS cont_type, R.NAME AS role_name
 		FROM USER U
 			JOIN CONTRACTOR C     
 			ON U.CONT_ID = C.ID

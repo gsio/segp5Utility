@@ -98,7 +98,7 @@ public class UserController {
 	}
 		
 	@RequestMapping(value = {"/registerUser"})
-	public void registerUser(@RequestParam(value="u_id",required=false)String u_id,
+	public String registerUser(@RequestParam(value="u_id",required=false)String u_id,
 		@RequestParam(value="tar_site_id",required=false)int tar_site_id,
 		HttpServletRequest request, Model model, HttpSession session) {
 		UserVO userVO;		
@@ -127,7 +127,8 @@ public class UserController {
 		}
 		
 		model.addAttribute("userVO", userVO);
-		session.setAttribute("contentView", "userList_renewal");
+		session.setAttribute("contentView", "menu_user");
+		return "register_user";
 	}
 	
 	@RequestMapping(value = "insertUser")
@@ -158,16 +159,12 @@ public class UserController {
 		if(hasError) {//에러 발생시 왔던 주소로 되돌아감
 			//error발생시 되돌아가더라도 insertMode상태 유지위함
 			model.addAttribute("updateMode", false);		
-			return "registerUser";
-			
-		}else{//성공시 list로 이동
-			return"redirect:userList_renewal?site_id=" + userVO.getSite_id();
+			return "registerUser";			
 		}
-		
-	}
-
-
-	
+		else{//성공시 list로 이동
+			return"redirect:menu_user?site_id=" + userVO.getSite_id();
+		}		
+	}	
 	
 	@RequestMapping(value = "updateUser")
 	public String updateUser(HttpSession session, @ModelAttribute @Valid UserVO userVO, BindingResult bindingResult, Model model, HttpServletRequest request) {
@@ -200,7 +197,7 @@ public class UserController {
 			
 		}
 		else{//성공시 list로 이동
-			return"redirect:userList_renewal?site_id=" + userVO.getSite_id();
+			return"redirect:menu_user?site_id=" + userVO.getSite_id();
 		}
 	}
 	
@@ -226,7 +223,7 @@ public class UserController {
 			return "registerUser";
 			
 		}else{//성공시 list로 이동
-			return"redirect:userList_renewal?site_id=" + userVO.getSite_id();
+			return"redirect:menu_user?site_id=" + userVO.getSite_id();
 		}
 	}	
 

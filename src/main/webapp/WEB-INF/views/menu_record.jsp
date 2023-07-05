@@ -293,7 +293,7 @@
 
 	<div class="content_selete_box content-item">
 		<form id="searchForm" class="form-contractor"
-			action="recordList" method="POST" autocomplete="off">
+			action="menu_record" method="POST" autocomplete="off">
 			<c:if test="${sessionScope.userLoginInfo.cont_type == 0}">
 				<span class="select-title">업체:</span>
 				<select id="search_cont_id" name="cont_id"
@@ -593,7 +593,7 @@
 		<input id="print_cont_id" type="hidden" name="cont_id" />
 	</form>
 	<form id="registerForm" action="registerWorker" method="POST"></form>
-	<form id="excelForm" action="excel_worker" method="POST"></form>
+	<form id="excelForm" action="registerWorkerExcel" method="POST"></form>
 	<form id="deleteForm" action="deleteWorker" method="POST">
 		<input id="d_id" type="hidden" name="id" />
 	</form>

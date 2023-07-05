@@ -87,7 +87,7 @@ public class MenuController {
 	private DeviceService deviceService;
 	
 	// Menu - 근로자 관리
-	@RequestMapping(value = {"/recordList"})
+	@RequestMapping(value = {"/menu_record"})
 	public String recordList(HttpSession session, Model model,
 		@RequestParam(value="cont_id", defaultValue="-1")int tar_cont_id) 
 	{	
@@ -120,7 +120,7 @@ public class MenuController {
 	}
 	
 	// Menu - 관리자 관리
-	@RequestMapping(value = {"/userList"})
+	@RequestMapping(value = {"/menu_user"})
 	public String userList(HttpSession session , Model model,
 		@RequestParam(value="cont_id", defaultValue="-1")int tar_cont_id) 
 	{
@@ -156,7 +156,7 @@ public class MenuController {
 	}
 
 	// Menu - 업체 관리
-	@RequestMapping(value = {"/contList"})
+	@RequestMapping(value = {"/menu_contractor"})
 	public String contList(HttpSession session, Model model,
 		@RequestParam(value="site_id", defaultValue="-1") int site_id)
 	{		
@@ -177,7 +177,7 @@ public class MenuController {
 	}
 	
 	// Menu - 공지사항
-	@RequestMapping(value = {"/noticeList"})
+	@RequestMapping(value = {"/menu_notice"})
 	public String noticeList(HttpSession session , Model model,
 		@RequestParam(value="cont_id", defaultValue="-1")int tar_cont_id)
 	{
@@ -208,8 +208,8 @@ public class MenuController {
 		model.addAttribute("tar_cont_id", tar_cont_id);
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("contList", contList);		
-		session.setAttribute("contentView", "noticeList");		
-		return "noticeList";
+		session.setAttribute("contentView", "menu_notice");		
+		return "menu_notice";
 	}
 	
 	// Menu - 환경센서 로그

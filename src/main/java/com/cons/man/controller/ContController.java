@@ -61,7 +61,7 @@ public class ContController {
 		}		
 		model.addAttribute("cont", contVO);
 		model.addAttribute("sList", list);
-		session.setAttribute("contentView", "contList_renewal");
+		session.setAttribute("contentView", "menu_contractor");
 		return "registerCont";
 	}
 	
@@ -77,7 +77,7 @@ public class ContController {
 				e.printStackTrace();
 				return "registerCont";
 			}			
-			return "redirect:contList_renewal?site_id=" + cont.getSite_id();
+			return "redirect:menu_contractor?site_id=" + cont.getSite_id();
 		}		
 	}
 	
@@ -94,7 +94,7 @@ public class ContController {
 				e.printStackTrace();
 				return "registerCont";
 			}
-			return "redirect:contList_renewal?site_id=" + cont.getSite_id();
+			return "redirect:menu_contractor?site_id=" + cont.getSite_id();
 		}		
 	}
 	
@@ -116,7 +116,7 @@ public class ContController {
 			model.addAttribute("updateMode", true);		
 			return "registerCont";			
 		}else{
-			return"redirect:contList_renewal?site_id=" + cont.getSite_id();
+			return"redirect:menu_contractor?site_id=" + cont.getSite_id();
 		}
 	}
 }

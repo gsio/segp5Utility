@@ -217,7 +217,7 @@ function loadingTemplate() {
 	</div>
 	
 	<div class="content_selete_box content-item">
-		<form id="searchForm" class="form-contractor" action="recordList" method="POST" autocomplete="off" > 
+		<form id="searchForm" class="form-contractor" action="menu_record" method="POST" autocomplete="off" > 
 			<span class="select-title">업체:</span>
 			<select id="search_cont" name="cont_id" class="form-control select-content" onchange="changeCont()"></select>
 		</form> 

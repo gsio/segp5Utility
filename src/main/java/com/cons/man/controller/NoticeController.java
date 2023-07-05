@@ -52,29 +52,21 @@ public class NoticeController {
 	
 	@RequestMapping(value = {"/registerNotice"})
 	public String registerNotice(HttpSession session , Model model,		
-		@RequestParam(value="id", required=false, defaultValue="-1")int id) {
-		
-		//System.out.println("[Api] (Notice) > registerNotice - id: " + id + " 번 Notice 입력/수정 하기");
-		
-		
-		NoticeVO notice = new NoticeVO();
-		
+		@RequestParam(value="id", required=false, defaultValue="-1")int id) {				
+		NoticeVO notice = new NoticeVO();		
 		// INSERT
 		if (id < 0) {			
 			model.addAttribute("update", false);
-		} 
-		
+		}
 		// UPDATE
 		else {	
 			notice = noticeService.getNoticeInfo(id);		
 			model.addAttribute("update", true);
-		}
-		
+		}		
 		model.addAttribute("noticeVO", notice);
 		model.addAttribute("noticeId", id);
-		session.setAttribute("contentView", "noticeList");
-		
-		return "registerNotice";		
+		session.setAttribute("contentView", "menu_notice");		
+		return "register_notice";		
 	}
 	
 	@RequestMapping(value = {"/noticeView"})
@@ -97,8 +89,8 @@ public class NoticeController {
 		NoticeVO noticeVO = noticeService.getNoticeInfo(id);
 		
 		model.addAttribute("noticeVO", noticeVO);
-		session.setAttribute("contentView", "noticeList");		
-		return "noticeView";
+		session.setAttribute("contentView", "menu_notice");		
+		return "detail_notice";
 	}
 	
 	@RequestMapping(value = "/insertComment", method = RequestMethod.POST)
@@ -139,7 +131,7 @@ public class NoticeController {
 			model.addAttribute("update", true);
 			return "registerNotice";
 		} else {
-			return "redirect:noticeList";
+			return "redirect:menu_notice";
 		}
 	}
 	
@@ -174,7 +166,7 @@ public class NoticeController {
 			return "registerNotice";
 		}
 		else {
-			return "redirect:noticeList";
+			return "redirect:menu_notice";
 		}
 	}
 	
@@ -202,13 +194,13 @@ public class NoticeController {
 			return "registerNotice";
 		} 
 		else {
-			return "redirect:noticeList";
+			return "redirect:menu_notice";
 		}
 	}
 	
 	@RequestMapping(value = "/returnNotice")
 	public String returnNotice(HttpSession session) {		
-		return "redirect:noticeList";		
+		return "redirect:menu_notice";		
 	}
 	
 	@RequestMapping(value = "/notice/delete/comment")

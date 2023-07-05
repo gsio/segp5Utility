@@ -1,4 +1,4 @@
-<%@ include file="../IncludeTop_renewal.jsp"%>
+<%@ include file="../IncludeTop.jsp"%>
 <%@ page pageEncoding="utf-8"%>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.js"></script>

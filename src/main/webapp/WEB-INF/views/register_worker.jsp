@@ -59,18 +59,18 @@ function checkDetail(){
 		   		else{
 		   			
 			  	}
-		   }
+			}
 		   
-		   var jumin =	$('#worker_jumin_' + id).val();		   
-		   if(jumin.length < 6){
+			var jumin =	$('#worker_jumin_' + id).val();		   
+			if(jumin.length < 6){
 			   isOk = false;
 			   $('#worker_jumin_' + id).css('border','1px solid red');
-		   }
-		   else{			 
-			   $('#worker_jumin_' + id).css('border','1px solid #cccccc');
-		   }
+			}
+			else {			 
+				$('#worker_jumin_' + id).css('border','1px solid #cccccc');
+			}
 		   
-		   var edu_date = $('#worker_edudate_' + id).val();
+			var edu_date = $('#worker_edudate_' + id).val();
 		   
 			// 입력안할경우 패스
 			if(edu_date.length > 0){
@@ -171,19 +171,18 @@ function changeForeign(id){
 </script>
 
 <style>
-
 #content-wrapper .content-item {
-    margin: 10px 0;
+	margin: 10px 0;
 }
 
 .content_selete_box {
 	display: flex;
-   	height: 100%;
+	height: 100%;
 }
 
 .table-container {
-    margin-bottom: 20px;
-    overflow-x: scroll;
+	margin-bottom: 20px;
+	overflow-x: scroll;
 }
 
 #content-wrapper #regWorkerTable {
@@ -192,13 +191,13 @@ function changeForeign(id){
 
 #content-wrapper .reg-table th {
 	font-size: 0.9em;
-    min-width: 150px;
-    background: white;
-    color: #666
+	min-width: 150px;
+	background: white;
+	color: #666
 }
 
 #content-wrapper .reg-table td {
-    text-align: center;
+	text-align: center;
 }
 
 #content-wrapper .reg-table th.required {
@@ -211,22 +210,21 @@ function changeForeign(id){
 	font-size: 0.9em;
 }
 
-#content-wrapper .reg-table td select{
-    width: 100%;
-    height: 40px;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    margin-bottom: 0 !important;
-    border: 1px solid #ced4da;
-    text-align: right;
-    padding-right: 5px;
-    color: #666;
+#content-wrapper .reg-table td select {
+	width: 100%;
+	height: 40px;
+	border-radius: 0.25rem;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	margin-bottom: 0 !important;
+	border: 1px solid #ced4da;
+	text-align: right;
+	padding-right: 5px;
+	color: #666;
 }
 
 #regWorkerMobile {
-    width: 100% !important;
+	width: 100% !important;
 }
-
 
 @media ( min-width : 992px) {
 	.mobile-reg-box {
@@ -236,301 +234,318 @@ function changeForeign(id){
 		display: block !important;
 	}
 }
-	
-	
+
 @media ( max-width : 991px) {
 	.mobile-reg-box {
 		display: block !important;
-	}	
+	}
 	.web-reg-box {
 		display: none !important;
 	}
 }
 
-.fixed-table-body::-webkit-scrollbar {    
-    height: 10px;
-    background: #C1C1C1;
+.fixed-table-body::-webkit-scrollbar {
+	height: 10px;
+	background: #C1C1C1;
 }
 
 .content_selete_box {
 	height: 40px;
 }
-
 </style>
 
-<form:form id="workerForm" action="insertWorker" class="form-horizontal" method="POST" enctype="multipart/form-data" modelAttribute="workerVO" autocomplete="off">
+<form:form id="workerForm" action="insertWorker" class="form-horizontal"
+	method="POST" enctype="multipart/form-data" modelAttribute="workerVO"
+	autocomplete="off">
 
-<div id="content-wrapper">
-	<div id="content_title" class="content-item">근로자 등록</div>
-	<form:input path="site_id" style="display:none"></form:input>
-		
-	<div class="content_button_box content-item" >
-		<div class="btn btn-danger" onclick="history.back(-1)"><i class="fa-solid fa-arrow-rotate-left"></i> 뒤로</div>
-		<div class="btn btn-default" onclick="submitWorker()"><i class="fa-regular fa-registered"></i> 등록</div>
-	</div>
-	
-	<div class="content_selete_box content-item">
-		<c:choose>
-		<c:when test="${sessionScope.userLoginInfo.cont_type == 0}"> 		      
-			<span class="select-title">업체:</span>
-			<form:select path="cont_id" class="form-control select-content">
-				<c:forEach var="cont" items="${contList}" varStatus="idx">
-				<form:option value="${cont.id}">${cont.name}</form:option>
-				</c:forEach>	  
-			</form:select>
-		</c:when>
-		<c:otherwise>
-			<span class="select-title">업체:</span> 	
-			<form:select path="cont_id" class="form-control select-content">				
-				<form:option value="${sessionScope.userLoginInfo.cont_id}">${sessionScope.userLoginInfo.cont_name}</form:option>
-			</form:select>
-			<input id="cont_id" type="hidden" name="cont_id" value="${sessionScope.userLoginInfo.cont_id}"/>
-		</c:otherwise>	
-		</c:choose>
-	</div>
-		
-	<div class="content_table_box content-item">	
-	
-		<div class="mobile-reg-box table-container" >
-	   		<table id="regWorkerMobile"	 			
-				class="reg-table table table-bordered col-xs-12 table-hover">
-				<tr>
-					<th class="text-center required">성 명</th>
-					<td>
-						<form:input id="worker_name_10" path="workerList[10].name" class="form-control" style="cursor:pointer; text-align:center;" placeholder="ex) 홍길동" />
-					</td>
-				</tr>
-				<tr>
-					<th class="text-center required">주민번호 앞6자리</th>
-					<td> 
-						<form:input id="worker_jumin_10"  path="workerList[10].jumin" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' 
-		   					maxlength="6" class="form-control" style="cursor:pointer; text-align:center;" placeholder="ex) 900101" />
-					</td>
-	   			</tr>
-	   			<tr>
-					<th class="text-center">성별</th>
-					<td>
-						<form:select path="workerList[10].jumin_back" >
-		   					<form:option value="1">남</form:option>
-		   					<form:option value="2">여</form:option>		   				
-						</form:select>
-					</td>
-	   			</tr>
-				<tr>
-					<th class="text-center required">채용일</th>
-					<td>
-						<form:input id="worker_hiredate_10" path="workerList[10].hiredate" class="hiredate form-control" 
-		   					style="cursor:pointer;text-align:center;" placeholder="ex) 2022-10-01" />
-					</td>
-				</tr>
-			    <tr>
-					<th class="text-center required">핸드폰번호</th>
-					<td>
-		   				<form:input id="worker_phone_10" path="workerList[10].phone"
-		   					onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' maxlength="12"
-		   					class="form-control" style="cursor:pointer;text-align:center;" placeholder="ex) 01012345678" />
-					</td>	
-				</tr>
-				<tr>
-					<th class="text-center">외국인여부</th>
-					<td> 
-						<form:select id="worker_gubun_10" path="workerList[10].gubun" onchange="changeForeign('10')">
-							<form:option value="0">해당없음</form:option>
-				   			<form:option value="1">해당</form:option>
-						</form:select>
-					</td>
-				</tr>
-				<tr>
-					<th class="text-center">여권번호(외국인)</th>
-					<td>
-						<form:input id="worker_passno_10" path="workerList[10].passno" class="form-control" 
-							style="display:none; ecursor:pointer;text-align:center;" placeholder="ex) N0000000" />
-					</td> 
-				</tr>
-				<tr>
-					<th class="text-center">국적(외국인)</th>
-					<td>
-						<form:input id="worker_country_10"  path="workerList[10].country" class="form-control"
-						 	style="display:none; cursor:pointer; text-align:center;" placeholder="ex) 중국"/>
-					</td>	
-				</tr>
-				<tr>
-					<th class="text-center">신규교육일자</th>
-					<td>
-						<form:input id="worker_edudate_10" path="workerList[10].edudate"  class="edudate form-control" 
-							style="cursor:pointer; text-align:center;" placeholder="ex) 2022-10-01" />
-					</td>
-				</tr>
-				<tr>
-					<th class="text-center">밀폐교육(1차)</th>
-					<td>
-		   				<form:input id="worker_sealed_date1_10" path="workerList[10].sealed_date1" class="sealed_date form-control" 
-		   					style="cursor:pointer; text-align:center;" placeholder="ex) 2022-10-01" />
-					</td>
-				</tr>
-				<tr>
-					<th class="text-center">밀폐교육(2차)</th>
-					<td>
-		   				<form:input id="worker_sealed_date2_10" path="workerList[10].sealed_date2" class="sealed_date form-control" 
-		   					style="cursor:pointer; text-align:center;" placeholder="ex) 2022-10-01" />
-					</td>
-				</tr>
-				<tr>
-					<th class="text-center">밀폐교육(3차)</th>
-					<td>
-		   				<form:input id="worker_sealed_date3_10" path="workerList[10].sealed_date3" class="sealed_date form-control" 
-		   					style="cursor:pointer; text-align:center;" placeholder="ex) 2022-10-01" />
-					</td>
-				</tr>
-				<tr>
-					<th class="text-center">밀폐교육(4차)</th>
-					<td>
-		   				<form:input id="worker_sealed_date4_10" path="workerList[10].sealed_date4" class="sealed_date form-control" 
-		   					style="cursor:pointer; text-align:center;" placeholder="ex) 2022-10-01" />
-					</td>
-				</tr>
-				<tr>
-					<th class="text-center">직종</th>
-					<td>
-						<form:select path="workerList[10].t_id" >
-							<c:forEach var="wtype" items="${wtypeList}" varStatus="idx">
-							<c:if test="${idx.index == 0}">
-   				 	 			<form:option value="${wtype.id}" selected="selected">${wtype.t_name}</form:option>
-   				 	 		</c:if>
-   				 	 		<c:if test="${idx.index != 0}">
-   				 	 			<form:option value="${wtype.id}" >${wtype.t_name}</form:option>
-   				 	 		</c:if>										
-							</c:forEach>
-						</form:select>
-		   			</td>
-				</tr>
-			    <tr>
-					<th class="text-center">사 진</th>
-					<td>
-						<form:input type="file" id="filename1" class="upfile-image form-control" path='workerList[10].eduimage_file'
-							 style="min-width: 250px; font-size: 0.8em;" /> 
-					</td>
-				</tr>
-				<tr>
-					<th class="text-center">혈액형(선택사항)</th>
-			    	<td>		   				 
-						<form:select path="workerList[10].btype" >
-							<form:option value="">-미선택-</form:option>
-		   				 	<form:option value="A">A</form:option>
-		   				 	<form:option value="B">B</form:option>
-		   				 	<form:option value="O">O</form:option>
-		   				 	<form:option value="AB">AB</form:option> 
-		   				</form:select>
-		   			</td>
-				</tr>
-			</table>
-		</div>		
+	<div id="content-wrapper">
+		<div id="content_title" class="content-item">근로자 등록</div>
+		<form:input path="site_id" style="display:none"></form:input>
 
-		<div class="web-reg-box table-container">
-			<table id="regWorkerTable" data-toggle="table" data-search="false" data-pagination="false"				
-				class="reg-table table table-bordered col-xs-12 table-hover">	
-				<thead>	
+		<div class="content_button_box content-item">
+			<div class="btn btn-danger" onclick="history.back(-1)">
+				<i class="fa-solid fa-arrow-rotate-left"></i> 뒤로
+			</div>
+			<div class="btn btn-default" onclick="submitWorker()">
+				<i class="fa-regular fa-registered"></i> 등록
+			</div>
+		</div>
+
+		<div class="content_selete_box content-item">
+			<c:choose>
+				<c:when test="${sessionScope.userLoginInfo.cont_type == 0}">
+					<span class="select-title">업체:</span>
+					<form:select path="cont_id" class="form-control select-content">
+						<c:forEach var="cont" items="${contList}" varStatus="idx">
+							<form:option value="${cont.id}">${cont.name}</form:option>
+						</c:forEach>
+					</form:select>
+				</c:when>
+				<c:otherwise>
+					<span class="select-title">업체:</span>
+					<form:select path="cont_id" class="form-control select-content">
+						<form:option value="${sessionScope.userLoginInfo.cont_id}">${sessionScope.userLoginInfo.cont_name}</form:option>
+					</form:select>
+					<input id="cont_id" type="hidden" name="cont_id"
+						value="${sessionScope.userLoginInfo.cont_id}" />
+				</c:otherwise>
+			</c:choose>
+		</div>
+
+		<div class="content_table_box content-item">
+
+			<div class="mobile-reg-box table-container">
+				<table id="regWorkerMobile"
+					class="reg-table table table-bordered col-xs-12 table-hover">
 					<tr>
 						<th class="text-center required">성 명</th>
-		   				<th class="text-center required">주민번호 앞6자리</th>
-		   				<th class="text-center">성별</th>
-		   				<th class="text-center required">채용일</th>
-		   				<th class="text-center required">핸드폰번호</th>
-		   			   	<th class="text-center">외국인여부</th>
-						<th class="text-center">여권번호(외국인)</th>
-						<th class="text-center">국적(외국인)</th>
-		   				<th class="text-center">신규교육일자</th>
-		   				<th class="text-center" >밀폐교육(1차)</th>
-					    <th class="text-center" >밀폐교육(2차)</th>
-					    <th class="text-center" >밀폐교육(3차)</th>
-					    <th class="text-center" >밀폐교육(4차)</th>		   			   				
-		   				<th class="text-center">직 종</th>
-		   				<th class="text-center">근로자 사진</th>
-		   				<th class="text-center">혈액형(선택사항)</th>
+						<td><form:input id="worker_name_10"
+								path="workerList[10].name" class="form-control"
+								style="cursor:pointer; text-align:center;" placeholder="ex) 홍길동" />
+						</td>
 					</tr>
-		   		</thead>
-				<c:forEach begin="0" end="9"  varStatus="loop">
-				 	<tr>
-				 		<td>
-				 			<form:input id="worker_name_${loop.index}" path="workerList[${loop.index}].name" class="form-control" style="cursor:pointer;text-align:center;" placeholder="ex) 홍길동" />
-				 		</td>
-				 		<td> 
-		   					<form:input id="worker_jumin_${loop.index}"  path="workerList[${loop.index}].jumin" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' 
-		   						maxlength="6" class="form-control" style="cursor:pointer;text-align:center;" placeholder="ex) 900101" />
-		   				</td>
-		   				<td>
-		   					<form:select path="workerList[${loop.index}].jumin_back" >
-		   						<form:option value="1">남</form:option>
-		   						<form:option value="2">여</form:option>		   				
-		   				  	</form:select>
-		   				</td>
-		   				<td>
-		   					<form:input id="worker_hiredate_${loop.index}" path="workerList[${loop.index}].hiredate" class="hiredate form-control" 
-		   						style="cursor:pointer;text-align:center;" placeholder="ex) 2022-10-01" />
-		   				</td>
-		   				<td>
-		   					<form:input id="worker_phone_${loop.index}" path="workerList[${loop.index}].phone"
-		   						onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)' maxlength="12"
-		   						class="form-control" style="cursor:pointer;text-align:center;" placeholder="ex) 01012345678" />
-						</td>						
-						<td> 
-							<form:select id="worker_gubun_${loop.index}" path="workerList[${loop.index}].gubun" onchange="changeForeign('${loop.index}')">
+					<tr>
+						<th class="text-center required">주민번호 앞6자리</th>
+						<td><form:input id="worker_jumin_10"
+								path="workerList[10].jumin" onkeydown='return onlyNumber(event)'
+								onkeyup='removeChar(event)' maxlength="6" class="form-control"
+								style="cursor:pointer; text-align:center;"
+								placeholder="ex) 900101" /></td>
+					</tr>
+					<tr>
+						<th class="text-center">성별</th>
+						<td><form:select path="workerList[10].jumin_back">
+								<form:option value="1">남</form:option>
+								<form:option value="2">여</form:option>
+							</form:select></td>
+					</tr>
+					<tr>
+						<th class="text-center">채용일</th>
+						<td><form:input id="worker_hiredate_10"
+								path="workerList[10].hiredate" class="hiredate form-control"
+								style="cursor:pointer;text-align:center;"
+								placeholder="ex) 2022-10-01" /></td>
+					</tr>
+					<tr>
+						<th class="text-center required">핸드폰번호</th>
+						<td><form:input id="worker_phone_10"
+								path="workerList[10].phone" onkeydown='return onlyNumber(event)'
+								onkeyup='removeChar(event)' maxlength="12" class="form-control"
+								style="cursor:pointer;text-align:center;"
+								placeholder="ex) 01012345678" /></td>
+					</tr>
+					<tr>
+						<th class="text-center">외국인여부</th>
+						<td><form:select id="worker_gubun_10"
+								path="workerList[10].gubun" onchange="changeForeign('10')">
 								<form:option value="0">해당없음</form:option>
-			   					<form:option value="1">해당</form:option>
-							</form:select>
-						</td>
-			   			<td>
-			   				<form:input id="worker_passno_${loop.index}"  path="workerList[${loop.index}].passno"  class="form-control" style="display:none; ecursor:pointer;text-align:center;" placeholder="ex) N0000000" />
-						</td>
-						<td> 
-							<form:input id="worker_country_${loop.index}"  path="workerList[${loop.index}].country"  class="form-control" style="display:none;cursor:pointer;text-align:center;" placeholder="ex) 중국"/>
-						</td>				   			
-		   				<td>
-		   					<form:input id="worker_edudate_${loop.index}" path="workerList[${loop.index}].edudate"  class="edudate form-control" style="cursor:pointer;text-align:center;" placeholder="ex) 2022-10-01" />
-						</td>		   		    	
-		   				<td>
-		   					<form:input id="worker_sealed_date1_${loop.index}" path="workerList[${loop.index}].sealed_date1"  class="sealed_date form-control" style="cursor:pointer;text-align:center;" placeholder="ex) 2022-10-01" />
-						</td>
-		   				<td>
-		   					<form:input id="worker_sealed_date2_${loop.index}" path="workerList[${loop.index}].sealed_date2"  class="sealed_date form-control" style="cursor:pointer;text-align:center;" placeholder="ex) 2022-10-01" />
-						</td>
-		   				<td>
-		   					<form:input id="worker_sealed_date3_${loop.index}" path="workerList[${loop.index}].sealed_date3"  class="sealed_date form-control" style="cursor:pointer;text-align:center;" placeholder="ex) 2022-10-01" />
-						</td>
-		   				<td>
-		   					<form:input id="worker_sealed_date4_${loop.index}" path="workerList[${loop.index}].sealed_date4"  class="sealed_date form-control" style="cursor:pointer;text-align:center;" placeholder="ex) 2022-10-01" />
-	   					</td>		   			
-		   				<td>
-							<form:select path="workerList[${loop.index}].t_id" >
+								<form:option value="1">해당</form:option>
+							</form:select></td>
+					</tr>
+					<tr>
+						<th class="text-center">여권번호(외국인)</th>
+						<td><form:input id="worker_passno_10"
+								path="workerList[10].passno" class="form-control"
+								style="display:none; ecursor:pointer;text-align:center;"
+								placeholder="ex) N0000000" /></td>
+					</tr>
+					<tr>
+						<th class="text-center">국적(외국인)</th>
+						<td><form:input id="worker_country_10"
+								path="workerList[10].country" class="form-control"
+								style="display:none; cursor:pointer; text-align:center;"
+								placeholder="ex) 중국" /></td>
+					</tr>
+					<tr>
+						<th class="text-center">신규교육일자</th>
+						<td><form:input id="worker_edudate_10"
+								path="workerList[10].edudate" class="edudate form-control"
+								style="cursor:pointer; text-align:center;"
+								placeholder="ex) 2022-10-01" /></td>
+					</tr>
+					<tr>
+						<th class="text-center">밀폐교육(1차)</th>
+						<td><form:input id="worker_sealed_date1_10"
+								path="workerList[10].sealed_date1"
+								class="sealed_date form-control"
+								style="cursor:pointer; text-align:center;"
+								placeholder="ex) 2022-10-01" /></td>
+					</tr>
+					<tr>
+						<th class="text-center">밀폐교육(2차)</th>
+						<td><form:input id="worker_sealed_date2_10"
+								path="workerList[10].sealed_date2"
+								class="sealed_date form-control"
+								style="cursor:pointer; text-align:center;"
+								placeholder="ex) 2022-10-01" /></td>
+					</tr>
+					<tr>
+						<th class="text-center">밀폐교육(3차)</th>
+						<td><form:input id="worker_sealed_date3_10"
+								path="workerList[10].sealed_date3"
+								class="sealed_date form-control"
+								style="cursor:pointer; text-align:center;"
+								placeholder="ex) 2022-10-01" /></td>
+					</tr>
+					<tr>
+						<th class="text-center">밀폐교육(4차)</th>
+						<td><form:input id="worker_sealed_date4_10"
+								path="workerList[10].sealed_date4"
+								class="sealed_date form-control"
+								style="cursor:pointer; text-align:center;"
+								placeholder="ex) 2022-10-01" /></td>
+					</tr>
+					<tr>
+						<th class="text-center">직종</th>
+						<td><form:select path="workerList[10].t_id">
 								<c:forEach var="wtype" items="${wtypeList}" varStatus="idx">
 									<c:if test="${idx.index == 0}">
-   				 	 				<form:option value="${wtype.id}" selected="selected">${wtype.t_name}</form:option>
-   				 	 				</c:if>
-   				 	 				<c:if test="${idx.index != 0}">
-   				 	 				<form:option value="${wtype.id}" >${wtype.t_name}</form:option>
-   				 	 				</c:if>										
+										<form:option value="${wtype.id}" selected="selected">${wtype.t_name}</form:option>
+									</c:if>
+									<c:if test="${idx.index != 0}">
+										<form:option value="${wtype.id}">${wtype.t_name}</form:option>
+									</c:if>
 								</c:forEach>
-		   				   </form:select>
-		   				</td>
-		   				<td>
-							<form:input type="file" id="filename1" class="upfile-image form-control" path='workerList[${loop.index}].eduimage_file' style="min-width: 250px; font-size: 0.8em;" /> 
-		   				</td>		   				
-		   				<td>		   				 
-	   				    	<form:select path="workerList[${loop.index}].btype" >
-		   				 		<form:option value="">-미선택-</form:option>
-		   				 		<form:option value="A">A</form:option>
-		   				 		<form:option value="B">B</form:option>
-		   				 		<form:option value="O">O</form:option>
-		   				 		<form:option value="AB">AB</form:option> 
-		   					</form:select>
-		   				</td>
-				 	</tr>				 
-				</c:forEach>	
-			</table>	
-			
+							</form:select></td>
+					</tr>
+					<tr>
+						<th class="text-center">사 진</th>
+						<td><form:input type="file" id="filename1"
+								class="upfile-image form-control"
+								path='workerList[10].eduimage_file'
+								style="min-width: 250px; font-size: 0.8em;" /></td>
+					</tr>
+					<tr>
+						<th class="text-center">혈액형(선택사항)</th>
+						<td><form:select path="workerList[10].btype">
+								<form:option value="">-미선택-</form:option>
+								<form:option value="A">A</form:option>
+								<form:option value="B">B</form:option>
+								<form:option value="O">O</form:option>
+								<form:option value="AB">AB</form:option>
+							</form:select></td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="web-reg-box table-container">
+				<table id="regWorkerTable" data-toggle="table" data-search="false"
+					data-pagination="false"
+					class="reg-table table table-bordered col-xs-12 table-hover">
+					<thead>
+						<tr>
+							<th class="text-center required">성 명</th>
+							<th class="text-center required">주민번호 앞6자리</th>
+							<th class="text-center">성별</th>
+							<th class="text-center">채용일</th>
+							<th class="text-center required">핸드폰번호</th>
+							<th class="text-center">외국인여부</th>
+							<th class="text-center">여권번호(외국인)</th>
+							<th class="text-center">국적(외국인)</th>
+							<th class="text-center">신규교육일자</th>
+							<th class="text-center">밀폐교육(1차)</th>
+							<th class="text-center">밀폐교육(2차)</th>
+							<th class="text-center">밀폐교육(3차)</th>
+							<th class="text-center">밀폐교육(4차)</th>
+							<th class="text-center">직 종</th>
+							<th class="text-center">근로자 사진</th>
+							<th class="text-center">혈액형(선택사항)</th>
+						</tr>
+					</thead>
+					<c:forEach begin="0" end="9" varStatus="loop">
+						<tr>
+							<td><form:input id="worker_name_${loop.index}"
+									path="workerList[${loop.index}].name" class="form-control"
+									style="cursor:pointer;text-align:center;" placeholder="ex) 홍길동" />
+							</td>
+							<td><form:input id="worker_jumin_${loop.index}"
+									path="workerList[${loop.index}].jumin"
+									onkeydown='return onlyNumber(event)'
+									onkeyup='removeChar(event)' maxlength="6" class="form-control"
+									style="cursor:pointer;text-align:center;"
+									placeholder="ex) 900101" /></td>
+							<td><form:select path="workerList[${loop.index}].jumin_back">
+									<form:option value="1">남</form:option>
+									<form:option value="2">여</form:option>
+								</form:select></td>
+							<td><form:input id="worker_hiredate_${loop.index}"
+									path="workerList[${loop.index}].hiredate"
+									class="hiredate form-control"
+									style="cursor:pointer;text-align:center;"
+									placeholder="ex) 2022-10-01" /></td>
+							<td><form:input id="worker_phone_${loop.index}"
+									path="workerList[${loop.index}].phone"
+									onkeydown='return onlyNumber(event)'
+									onkeyup='removeChar(event)' maxlength="12" class="form-control"
+									style="cursor:pointer;text-align:center;"
+									placeholder="ex) 01012345678" /></td>
+							<td><form:select id="worker_gubun_${loop.index}"
+									path="workerList[${loop.index}].gubun"
+									onchange="changeForeign('${loop.index}')">
+									<form:option value="0">해당없음</form:option>
+									<form:option value="1">해당</form:option>
+								</form:select></td>
+							<td><form:input id="worker_passno_${loop.index}"
+									path="workerList[${loop.index}].passno" class="form-control"
+									style="display:none; ecursor:pointer;text-align:center;"
+									placeholder="ex) N0000000" /></td>
+							<td><form:input id="worker_country_${loop.index}"
+									path="workerList[${loop.index}].country" class="form-control"
+									style="display:none;cursor:pointer;text-align:center;"
+									placeholder="ex) 중국" /></td>
+							<td><form:input id="worker_edudate_${loop.index}"
+									path="workerList[${loop.index}].edudate"
+									class="edudate form-control"
+									style="cursor:pointer;text-align:center;"
+									placeholder="ex) 2022-10-01" /></td>
+							<td><form:input id="worker_sealed_date1_${loop.index}"
+									path="workerList[${loop.index}].sealed_date1"
+									class="sealed_date form-control"
+									style="cursor:pointer;text-align:center;"
+									placeholder="ex) 2022-10-01" /></td>
+							<td><form:input id="worker_sealed_date2_${loop.index}"
+									path="workerList[${loop.index}].sealed_date2"
+									class="sealed_date form-control"
+									style="cursor:pointer;text-align:center;"
+									placeholder="ex) 2022-10-01" /></td>
+							<td><form:input id="worker_sealed_date3_${loop.index}"
+									path="workerList[${loop.index}].sealed_date3"
+									class="sealed_date form-control"
+									style="cursor:pointer;text-align:center;"
+									placeholder="ex) 2022-10-01" /></td>
+							<td><form:input id="worker_sealed_date4_${loop.index}"
+									path="workerList[${loop.index}].sealed_date4"
+									class="sealed_date form-control"
+									style="cursor:pointer;text-align:center;"
+									placeholder="ex) 2022-10-01" /></td>
+							<td><form:select path="workerList[${loop.index}].t_id">
+									<c:forEach var="wtype" items="${wtypeList}" varStatus="idx">
+										<c:if test="${idx.index == 0}">
+											<form:option value="${wtype.id}" selected="selected">${wtype.t_name}</form:option>
+										</c:if>
+										<c:if test="${idx.index != 0}">
+											<form:option value="${wtype.id}">${wtype.t_name}</form:option>
+										</c:if>
+									</c:forEach>
+								</form:select></td>
+							<td><form:input type="file" id="filename1"
+									class="upfile-image form-control"
+									path='workerList[${loop.index}].eduimage_file'
+									style="min-width: 250px; font-size: 0.8em;" /></td>
+							<td><form:select path="workerList[${loop.index}].btype">
+									<form:option value="">-미선택-</form:option>
+									<form:option value="A">A</form:option>
+									<form:option value="B">B</form:option>
+									<form:option value="O">O</form:option>
+									<form:option value="AB">AB</form:option>
+								</form:select></td>
+						</tr>
+					</c:forEach>
+				</table>
+
+			</div>
 		</div>
 	</div>
-</div>
 
 </form:form>
 

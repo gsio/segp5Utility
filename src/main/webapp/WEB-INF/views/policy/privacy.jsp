@@ -59,8 +59,8 @@
 $(document).ready(function(){
    
    var s = getUrlParameter('s');
-   var title ="P5-PJT 그린동 공동구 관리 시스템 v1";
-   var homepage="http://segp4.gsil.net";   
+   var title ="P5-PJT 그린동 공동구 관리 시스템";
+   var homepage="http://segp5.gsil.net";   
    $('[class=title]').html(title);
    $('.homepage').html(homepage);
    

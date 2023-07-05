@@ -61,8 +61,8 @@ function printUserList(){
 	</div>
 	
 	<div class="content_selete_box content-item">
-		<form id="searchForm" class="form-contractor" action="userList" method="POST" autocomplete="off" > 
-			<c:if test="${sessionScope.userLoginInfo.cont_type == 0}"> 		      
+		<form id="searchForm" class="form-contractor" action="menu_user" method="POST" autocomplete="off" > 
+			<c:if test="${sessionScope.userLoginInfo.cont_type == 0}"> 		     
 				<span class="select-title">업체:</span>
 				<select id="search_cont_id" name="cont_id" class="form-control select-content" onchange="changeCont()">
 					<option value="-1">전체</option>
