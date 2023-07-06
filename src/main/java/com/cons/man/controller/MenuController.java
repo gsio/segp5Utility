@@ -213,20 +213,19 @@ public class MenuController {
 	}
 	
 	// Menu - 환경센서 로그
-	@RequestMapping(value = { "/sensorList" })
+	@RequestMapping(value = { "/menu_sensor_log" })
 	public String sensorList(HttpSession session, Model model) {		
 		// System.out.println("[Menu] (Sensor) > sensorList");		
-		session.setAttribute("contentView", "sensorList");		
-		return "sensorList";
+		session.setAttribute("contentView", "menu_sensor_log");		
+		return "menu_sensor_log";
 	}	
 
-	// Menu - 구역출입 로그
-	@RequestMapping(value = { "/fanLogList" })
-	public String fanLogList(HttpSession session, Model model) {		
-		session.setAttribute("contentView", "fanLogList");
-		return "fanLogList";
-	}
-	
+	// Menu - QR출입 로그
+	@RequestMapping(value = { "/menu_qr_attend_log" })
+	public String qrAttendLogList(HttpSession session, Model model) {		
+		session.setAttribute("contentView", "menu_qr_attend_log");
+		return "menu_qr_attend_log";
+	}	
 	
 	// Menu - 구역 그룹 관리
 	/*
@@ -338,6 +337,13 @@ public class MenuController {
 		session.setAttribute("contentView", "inoutLogList");
 		return "inoutLogList";
 	}
+	
+	@RequestMapping(value = { "/fanLogList" })
+	public String fanLogList(HttpSession session, Model model) {		
+		session.setAttribute("contentView", "fanLogList");
+		return "fanLogList";
+	}
+	
 	
 	*/
 	

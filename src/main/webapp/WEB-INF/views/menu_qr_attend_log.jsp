@@ -8,20 +8,7 @@ var CUR_SECTION = -1;
 
 $(document).ready(function() {
 	
-	$('#input_date').val(getTodayDate());
-	
-	$("#input_date").datepicker({
-		yearRange: '-1:+1',    
-    	showSecond: true,
-    	onClose: function (selectedDate) {    
-    		CUR_SECTION = -1;
-    		$('#search_section').val(CUR_SECTION).prop("selected", true);
-    		//getSensorList();
-    	}
-    }).attr('readonly','readonly');
-	
-	setInitSectionSelect();
-	//getSensorList();
+
 	
 });
 
@@ -147,7 +134,7 @@ function loadingTemplate() {
 <form id="image_form" method="post" enctype="multipart/form-data" action=""></form>
 
 <div id="content-wrapper">
-	<div id="content_title" class="content-item">환경센서로그</div>
+	<div id="content_title" class="content-item">QR출입로그</div>
 	
 	<div class="content_button_box content-item" >
 		<div class="btn btn-primary" onclick="printSensorList()"><i class="fa-solid fa-print"></i> 출력</div>

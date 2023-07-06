@@ -1,0 +1,234 @@
+html {
+  	width: 100%;
+  	height: 100%;
+  	margin: 0;
+  	padding: 0;
+  	overflow: hidden;  
+}
+
+body {		
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+.image {
+	display: block;
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+#container {
+	height: 100vh;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+#header {
+    height: 56px;
+    flex: 0 0 56px;
+    width: 100%;
+    background: #162136;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+}
+
+#footer {
+    width: 100%;
+    height: 54px;
+    flex: 0 0 54px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    background: yellow;
+    position: fixed;
+    bottom: 0;
+}
+
+
+/*** -------- ***/
+/* HEADER START */
+/*** ------- ****/
+
+
+#header > div {	
+	display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+#header > .seal-logo-box {
+	flex: 0 0 30%;
+    padding: 1%;
+}
+
+#header > .seal-logo-box > img{
+    width: 100%;
+    max-width: 300px;
+    min-width: 200px;
+}
+
+#header .title {
+	display: flex;
+    justify-content: flex-end;
+    font-size: 20px;
+    color: #dbddf6;
+    flex-direction: row;
+    align-items: center;
+    padding: 1%;
+}
+
+#title_left {
+    flex: 0 0 50%;
+}
+
+#title_left>.client_text {
+	font-weight: bold;
+	font-size: 16px;
+	color: white;
+	padding: 2%
+}
+
+#title_left>.site_text {
+	font-size: 1vw;
+	color: #dbddf6;
+}
+
+#title_left>.system_text {
+	color: #B4B6D5;
+	padding: 1%;
+	font-size: 1.2vw;
+}
+
+#main_frame {
+    width: 100%;
+    height: 100%;
+    background: #FFF;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: space-around;
+    padding: 2%;
+    display: none;
+}
+
+#main_frame > div {
+	width: 100%;	
+}
+
+#main_frame .case-wrap {
+	height: 7%;
+}
+
+#main_frame #contentWarp {
+	background: #FFF;
+    padding: 2vh;    
+	overflow: auto;
+}
+
+#main_frame #contentWarp .page-wrap {
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+
+@media ( min-width : 576px) {
+	#contentWarp {
+		
+	}
+	
+	.page-wrap {
+		flex-direction: row;
+	}
+}
+
+@media ( max-width : 575px) {
+	#contentWarp {
+	
+	}
+	.page-wrap {
+		flex-direction: column;
+	}
+}
+
+#_page1 .btn-wrap {
+    flex: 0 0 49%;
+    border: 1px solid #e6e5e5;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+#_page1 .btn-wrap .img-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+	height: 50%;
+}
+
+#_page1 .btn-wrap .img-box > img {	
+    min-width: 100px;
+    min-height: 100px;
+    height: 100%;
+}
+
+
+
+#main_frame .button-wrap {
+    height: 10vh;
+    display: flex;
+    padding: 3vh 1vh 0vh 1vh;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 3px solid #e6e5e5;
+}
+
+#main_frame .button-wrap .btn-box .btn {
+    width: 76px;
+    height: 38px;    
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+#prebtn {	
+    border: 2px solid #034ea2;
+    color: #034ea2
+}
+
+#nextbtn {	
+    background-color: #034ea2;
+    color: #FFF
+}
+
+
+/* Frame 2 END */
+
+/*** -------- ***/
+/* FOOTER START */
+/*** ------- ****/
+
+#footer > .gsil-logo-box {
+    height: 100%;
+}
+
+#footer > .gsil-logo-box > img{
+    height: 100%;
+    max-width: 100px;
+}
