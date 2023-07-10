@@ -128,8 +128,8 @@ function modifyUserId() {
 		
 		$.ajax({
 			type: "POST",				
-			url: 'http://13.209.31.139:11243/postInsertCertkey',
-			//url: 'http://211.212.221.98:11243/postInsertCertkey',
+			//url: 'http://13.209.31.139:11243/postInsertCertkey',
+			url: 'http://211.212.221.98:11243/postInsertCertkey',
 			data: {
 				phone : $("#phone").val(),
 				certKey : getRandomFunction(100000, 999999)				

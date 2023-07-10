@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cons.man.domain.ContVO;
+import com.cons.man.domain.UserVO;
 import com.cons.man.persistence.ContMapper;
 
 @Service(value="ContService")
@@ -33,6 +34,27 @@ public class ContService {
 	public void updateCont(ContVO cont) {
 		contMapper.update(cont);
 	}
+	
+	@Transactional
+	public int insertContTemp(String name) {
+		try {
+			ContVO vo = new ContVO();
+			vo.setSite_id(17);
+			vo.setName(name);
+			vo.setType(1);
+			int resultInt = contMapper.insertContTemp(vo);
+			if( resultInt > 0 ) {
+				System.out.println("[New Cont ID]: " + vo.getId());
+				return vo.getId();
+			}
+			else {
+				return -1;
+			}
+		}
+		catch (Exception e) {
+			return -1;
+		}		
+	}	
 	
 //	------------------------------
 	

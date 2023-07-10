@@ -201,11 +201,13 @@
 	      AND S.USEYN='Y'
     </select>
     
-    <select id="checkModifyUserId" resultType="UserVO" parameterType="String">
-		SELECT * FROM certkey
+    <select id="checkModifyUserId" resultType="CertkeyVO" parameterType="String">
+		SELECT UW.id, UW.role, C.phone, C.certkey, C.write_time FROM certkey C
+        LEFT JOIN uw_view UW 
+        ON UW.phone = C.phone
 		WHERE 1=1
 		<![CDATA[ AND TIMESTAMPDIFF(SECOND, write_time, NOW()) < 180 ]]>		
-		AND phone = #{phone}
+		AND C.phone = #{phone}
 		ORDER BY write_time DESC LIMIT 1
     </select>
 	

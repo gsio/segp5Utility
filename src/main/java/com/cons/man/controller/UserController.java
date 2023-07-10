@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cons.man.domain.CertkeyVO;
 import com.cons.man.domain.ContVO;
 import com.cons.man.domain.RoleVO;
+import com.cons.man.domain.SectionVO;
 import com.cons.man.domain.SiteVO;
 import com.cons.man.domain.UserVO;
 import com.cons.man.services.ContService;
@@ -265,31 +267,6 @@ public class UserController {
 			e.printStackTrace();
 		}
 	}
-	
-	@RequestMapping(value = {"/checkModifyUserId"}, method = RequestMethod.GET)
-	public void checkModifyUserId(HttpSession session, HttpServletResponse response,
-		@RequestParam(value="phone", defaultValue="") String phone,
-		@RequestParam(value="certkey", defaultValue="-1") int certkey)
-	{			
-		UserVO vo = userService.checkModifyUserId(phone);			
-		
-		try {
-			if(vo == null) {
-				response.getWriter().print(false);	
-			}					
-			else {				
-				if(vo.getCertkey() == certkey) {
-					response.getWriter().print(true);
-				}
-				else {
-					response.getWriter().print(false);
-				}		
-			}
-				
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}	
 	
 	@RequestMapping(value = {"/postChangeUserId"}, method = RequestMethod.POST)
 	public void postChangeUserId(HttpSession session, HttpServletResponse response,

@@ -45,4 +45,11 @@
 		WHERE id=#{id}
     </update>
     
+	<insert id="insertContTemp" parameterType="String" keyProperty="id" keyColumn="id" useGeneratedKeys="true">		
+		INSERT INTO contractor(id, site_id, name, type, useyn, write_time)
+		values ((select * from (select ifnull((max(CAST(id AS SIGNED))+1),'0') from contractor) a), 
+			#{site_id}, #{name}, #{type}, 'Y', now())
+	</insert>
+    
+    
 </mapper>

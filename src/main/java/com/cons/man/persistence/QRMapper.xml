@@ -4,5 +4,21 @@
   	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cons.man.persistence.QRMapper">
 
+	<select id="checkUWDuplicatePhone" resultType="Integer"  parameterType="String" >
+		SELECT count(*) FROM uw_view
+		WHERE phone = #{phone}
+	</select>
+
+ 	<insert id="insertUserTemp" parameterType="UserVO" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+		INSERT INTO	USER(id, cont_id, role_code, name, userid, password, phone, useyn, write_time, ismanager, last_update_time)
+		VALUES(#{id}, #{cont_id}, #{role_code}, #{name}, #{userid}, #{password}, #{phone}, 'Y', NOW(), 0, NOW())
+	</insert>
+	
+	<insert id="insertWorkerTemp" parameterType="WorkerVO" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+		INSERT INTO	WORKER(site_id, cont_id, phone, gubun, name, jumin, t_id, delyn, last_update_time)
+		VALUES(#{site_id}, #{cont_id}, #{phone}, #{gubun}, #{name}, #{jumin}, #{t_id}, 'N', NOW())
+	</insert>
+	
+	
  
 </mapper>

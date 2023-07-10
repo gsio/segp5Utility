@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.cons.man.domain.CertkeyVO;
 import com.cons.man.domain.LoginLogVO;
 import com.cons.man.domain.UserVO;
 
@@ -16,7 +17,7 @@ public interface UserMapper {
 	public List<UserVO> getUserViewList(@Param("site_id")int site_id, @Param("cont_id")int cont_id);
 	public List<UserVO> getApprovalUserList(@Param("content_id")int content_id, @Param("site_id")int site_id, @Param("cont_id")int cont_id);
 	public List<UserVO> getCheckerUserList(@Param("content_id")int content_id, @Param("site_id")int site_id, @Param("cont_id")int cont_id);	
-	public UserVO checkModifyUserId(@Param("phone")String phone);
+	public CertkeyVO checkModifyUserId(@Param("phone")String phone);
 	public void postChangeUserId(@Param("phone")String phone, @Param("userid")String userid);
 
 //	-------------------

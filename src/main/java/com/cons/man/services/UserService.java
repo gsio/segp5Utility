@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cons.man.domain.CertkeyVO;
 import com.cons.man.domain.LoginLogVO;
 import com.cons.man.domain.RoleVO;
 import com.cons.man.domain.UserVO;
@@ -77,7 +78,7 @@ public class UserService {
 		
 	}
 
-	public UserVO checkModifyUserId(String phone) {
+	public CertkeyVO checkModifyUserId(String phone) {
 		return userMapper.checkModifyUserId(phone);
 	}
 	
