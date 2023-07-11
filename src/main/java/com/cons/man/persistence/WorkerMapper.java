@@ -32,6 +32,8 @@ public interface WorkerMapper {
 	
 	public List<WorkerVO> getDriverList(@Param("site_id")int site_id, @Param("cont_id")int cont_id);
 	
+	public List<WorkerVO> getWTList();	
+	
 //	------------------------------------------------------------------------
 	
 }

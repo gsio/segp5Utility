@@ -34,8 +34,6 @@ function eventComplete() {
 		return;
 	}
 	
-	alert("update: " + update);
-	
 	if(!update) {
 		form.action = "insertCont";
 	}

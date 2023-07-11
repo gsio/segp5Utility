@@ -220,4 +220,9 @@ public class UserService {
 		userMapper.insertLoginLog(vo);
 	}
 	
+	public List<RoleVO> getURList() {
+		return roleMapper.getRoleList();
+	}	
+	
+	
 }

@@ -12,6 +12,7 @@ public class RoleVO implements Serializable{
 	private int type;
 	private int code;
 	private int userNum; //그룹리스트 불러올때 우측에 대상 숫자 보여주기 위함
+	private int role;
 	private String comment;
 	
 	public String getComment() {
@@ -49,6 +50,12 @@ public class RoleVO implements Serializable{
 	}
 	public void setUserNum(int userNum) {
 		this.userNum = userNum;
+	}
+	public int getRole() {
+		return role;
+	}
+	public void setRole(int role) {
+		this.role = role;
 	}
 	
 

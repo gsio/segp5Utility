@@ -36,7 +36,7 @@ public class QRService {
 	}	
 		
 	@Transactional
-	public CertkeyVO insertUWData(int role, String name, String phone, int cont_id, String jumin) {
+	public CertkeyVO insertUWData(int role, String name, String phone, int cont_id, String jumin, int jumin_back, int type) {
 		
 		CertkeyVO vo = new CertkeyVO();
 						
@@ -49,10 +49,10 @@ public class QRService {
 			phoneStr = phone.substring(0,3) + "-" + phone.substring(3,7) + "-" + phone.substring(7, phone.length());
 			user.setPhone(phoneStr);
 			user.setName(name);
+			user.setRole_code(type);
 			user.setCont_id(cont_id);
 			user.setUserid(phone);
 			user.setPassword(jumin);
-			user.setRole_code(1); // 일반관리자 고정
 			qrMapper.insertUserTemp(user);
 			vo.setUw_id(user.getId());
 			vo.setRole(1);
@@ -67,7 +67,8 @@ public class QRService {
 			worker.setCont_id(cont_id);
 			worker.setGubun("0");
 			worker.setName(name);
-			worker.setT_id(2); // 근로자 직종 고정
+			worker.setT_id(type); // 근로자 직종 고정
+			worker.setJumin_back(jumin_back);
 			int juminBack = getJuminBack(worker);
 			worker.setJumin(worker.getJumin() + juminBack);
 			qrMapper.insertWorkerTemp(worker);
@@ -141,5 +142,17 @@ public class QRService {
 			}
 		}		
 		return jumin_back;
+	}
+	
+	public int insertQRInData(int site_id, String uw_id, int role) {
+		int result = qrMapper.insertQRInData(site_id, uw_id, role);
+		qrMapper.insertQRInoutLog(site_id, uw_id, role, 1, "");
+		return result;
+	}	
+	
+	public int insertQROutData(int site_id, String uw_id, int role, String comment) {
+		int result = qrMapper.insertQROutData(site_id, uw_id, role);
+		qrMapper.insertQRInoutLog(site_id, uw_id, role, 2, comment);
+		return result;
 	}
 }

@@ -33,6 +33,11 @@
      	AND U.USEYN = 'Y'	      
      	GROUP BY R.CODE;
 	</select>
+		
+	<select id="getURList" resultType="RoleVO" parameterType="Integer">
+		SELECT id, name, code, type, 1 as role
+		FROM role
+   	</select>
   
 </mapper>
 

@@ -93,7 +93,7 @@
 		<typeAlias type="com.cons.man.domain.WorkDetailVO" alias="WorkDetailVO"/>
 		
 		<typeAlias type="com.cons.man.domain.CertkeyVO" alias="CertkeyVO"/>
-		
+		<typeAlias type="com.cons.man.domain.QrVO" alias="QrVO"/>		
        	  
     </typeAliases>
      	

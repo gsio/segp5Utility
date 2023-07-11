@@ -234,12 +234,13 @@ input[type="checkbox"]{
 	display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-	min-height: 600px;	
+	width: 100%;
 }
 
 #content-wrapper #contentPage .page-wrap {
     max-width: 1080px;
 	padding: 0px 10px;
+	width: 100%;
 }
 
 #content-wrapper #contentBtnBox {
@@ -275,11 +276,12 @@ input[type="checkbox"]{
 	margin: 10px 0px;
 }
 
-#content_title {
-    font-size: 25px;
+.page-wrap > .content_title {
+	font-size: 28px;
     text-align: center;
-    font-weight: 600;
-	margin-bottom: 30px !important;
+    color: #034ea2;
+    margin-bottom: 30px !important;
+    font-weight: 550;
 }
 
 .content_button_box {
@@ -309,6 +311,12 @@ input[type="checkbox"]{
 	border-radius: 5px;
 	font-size: 1em;
 	color: #FFF;
+}
+
+.content_check_box {
+	display: flex;
+    flex-direction: column;
+    align-items: center;	
 }
 
 .content_selete_box {
@@ -410,28 +418,17 @@ table .mobile-item {
 
 
 @media ( min-width : 576px) {
-	.content_box {
-		display: flex;
-	    flex-direction: row;
-	    align-items: center;
-	    justify-content: space-around;
-	}
-	
-	.page-wrap {
-		flex-direction: row;
+	#content-wrapper .content-item .btn-wrap {
+	    width: 400px;
+	    height: 400px;
 	}
 }
 
 @media ( max-width : 575px) {
-	.content_box {
-	    display: flex;
-	    flex-direction: column;
-	    align-items: center;
-	    flex-wrap: nowrap;
-	    justify-content: flex-start;
-	}
-	.page-wrap {
-		flex-direction: column;
+	#content-wrapper .content-item .btn-wrap {
+	    width: 200px;
+	    height: 200px;	    
+
 	}
 }
 
@@ -440,16 +437,48 @@ table .mobile-item {
 	height: 100%;
 }
 
+#content-wrapper .content_box {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+}
+
 #content-wrapper .content-item .btn-wrap {
     display: flex;
-    width: 400px;
-    height: 400px;
+    border-radius: 20px;
     margin: 5px;
     border: 2px solid #e6e5e5;
     align-items: center;
     justify-content: space-around;
 	cursor: pointer;
+	font-size: 6vw;
 }
+
+#content-wrapper .content-item #workIn {
+	background: linear-gradient(-150deg, #305073, #162136);
+    color: white;
+}
+
+#content-wrapper .content-item #workIn:hover {
+    background: white;
+    border: 3px solid #4285F4;
+    color: #4285F4;
+}
+
+#content-wrapper .content-item #workOut {
+    background: linear-gradient(-150deg, #51cb85, #399039);
+    color: white;
+}
+
+#content-wrapper .content-item #workOut:hover {
+    background: white;
+    border: 3px solid #2BBBAD;
+    color: #2BBBAD;
+}
+
+
+
 
 #content-wrapper .content-item .btn-wrap .img-box {
     width: 300px;

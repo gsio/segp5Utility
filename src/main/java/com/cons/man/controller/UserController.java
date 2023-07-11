@@ -209,8 +209,6 @@ public class UserController {
 	public String deleteUser(HttpSession session, @ModelAttribute @Valid UserVO userVO, BindingResult bindingResult, Model model, HttpServletRequest request) {
 		boolean hasError = false;
 		
-		System.out.println("deleteUser" + userVO.getId());
-		
 		try{
 			userService.disableUser(userVO.getId());
 		}catch(Exception e) {

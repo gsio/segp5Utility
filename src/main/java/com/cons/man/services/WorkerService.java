@@ -262,4 +262,9 @@ public class WorkerService {
 		}		
 		return list;
 	}
+	
+	
+	public List<WorkerVO> getWTList(){
+		return workerMapper.getWTList();
+	}
 }

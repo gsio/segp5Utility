@@ -50,6 +50,8 @@ public class WorkerVO implements Serializable {
 	private String photo;
 	private String uuid;
 	
+	private int role;
+	
 	private List<WorkerVO> workerList = new ArrayList<WorkerVO>(2000);
 	
 	public List<WorkerVO> getWorkerList() {
@@ -256,6 +258,12 @@ public class WorkerVO implements Serializable {
 	}
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
+	}
+	public int getRole() {
+		return role;
+	}
+	public void setRole(int role) {
+		this.role = role;
 	}
 	
 }

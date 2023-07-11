@@ -18,4 +18,10 @@ public interface QRMapper {
 	public int insertUserTemp(UserVO vo);
 	
 	public int insertWorkerTemp(WorkerVO vo);
+	
+	public int insertQRInData(@Param("site_id")int site_id, @Param("uw_id")String uw_id, @Param("role")int role);
+	
+	public int insertQROutData(@Param("site_id")int site_id, @Param("uw_id")String uw_id, @Param("role")int role);
+	
+	public void insertQRInoutLog(@Param("site_id")int site_id, @Param("uw_id")String uw_id, @Param("role")int role, @Param("type")int type, @Param("comment")String comment);
 }

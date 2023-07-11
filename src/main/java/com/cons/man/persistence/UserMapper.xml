@@ -202,13 +202,10 @@
     </select>
     
     <select id="checkModifyUserId" resultType="CertkeyVO" parameterType="String">
-		SELECT UW.id, UW.role, C.phone, C.certkey, C.write_time FROM certkey C
-        LEFT JOIN uw_view UW 
-        ON UW.phone = C.phone
-		WHERE 1=1
-		<![CDATA[ AND TIMESTAMPDIFF(SECOND, write_time, NOW()) < 180 ]]>		
-		AND C.phone = #{phone}
-		ORDER BY write_time DESC LIMIT 1
+		SELECT *
+        FROM qr_certkey_view 
+		WHERE phone = #{phone}      
+		ORDER BY C.write_time DESC LIMIT 1
     </select>
 	
 	 <update id="postChangeUserId" parameterType="String">

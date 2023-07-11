@@ -1,12 +1,9 @@
 package com.cons.man.domain;
 
-public class CertkeyVO {
+public class QrVO {
 
 	private int id;
 	private int role;
-	private String phone;
-	private String certkey;
-	private String write_time;
 	private String uw_id;
 	private String cont_name;
 	private String name;
@@ -16,6 +13,9 @@ public class CertkeyVO {
 	private String photo;
 	private int work_min;	
 	private int is_end;
+	private String comment;
+	private String write_time;
+	private String last_update_time;
 	
 	public int getId() {
 		return id;
@@ -28,18 +28,6 @@ public class CertkeyVO {
 	}
 	public void setRole(int role) {
 		this.role = role;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	public String getCertkey() {
-		return certkey;
-	}
-	public void setCertkey(String certkey) {
-		this.certkey = certkey;
 	}
 	public String getWrite_time() {
 		return write_time;
@@ -76,6 +64,12 @@ public class CertkeyVO {
 	}
 	public void setIs_end(int is_end) {
 		this.is_end = is_end;
+	}	
+	public String getComment() {
+		return comment;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	public String getStart_time() {
 		return start_time;
@@ -100,6 +94,12 @@ public class CertkeyVO {
 	}
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+	public String getLast_update_time() {
+		return last_update_time;
+	}
+	public void setLast_update_time(String last_update_time) {
+		this.last_update_time = last_update_time;
 	}
 	
 }

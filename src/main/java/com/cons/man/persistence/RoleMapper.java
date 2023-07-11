@@ -12,5 +12,5 @@ public interface RoleMapper {
 	public List<RoleVO> getRoleCodeListWithCnt();
 	public List<RoleVO> getRoleListByType(int type);
 	public List<RoleVO> getRoleCodeList();
-	
+	public List<RoleVO> getURList();	
 }

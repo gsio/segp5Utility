@@ -123,6 +123,12 @@
 		AND delyn='N'
 		ORDER BY W.name
 	</select>
+	
+	<select id="getWTList" resultType="WorkerVO">
+		SELECT id, t_name as name, gubun, 2 as role FROM w_type 
+		WHERE useyn = 'Y'	
+	</select>
+
 
 </mapper>
 

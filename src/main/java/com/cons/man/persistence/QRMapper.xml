@@ -19,6 +19,21 @@
 		VALUES(#{site_id}, #{cont_id}, #{phone}, #{gubun}, #{name}, #{jumin}, #{t_id}, 'N', NOW())
 	</insert>
 	
+	<insert id="insertQRInData" parameterType="QrVO">
+		REPLACE INTO qr_inout(site_id, uw_id, role, start_time, read_time, last_update_time)
+    	VALUES(#{site_id}, #{uw_id}, #{role}, NOW(), NOW(), NOW())
+	</insert>
 	
+	<insert id="insertQROutData" parameterType="QrVO">
+		DELETE FROM qr_inout 
+		WHERE site_id = #{site_id}
+		AND uw_id = #{uw_id}
+		AND role = #{role}
+	</insert>
+	
+	<insert id="insertQRInoutLog" parameterType="QrVO">
+		INSERT INTO qr_inout_log(site_id, uw_id, role, type, comment, write_date, write_time)
+    	VALUES(#{site_id}, #{uw_id}, #{role}, #{type}, #{comment}, DATE(NOW()), NOW())
+	</insert>
  
 </mapper>
