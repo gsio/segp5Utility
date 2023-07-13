@@ -57,8 +57,9 @@ function isConnectMobile() {
 		    $('#inputPhone').prop("readonly", true);		
 			
 			$.ajax({
-				type: "POST",				
-				url: 'http://211.212.221.98:11243/postIdentification',
+				type: "POST",
+				url: 'http://13.209.31.139:11243/postIdentification',
+				//url: 'http://211.212.221.98:11243/postIdentification',
 				data: {
 					site_id : CUR_SITE_ID,  
 					phone : inputPhone,
@@ -209,119 +210,8 @@ function isConnectMobile() {
 					alert("인증 번호가 맞지 않습니다.");
 				}
 	       	}
-		});	
-		
+		});			
 	}
-	
-	function setUWInfo(vo) {
-
-
-	}
-	
-	/*
-
-	function submitWorker() {	
-		var input;
-		input = confirm('등록하시겠습니까?');	
-		
-		if(input) {	
-			var isOk = checkDetail();		
-			if(isOk){			
-				$('#workerForm').submit();
-			}
-			else {
-				alert('항목을 다시 확인해주시기 바랍니다.');
-			}
-		}
-		else {
-			return;
-		}		 
-	}
-
-	function checkDetail(){
-		
-		var isOk = true;
-		
-		$('[id^=worker_name_]').each(function () {
-			var this_id = $(this).attr('id');
-			var this_name = $(this).val();		
-			
-			if(this_name.length >= 1){
-				var id = this_id.split('worker_name_')[1];		
-				var phone =	$('#worker_phone_' + id).val();			
-				 
-			   	var rgEx = /(01[016789])(\d{4}|\d{3})\d{4}$/g;//핸드폰 정규표현식
-			   	var chk_phone = rgEx.test(phone);   
-			   	if(!chk_phone || phone.length < 10) {				
-				   	$('#worker_phone_' + id).css('border','2px solid red');
-				   	isOk = false;
-				} 
-			   	else {
-					$('#worker_phone_' + id).css('border','1px solid #cccccc');				
-
-				 	var result = checkDuplicatePhone(phone);
-				  	if(result >= 0) {				
-					   	isOk = true; 
-				  	} 
-			  		// 현장내 중복
-			   		else if(result == -99) {
-						$('#worker_phone_' + id).css('border','2px solid red');
-						isOk = false; 
-				  	} 
-			   	 	// -1은 PASS
-			   		else{
-			   			
-				  	}
-				}
-			   
-				var jumin =	$('#worker_jumin_' + id).val();		   
-				if(jumin.length < 6){
-				   isOk = false;
-				   $('#worker_jumin_' + id).css('border','1px solid red');
-				}
-				else {			 
-					$('#worker_jumin_' + id).css('border','1px solid #cccccc');
-				}
-			   
-				var edu_date = $('#worker_edudate_' + id).val();
-			   
-				// 입력안할경우 패스
-				if(edu_date.length > 0){
-					//달력 정규표현식
-					var rgEx_date = /^\d{4}-[01][0-9]-[0123][0-9]$/g;
-				   
-					var chk_date = rgEx_date.test(edu_date);   
-				   
-				  	if(!chk_date || edu_date.length < 10){
-						isOk = false;
-						$('#worker_edudate_' + id).css('border','1px solid red');
-					}
-				  	else {
-						$('#worker_edudate_' + id).css('border','1px solid #cccccc');
-					}
-				}
-			   
-				var hire_date = $('#worker_hiredate_' + id).val();  
-				
-				if(hire_date.length > 0 ){
-					//달력 정규표현식
-					var rgEx_date2 = /^\d{4}-[01][0-9]-[0123][0-9]$/g;
-					
-					var chk_date2 = rgEx_date2.test(hire_date);   
-					if(!chk_date2 || hire_date.length < 10){
-						isOk = false;
-						$('#worker_hiredate_' + id).css('border','1px solid red');
-					}
-					else {
-						$('#worker_hiredate_' + id).css('border','1px solid #cccccc');
-					}			   
-				} 
-			} 
-		});
-		return isOk;
-	}
-	*/
-
 
 	function checkNumberAndEnglish(val){
 		let regex= /^[a-zA-Z0-9]*$/;

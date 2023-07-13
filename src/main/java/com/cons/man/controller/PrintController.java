@@ -288,7 +288,7 @@ public class PrintController {
 		@RequestParam(value="site_id", defaultValue="-1")int site_id,
 		@RequestParam(value="date", defaultValue="")String date)
 	{		
-		System.out.println("[Print - QR Log] site_id: " + site_id + "/" + date);
+		//System.out.println("[Print - QR Log] site_id: " + site_id + "/" + date);
 		List<QrVO> list = qrService.getQRInoutLogList(site_id, date);	
 		PrintExcel.INSTANCE.printQRLogList(request, response, list, date);		
 	}	
