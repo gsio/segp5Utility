@@ -32,6 +32,7 @@ import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import com.cons.man.domain.BeaconVO;
 import com.cons.man.domain.LocationVO;
 import com.cons.man.domain.NFCVO;
+import com.cons.man.domain.QrVO;
 import com.cons.man.domain.RtlsLogVO;
 import com.cons.man.domain.SensorLogVO;
 import com.cons.man.domain.UserVO;
@@ -996,6 +997,111 @@ public class PrintExcel {
 		}
 		
 		String file_name = cont_name + "_구역출입로그 [" + input_date +"]";
+		String sFileName = file_name + ".xlsx";
+		try {
+			sFileName = new String ( sFileName.getBytes("KSC5601"), "8859_1");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		OutputStream fileOut = null;
+	
+		try{
+			response.reset();  // 이 문장이 없으면 excel 등의 파일에서 한글이 깨지는 문제 발생.
+		
+			String strClient = request.getHeader("User-Agent");
+			String fileName = sFileName;
+		
+			if (strClient.indexOf("MSIE 5.5") > -1) {
+			 //response.setContentType("application/vnd.ms-excel");
+			 response.setHeader("Content-Disposition", "filename=" + fileName + ";");
+			} else {
+			 response.setContentType("application/vnd.ms-excel");
+			 response.setHeader("Content-Disposition", "attachment; filename=" + fileName + ";");
+			}
+		
+			fileOut = response.getOutputStream(); 
+			wb.write(fileOut);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			wb.dispose();
+			try { wb.close(); } catch(Exception ignore) {}
+		}
+	}
+	
+	public void printQRLogList(HttpServletRequest request, HttpServletResponse response, List<QrVO> list, String input_date) {		
+		int base_height = 60;
+		SXSSFWorkbook wb = new SXSSFWorkbook(100);
+		CellStyle td_title = makeCellStyle(wb, CellStyle.ALIGN_CENTER, CellStyle.VERTICAL_CENTER, CellStyle.BORDER_MEDIUM, HSSFColor.WHITE.index, true, 32, "HY중고딕", false, true);
+		CellStyle td1 = makeCellStyle(wb, CellStyle.ALIGN_CENTER, CellStyle.VERTICAL_CENTER, CellStyle.BORDER_THIN, HSSFColor.WHITE.index, true, 14, "돋움체", false, false);
+		CellStyle th = makeCellStyle(wb, CellStyle.ALIGN_CENTER, CellStyle.VERTICAL_CENTER, CellStyle.BORDER_THIN, HSSFColor.GREY_25_PERCENT.index, true, 14, "굴림", false, true);
+	
+		Font fh = wb.createFont();
+		fh.setBoldweight(Font.BOLDWEIGHT_BOLD);
+		fh.setFontName("굴림");
+		fh.setFontHeight((short)(12 * 20));
+		fh.setColor(HSSFColor.WHITE.index);
+	
+		int MAX_COLUMN = 5;
+		
+		Iterator<QrVO> it = list.iterator();
+		
+		String prev_workdate= "";
+		
+		Sheet s = wb.createSheet(input_date);
+		Row r = null;
+		s.setMargin(Sheet.TopMargin, 0.3);
+		s.setMargin(Sheet.BottomMargin, 0.3);
+		s.setMargin(Sheet.LeftMargin, 0.2);
+		s.setMargin(Sheet.RightMargin, 0.2);	
+		
+		String[] th_arr = new String[]{"NO", "업체", "이름", "출입", "시간"};
+		s.setColumnWidth(0, 55 * 37);
+		s.setColumnWidth(1, 180 * 37);
+		s.setColumnWidth(2, 100 * 37);
+		s.setColumnWidth(3, 120 * 37);
+		s.setColumnWidth(4, 180 * 37);
+		
+		//제목
+		r = s.createRow(0);
+		r.setHeight((short)(90 * 15));
+		r.createCell( 0).setCellStyle(td_title);
+		r.getCell( 0).setCellValue(new XSSFRichTextString("QR출입로그"));
+		for(int i = 1 ; i <= 5; i++){
+			r.createCell(i).setCellStyle(td_title);
+		}
+		s.addMergedRegion (new CellRangeAddress((int) 0 , (short)0 , (int) 0, (short)MAX_COLUMN - 1));	
+	
+		makeHSSFDefaultRow(s,r, s.getLastRowNum() + 1, base_height, MAX_COLUMN, th, th_arr);
+		
+		int idx = 1;
+		String name = "";
+		while(it.hasNext()){
+			QrVO vo = it.next();
+			name = vo.getName();
+			r = s.createRow(s.getLastRowNum() + 1);
+			r.setHeight((short)(40 * 15));		
+			r. createCell( 0).setCellStyle(td1);
+			r. getCell( 0).setCellValue(new HSSFRichTextString(idx + ""));		
+			r. createCell( 1).setCellStyle(td1);
+			r. getCell( 1).setCellValue(new HSSFRichTextString(vo.getCont_name()));		
+			r. createCell( 2).setCellStyle(td1);
+			r. getCell( 2).setCellValue(new HSSFRichTextString(vo.getName()));		
+			
+			r. createCell( 3).setCellStyle(td1);
+			if(vo.getInout_type() == 1) {
+				r. getCell( 3).setCellValue(new HSSFRichTextString("입장"));		
+			}
+			else {
+				r. getCell( 3).setCellValue(new HSSFRichTextString("퇴장"));
+			}
+			r. createCell( 4).setCellStyle(td1);
+			r. getCell( 4).setCellValue(new HSSFRichTextString(vo.getWrite_time()));					
+			idx++;
+		}
+		
+		String file_name = "[" + input_date +"] QR출입로그";
 		String sFileName = file_name + ".xlsx";
 		try {
 			sFileName = new String ( sFileName.getBytes("KSC5601"), "8859_1");

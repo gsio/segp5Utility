@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.cons.man.domain.BeaconVO;
 import com.cons.man.domain.LocationVO;
 import com.cons.man.domain.NFCVO;
+import com.cons.man.domain.QrVO;
 import com.cons.man.domain.RtlsLogVO;
 import com.cons.man.domain.SensorLogVO;
 import com.cons.man.domain.UserVO;
@@ -29,6 +30,7 @@ import com.cons.man.services.ContService;
 import com.cons.man.services.DeviceService;
 import com.cons.man.services.MonitorService;
 import com.cons.man.services.NFCService;
+import com.cons.man.services.QRService;
 import com.cons.man.services.SiteService;
 import com.cons.man.services.UserService;
 import com.cons.man.services.WorkerService;
@@ -65,6 +67,9 @@ public class PrintController {
 	
 	@Resource(name="BeaconService")
 	private BeaconService beaconService;
+	
+	@Resource(name="QRService")
+	private QRService qrService;
 	
 	@Resource(name="SegService")
 	private SegService segService;
@@ -277,6 +282,16 @@ public class PrintController {
 		
 	}
 	
+	@RequestMapping(value = {"/printQRLog"})
+	public void printQRLog(HttpSession session, Model model,
+		HttpServletRequest request, HttpServletResponse response,
+		@RequestParam(value="site_id", defaultValue="-1")int site_id,
+		@RequestParam(value="date", defaultValue="")String date)
+	{		
+		System.out.println("[Print - QR Log] site_id: " + site_id + "/" + date);
+		List<QrVO> list = qrService.getQRInoutLogList(site_id, date);	
+		PrintExcel.INSTANCE.printQRLogList(request, response, list, date);		
+	}	
 	
 }
 

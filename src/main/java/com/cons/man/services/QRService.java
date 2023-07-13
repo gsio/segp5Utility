@@ -17,7 +17,9 @@ import com.cons.man.domain.BeaconVO;
 import com.cons.man.domain.CertkeyVO;
 import com.cons.man.domain.ContVO;
 import com.cons.man.domain.NFCVO;
+import com.cons.man.domain.QrVO;
 import com.cons.man.domain.SectionVO;
+import com.cons.man.domain.SensorVO;
 import com.cons.man.domain.TargetVO;
 import com.cons.man.domain.UserVO;
 import com.cons.man.domain.WorkerVO;
@@ -151,8 +153,19 @@ public class QRService {
 	}	
 	
 	public int insertQROutData(int site_id, String uw_id, int role, String comment) {
+		System.out.println(site_id + "/" + uw_id + "/" + role);
 		int result = qrMapper.insertQROutData(site_id, uw_id, role);
 		qrMapper.insertQRInoutLog(site_id, uw_id, role, 2, comment);
 		return result;
 	}
+	
+	public List<QrVO> getQRInoutLogToday(int site_id) {
+		List<QrVO> list = qrMapper.getQRInoutLogToday(site_id);		
+		return list;
+	}	
+	
+	public List<QrVO> getQRInoutLogList(int site_id, String input_date) {
+		List<QrVO> list = qrMapper.getQRInoutLogList(site_id, input_date);		
+		return list;
+	}	
 }

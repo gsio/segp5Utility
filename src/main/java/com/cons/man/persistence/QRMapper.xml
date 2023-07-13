@@ -26,8 +26,7 @@
 	
 	<insert id="insertQROutData" parameterType="QrVO">
 		DELETE FROM qr_inout 
-		WHERE site_id = #{site_id}
-		AND uw_id = #{uw_id}
+		WHERE uw_id = #{uw_id}
 		AND role = #{role}
 	</insert>
 	
@@ -35,5 +34,25 @@
 		INSERT INTO qr_inout_log(site_id, uw_id, role, type, comment, write_date, write_time)
     	VALUES(#{site_id}, #{uw_id}, #{role}, #{type}, #{comment}, DATE(NOW()), NOW())
 	</insert>
+	
+	<select id="getQRInoutLogToday" resultType="QrVO" parameterType="Integer" >
+		SELECT * FROM qr_inout_log_view
+		WHERE site_id = #{site_id}
+		AND write_date = DATE(NOW())
+	</select>
+	
+	<select id="getQRInoutLog" resultType="QrVO"  parameterType="Integer" >
+		SELECT * FROM qr_inout_log_view
+		WHERE site_id = #{site_id}
+		AND write_date = DATE(NOW())
+	</select>
+	
+	<select id="getQRInoutLogList" resultType="QrVO"  parameterType="QrVO" >
+		SELECT * FROM qr_inout_log_view
+		WHERE site_id = #{site_id}
+		AND write_date = #{input_date}
+	</select>
+	
+	
  
 </mapper>

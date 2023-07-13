@@ -1,9 +1,16 @@
 package com.cons.man.controller;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.AlgorithmParameterSpec;
+import java.util.Base64;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,8 +28,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cons.man.domain.CertkeyVO;
 import com.cons.man.domain.ContVO;
+import com.cons.man.domain.QrVO;
 import com.cons.man.domain.RoleVO;
 import com.cons.man.domain.SectionVO;
+import com.cons.man.domain.SensorVO;
 import com.cons.man.domain.SiteVO;
 import com.cons.man.domain.UserVO;
 import com.cons.man.domain.WorkerVO;
@@ -38,7 +47,10 @@ import com.cons.man.services.WorkerService;
 public class QRController {
 	
 	private static int CUR_SITE_ID = 17;
-
+	private static int TIME_LIMIT = 315;
+    public static String secretKey = "gsil-segp5qr-pmh";
+    public static byte[] ivBytes = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+    
 	@Resource(name="QRService")
 	private QRService qrService;
 	
@@ -219,6 +231,72 @@ public class QRController {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	@RequestMapping(value = {"/qr/checkEncryptionKey"}, method = RequestMethod.POST)
+	public void checkEncryptionKey(HttpSession session, HttpServletResponse response,
+		@RequestParam(value="encryption", defaultValue="") String encryption)
+	{	
+		JSONObject jo = new JSONObject();
+		try {
+		    byte[] textBytes = Base64.getDecoder().decode(encryption);
+		    AlgorithmParameterSpec ivSpec = new IvParameterSpec(ivBytes);
+		    SecretKeySpec newKey = new SecretKeySpec(secretKey.getBytes("UTF-8"), "AES");
+		    Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+		    cipher.init(Cipher.DECRYPT_MODE, newKey, ivSpec);
+		    byte[] decryptedBytes = cipher.doFinal(textBytes);
+		    String decryptedString = new String(decryptedBytes, "UTF-8");			
+			long currentTime = System.currentTimeMillis();
+			long decryptedTime = Long.parseLong(decryptedString);
+			long timeDifferenceInSeconds = (currentTime - decryptedTime) / 1000;
+			if (timeDifferenceInSeconds < TIME_LIMIT) {
+				jo.put("result", "true");			
+			}
+			else {
+				jo.put("result", "false");
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+			jo.put("result", "false");
+		}		
+		try {
+			response.getWriter().print(jo.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+	}	
+	
+	@RequestMapping(value = {"/qr/getQRInoutLogToday"}, method = RequestMethod.GET)
+	public ResponseEntity<List<QrVO>> getQRInoutLogToday(HttpSession session, HttpServletResponse response,
+		@RequestParam(value="site_id", defaultValue="-1") int site_id)
+	{	
+		try {
+			//System.out.println("[getQRInoutLog]: " + site_id);
+			List<QrVO> sensor_List = qrService.getQRInoutLogToday(site_id);	
+			return new ResponseEntity<List<QrVO>>(sensor_List, HttpStatus.OK);	
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<List<QrVO>>(HttpStatus.NO_CONTENT);		
+		}
+	}	
+	
+	@RequestMapping(value = {"/qr/getQRInoutLogList"}, method = RequestMethod.GET)
+	public ResponseEntity<List<QrVO>> getQRInoutLogList(HttpSession session, HttpServletResponse response,
+		@RequestParam(value="site_id", defaultValue="-1") int site_id,
+		@RequestParam(value="input_date", defaultValue="")String input_date)
+	{	
+		try {
+			System.out.println("[getQRInoutLogList]: " + site_id + "/" + input_date);
+			List<QrVO> list = qrService.getQRInoutLogList(site_id, input_date);	
+			return new ResponseEntity<List<QrVO>>(list, HttpStatus.OK);	
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<List<QrVO>>(HttpStatus.NO_CONTENT);		
+		}
+	}
+	
 }
 
 

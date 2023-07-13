@@ -24,8 +24,11 @@
 	$(document).ready(function() {
 		
 		if(!isConnectMobile()) {
-			location.href = "main";
-			window.close();
+			alert("모바일 전용입니다.");	
+			returnToMain();
+		}
+		else {			
+			checkSession();
 		}
 		
 		$('#agree').change(function() {
@@ -49,9 +52,51 @@
 	
 	// 1. QR로 들어온 URL 링크 확인 (유효성 검사)
 	function checkSession() {
+		let encryption = "";
+		var encodedQueryString = location.search.replace(/\+/g, '%2B');
+		var params = new URLSearchParams(encodedQueryString);
+		encryption = params.get("encryption");
+		console.log("[encryption]", encryption);
 		
+		if(encryption != null) {
+			if(encryption.length > 0) {
+				$.ajax({
+					type: "POST",				
+					url: 'qr/checkEncryptionKey',
+					data: {				
+						encryption: encryption
+					},
+					async: true,
+					cache: false,			
+					success: function (json, status) {	
+						var data = JSON.parse(json);
+						if(data.result == "true") {
+							alert("올바른 접속 확인");
+						}
+						else {
+							alert("인증이 완료된 QR로 입장하셨습니다.");	
+							returnToMain();
+						}			
+						
+			       	}
+				});	
+			}
+			else {
+				alert("유효하지 않는 경로로 들어오셨습니다.");	
+				returnToMain();
+			}
+		}
+		else {
+			alert("유효하지 않는 경로로 들어오셨습니다.");	
+			returnToMain();
+		}
 	}
 	
+	function returnToMain() {	
+		window.close();
+		location.href = "main";
+	}		
+
 	function showPreBtn(name) {
 		$('#prebtn').html(name);
 		$('#prebtn').css("display", "block");
@@ -334,8 +379,7 @@
 				var data = JSON.parse(json);
 				if(data.result == "true") {		
 					alert("입장완료");
-					location.href = "main";
-					window.close();
+					returnToMain();			
 				}
 				else {
 					alert(data.err);
@@ -361,8 +405,7 @@
 				var data = JSON.parse(json);
 				if(data.result == "true") {					
 					alert("퇴장완료");
-					location.href = "main";
-					window.close();
+					returnToMain();				
 				}
 				else {
 					alert(data.err);

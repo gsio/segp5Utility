@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.cons.man.domain.ContVO;
+import com.cons.man.domain.QrVO;
 import com.cons.man.domain.SectionVO;
 import com.cons.man.domain.UserVO;
 import com.cons.man.domain.WorkerVO;
@@ -24,4 +25,10 @@ public interface QRMapper {
 	public int insertQROutData(@Param("site_id")int site_id, @Param("uw_id")String uw_id, @Param("role")int role);
 	
 	public void insertQRInoutLog(@Param("site_id")int site_id, @Param("uw_id")String uw_id, @Param("role")int role, @Param("type")int type, @Param("comment")String comment);
+	
+	public List<QrVO> getQRInoutLogToday(@Param("site_id")int site_id);	
+	
+	public List<QrVO> getQRInoutLogList(@Param("site_id")int site_id, @Param("input_date")String input_date);
+	
+	
 }

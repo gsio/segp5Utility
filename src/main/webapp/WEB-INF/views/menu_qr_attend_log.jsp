@@ -1,108 +1,76 @@
 <%@ include file="IncludeTop.jsp"%>
 <%@ page pageEncoding="utf-8"%>
 
+
+
 <script>
 
 var CUR_SITE_ID = '${userLoginInfo.site_id}';
-var CUR_SECTION = -1;
+var CUR_CONT_ID = -1;
+var G_SECTION = -1;
+var G_INPUT_DATE = ""
 
 $(document).ready(function() {
 	
-
+	$('#input_date').val(getTodayDate());	
+	
+	$("#input_date").datepicker({
+		yearRange: '-1:+1',    	
+    	showSecond: true,
+    	onClose: function (selectedDate) {    
+    		getQRLogList();
+    	}
+    }).attr('readonly','readonly');  
+	
+	getQRLogList();
 	
 });
 
-
-function printSensorList(){
-	$('#date').val($('#input_date').val());
-	$('#section').val($('#search_section').val());
-	$('#printSensor').submit();
-}
-
-// 날짜 변경 시
-function getSensorList() {	
+function getQRLogList() {	
 	
-    $('#sensorTable').bootstrapTable('destroy')
-    	.bootstrapTable()
-      	.bootstrapTable('showLoading')	
+    $('#qrLogList').bootstrapTable('destroy')
+	.bootstrapTable()
+  	.bootstrapTable('showLoading')		
 	
 	$.ajax({
 		type: "GET",
-		//url: 'http://13.209.31.139:11243/getSensorLogList',
-		url: 'http://211.212.221.98:11243/getSensorLogList',
+		url: 'qr/getQRInoutLogList',
 		data: {
+			site_id: CUR_SITE_ID,
 			input_date: $('#input_date').val(),
-			input_section: $('#search_section').val()
-		},
-		traditional: true,
+		},		
 		async: true,
 		cache: false,
-		success: function (data, status) {
-			var list = JSON.parse(JSON.stringify(data)).sensorList;
-			var section = JSON.parse(JSON.stringify(data)).sectionList;
-			setInitSectionSelect();
-			if(section != null) {
-				for(var s=0; s < section.length; s++) {			
-					var optionHtml = '<option value="'+section[s].id+'">#'+ section[s].id + " - " +  section[s].name+'</option>';
-					$('#search_section').append(optionHtml);
-				}
-				$('#search_section').val(CUR_SECTION).prop("selected", true);
-			}
+		success: function (list, status) {			
 			if(list != null) {
-				//console.log("[DATA COUNT]: " + list.length);
-				if(list.length >= 0) {
-					for(var i=0; i < list.length; i++) {
+				if(list.length > 0) {
+					for(var i=0; i < list.length; i++) {			
 						list[i].no = i+1;
-						list[i].o2 = list[i].o2 + "%";
-						list[i].co2 = list[i].co2 + "ppm";
-						list[i].co = list[i].co + "ppm";
-						list[i].h2s = list[i].h2s + "ppm";
-						list[i].ch4 = list[i].ch4 + "%";
 						
-						list[i].sensor_info = 
-							'<div class="text-left sensor-box">' + 
-							'<div> o2: '+list[i].o2+'</div>' +
-							'<div> co2: '+list[i].co2+'</div>' +
-							'<div> co: '+list[i].co+'</div>' +
-							'<div> h2s: '+list[i].h2s+'</div>' +
-							'<div> lel: '+list[i].ch4+'</div>' +
-							'</div>';
-							
-						if(list[i].time_diff_min > 0) {
-							list[i].time_diff_min = '<div class="badge badge-danger" style="padding:5px;">'+list[i].time_diff_min+'분</div>';
-						}
+						if(list[i].inout_type == 1) {
+							list[i].inout = "<span style='font-weight: bold; color: #3A751C;'>入</span>";										
+						}		
 						else {
-							list[i].time_diff_min = '<div class="badge badge-success" style="padding:5px;">'+list[i].time_diff_min+'분</div>';
-						}						
-					
-						if(list[i].section_name != "") {
-							list[i].section_info = '<div class="section"><span><i class="fa-regular fa-square"></i> #'+list[i].alias+'</span> - '+ list[i].section_name+'</div>';
-						}
-						else {
-							list[i].section_info = '<div class="section"><span><i class="fa-regular fa-square"></i> #'+list[i].alias+'</span></div>';
-						}						
+							list[i].inout = "<span style='font-weight: bold; color: #BA1111;'>出</span>";				
+						}				
 					}				
-					$('#sensorTable').bootstrapTable('load', list );	
-					$('#sensorTable').bootstrapTable('hideLoading');
-				}
-			}
-			else{
-				$('#sensorTable').bootstrapTable('load', [] );
-				$('#sensorTable').bootstrapTable('hideLoading');
+					$('#qrLogList').bootstrapTable('load', list );	
+					$('#qrLogList').bootstrapTable('hideLoading');
+				}				
 			}			
+			else{
+				$('#qrLogList').bootstrapTable('load', [] );
+				$('#qrLogList').bootstrapTable('hideLoading');
+			}
 		}
-	});
+	});	
 }
 
-function changeSection() {	
-	CUR_SECTION = $('#search_section').val();
-	getSensorList();
-}
 
-function setInitSectionSelect() {
-	$('#search_section').empty();
-	var option = '<option value="-1">전체</option>';
-	$('#search_section').append(option);
+function printFan() {		
+	G_INPUT_DATE = $('#input_date').val();
+	$('#print_date').val(G_INPUT_DATE);	
+	$('#printQRLog').submit();
 }
 
 function loadingTemplate() {
@@ -112,6 +80,21 @@ function loadingTemplate() {
 </script>
 
 <style>
+
+@media ( min-width : 992px) {
+	.modal-dialog {
+		max-width: 950px;
+    	margin: 1.75rem auto;
+	}
+}
+
+
+@media ( max-width : 991px) {
+	.modal-dialog {
+		max-width: 500px;
+    	margin: 1.75rem auto;
+	}
+}
 
 .section {
 	color: #333;
@@ -137,14 +120,7 @@ function loadingTemplate() {
 	<div id="content_title" class="content-item">QR출입로그</div>
 	
 	<div class="content_button_box content-item" >
-		<div class="btn btn-primary" onclick="printSensorList()"><i class="fa-solid fa-print"></i> 출력</div>
-	</div>
-	
-	<div class="content_selete_box content-item">
-		<form id="searchForm" class="form-contractor" action="sensorList" method="POST" autocomplete="off" > 
-			<span class="select-title">구역:</span>
-			<select id="search_section" name="section" class="form-control select-content" onchange="changeSection()"></select>
-		</form> 
+		<div class="btn btn-primary" onclick="printFan()"><i class="fa-solid fa-print"></i> 출력</div>
 	</div>
 	
 	<div class="content_date_box content-item">
@@ -157,31 +133,27 @@ function loadingTemplate() {
 	</div>
 	
 	<div class="content_table_box content-item">
-		<table id="sensorTable" data-search="true" data-pagination="true" data-page-size="100" data-loading-template="loadingTemplate" 
+		<table id="qrLogList" data-loading-template="loadingTemplate" data-search="true" data-pagination="true" data-page-size="100" 
 			data-page-list="[100, 200, 500, All]" data-sort-name="[section]" data-filter-control="true" class="table table-bordered col-xs-12 table-hover table-striped" >
 			<thead>
-				<tr>	
-					 <th data-field="no" class="text-center show-web" data-sortable="true">순번</th>			 
-					 <th data-field="section_info" class="text-center">위 치</th>
-					 <th data-field="sensor_info" class="text-center show-mobile">환경센서정보</th>
-					 <th data-field="o2" class="text-center show-web" data-sortable="true">산소</th>	
-					 <th data-field="co2" class="text-center show-web" data-sortable="true">이산화탄소</th>
-					 <th data-field="co" class="text-center show-web" data-sortable="true">일산화탄소</th>
-					 <th data-field="h2s" class="text-center show-web" data-sortable="true">황화수소</th>
-					 <th data-field="ch4" class="text-center show-web" data-sortable="true">가연성가스</th>
-					 <th data-field="time_diff_min" class="text-center show-web">딜레이</th>
-					 <th data-field="write_time" class="text-center" data-sortable="true">시간</th>
-				 </tr>
-			</thead>
+				<tr>
+					<th data-field="no" class="text-center" data-sortable="true">순번</th>
+					<th data-field="cont_name" class="text-center">업체</th>
+					<th data-field="name" class="text-center">이름</th>
+					<th data-field="inout" class="text-center">출입</th>
+					<th data-field="write_time" class="text-center">시간</th>
+				</tr>
+			</thead>		
 		</table>
 	</div>
 </div> <!-- content-wrapper END -->
 
-<div id="form_group">
-	<form id="printSensor" action="printSensorList" method="POST">
-		<input id="date" type="hidden" name="date" value=""/>
-		<input id="section" type="hidden" name="section" value=""/>
-	</form>	
+<div id="form_group">	
+	<form id="printQRLog" action="printQRLog" method="POST">
+		<input type="hidden" name="site_id" value="${userLoginInfo.site_id}"/>	
+		<input id="print_date" type="hidden" name="date" value=""/>
+	</form>
 </div>
+
 
 <%@ include file="IncludeBottom.jsp"%>

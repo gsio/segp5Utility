@@ -44,7 +44,7 @@ function isConnectMobile() {
 	}
 }
 
-	function checkIdentification() {
+	function checkIdentification() {		
 		
 		const regex = /^010\d{8}$/;
 		var inputPhone =  $("#inputPhone").val();
