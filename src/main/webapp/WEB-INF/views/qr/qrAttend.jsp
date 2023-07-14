@@ -48,7 +48,6 @@
 		var encodedQueryString = location.search.replace(/\+/g, '%2B');
 		var params = new URLSearchParams(encodedQueryString);
 		encryption = params.get("encryption");
-		console.log("[encryption]", encryption);
 		
 		if(encryption != null) {
 			if(encryption.length > 0) {
@@ -63,7 +62,7 @@
 					success: function (json, status) {	
 						var data = JSON.parse(json);
 						if(data.result == "true") {
-							alert("올바른 접속 확인");
+							//alert("올바른 접속 확인");
 						}
 						else {
 							alert("인증이 완료된 QR로 입장하셨습니다.");	
@@ -127,7 +126,7 @@
 			break;
 		case 4:	
 			G_STATE = 1.1;
-			moveEnterPage();
+			moveDutyPage();
 			break;
 		}	
 	}
@@ -142,10 +141,7 @@
 		
 			case 1.1:
 				if(isDutyChecked()) {
-					$('[id^=_page_]').hide();
-					$("#_page_4").show();
-					G_STATE = 4;
-					showNextBtn("입장");
+					moveEnterPage();
 				}
 				else {
 					alert("필수 준수사항을 확인하셔야 다음 진행이 가능합니다.");
@@ -244,7 +240,7 @@
 					G_UW_ID = data.uw_id;
 					alert("등록에 성공하였습니다.");
 					G_STATE = 1;
-					moveEnterPage();
+					moveDutyPage();
 				}
 				else {
 					alert(data.err);
@@ -345,12 +341,19 @@
 		}		
 	}
 	
-	function moveEnterPage() {
+	function moveDutyPage() {
 		$('#prebtn').html("취소");
 		$('[id^=_page_]').hide();
 		$("#_page_1").show();
 		G_STATE = 1.1;
 		showNextBtn("다음");	
+	}
+	
+	function moveEnterPage() {
+		$('[id^=_page_]').hide();
+		$("#_page_4").show();
+		G_STATE = 4;
+		showNextBtn("입장");
 	}
 	
 	function isDutyChecked() {
