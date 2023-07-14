@@ -287,7 +287,7 @@ public class QRController {
 		@RequestParam(value="input_date", defaultValue="")String input_date)
 	{	
 		try {
-			System.out.println("[getQRInoutLogList]: " + site_id + "/" + input_date);
+			//System.out.println("[getQRInoutLogList]: " + site_id + "/" + input_date);
 			List<QrVO> list = qrService.getQRInoutLogList(site_id, input_date);	
 			return new ResponseEntity<List<QrVO>>(list, HttpStatus.OK);	
 		} 
