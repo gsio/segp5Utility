@@ -20,7 +20,7 @@
 		gtag('config', 'UA-138883721-1');
 	</script>
 	
-	<title>그린동 P4 상세 관리 페이지</title>
+	<title>그린동 P5 상세 관리 페이지</title>
 	
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
 	<meta charset="utf-8">
@@ -50,7 +50,7 @@
 	
 	<script type="text/javascript">     
 	
-		const CUR_SITE_ID = 16;
+		const CUR_SITE_ID = 17;
 		const SCANNER_MAC_LENGTH = 17;
 		    
 		$(document).ready(function() {
@@ -64,13 +64,14 @@
 			var hash = window.location.hash;
 			$('#pills-tab a[href="' + hash + '"]').tab('show');
 			
-			update();
+			//update();
 			
 		});    
 		
 		function updateBtn() {
-			alert("데이터를 갱신합니다.");
-			update();
+			alert("현재 BLOCK");
+			//alert("데이터를 갱신합니다.");
+			//update();
 		}
 		 
 	</script>

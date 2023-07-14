@@ -24,20 +24,12 @@
 	$(document).ready(function() {
 		
 		if(!isConnectMobile()) {
-			alert("모바일 전용입니다.");	
-			returnToMain();
+			//alert("모바일 전용입니다.");	
+			//returnToMain();
 		}
 		else {			
 			checkSession();
 		}
-		
-		$('#agree').change(function() {
-			if (this.checked) {
-				G_STATE = 2.2;
-			} else {
-				G_STATE = 2.1;
-		    }
-		});
 		
 		$('#cont').change(function() {
 		    var selectedValue = $(this).val();
@@ -168,14 +160,8 @@
 				break;
 				
 			case 2.1:
-				alert("필수 항목에 동의하셔야 다음 진행이 가능합니다.");
-				break;
-				
 			case 2.2:
-				$('[id^=_page_]').hide();
-				$("#_page_3").show();
-				G_STATE = 3;
-				showNextBtn("등록");
+				checkAgree();			
 				break;
 				
 			case 3:
@@ -199,6 +185,20 @@
 				break;
 		}
 		
+	}
+	
+	function checkAgree() {
+		if ($('#agree').is(':checked')) {
+			G_STATE = 2.2;
+			$('[id^=_page_]').hide();
+			$("#_page_3").show();		
+			showNextBtn("등록");
+			G_STATE = 3;
+	  	}
+		else {
+			alert("필수 항목에 동의하셔야 다음 진행이 가능합니다.");
+			G_STATE = 2.1;
+		}
 	}
 	
 	function insertUWData() {
@@ -660,8 +660,8 @@
 			<div class="content_title content-item">[필수 준수사항]</div>	
 			<div class="content_check_box content-item">
 				<div class="content-check-box">
-					<input id="_duty_1" class="duty" type="checkbox"  name="agree" style="background:url('')">
-					<label class="duty_label" for="agree" style="color: #ff3547;    ">당사 직원의 통제에 따라주세요. <br />(방문목적 외 임의행동 금지)</label>
+					<input id="_duty_1" class="duty" type="checkbox" name="duty1" style="background:url('')">
+					<label class="duty_label" for="duty1" style="color: #ff3547;    ">당사 직원의 통제에 따라주세요. <br />(방문목적 외 임의행동 금지)</label>
 				</div>
 				<div class="content-img">
 					<img class="duty_img" src="images/icons/qr/duty_img1.png">
@@ -669,8 +669,8 @@
 			</div>
 			<div class="content_check_box content-item">
 				<div class="content-check-box">
-					<input id="_duty_2" class="duty" type="checkbox"  name="agree" style="background:url('')">
-					<label class="duty_label" for="agree">정해진 통로 외 임의이동을 하지 말아주세요.</label>
+					<input id="_duty_2" class="duty" type="checkbox" name="duty2" style="background:url('')">
+					<label class="duty_label" for="duty2">정해진 통로 외 임의이동을 하지 말아주세요.</label>
 				</div>
 				<div class="content-img">
 					<img class="duty_img" src="images/icons/qr/duty_img2.png">
@@ -678,8 +678,8 @@
 			</div>
 			<div class="content_check_box content-item">
 				<div class="content-check-box">
-					<input id="_duty_3" class="duty" type="checkbox"  name="agree" style="background:url('')">
-					<label class="duty_label" for="agree">작업중인 장비주변은 접근하지 말아주세요 <br />(유도자 지시 이행)</label>
+					<input id="_duty_3" class="duty" type="checkbox"  name="duty3" style="background:url('')">
+					<label class="duty_label" for="duty3">작업중인 장비주변은 접근하지 말아주세요 <br />(유도자 지시 이행)</label>
 				</div>
 				<div class="content-img">
 					<img class="duty_img" src="images/icons/qr/duty_img3.png">

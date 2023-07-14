@@ -1,5 +1,5 @@
 function update() {
-	getNFCLogList();
+	//getNFCLogList();
 	getPatchList();
 }
 
@@ -40,7 +40,6 @@ function getBeaconScanLogList(beacon_mac) {
 		}
 	});		
 }
-
 
 function getLogByBeaconMacAddr() {
 	
@@ -221,7 +220,6 @@ function getHoleScanLogList(beacon_mac) {
 
 //----------------------------------
 // Device(Scanner)
-
 function getLogScannerSection() {
 	let section_no =  prompt('수조 번호를 입력해주세요 ex) 3'); 
 	input = checkNumber(section_no);
@@ -278,40 +276,40 @@ function getPatchList() {
       },
       async: true,      
       success : function(list, status) {     
-			$('#result_patch').bootstrapTable();    
-         
-			if(list.length > 0) {	        	   
-				for(var i = 0 ; i < list.length ; i++) {
-					list[i].no = i+1;
-					
-					list[i].patch_type = 
-						'<div style="color: #' + list[i].app_color + '; font-weight: bold; font-size: 0.75rem;">' + list[i].app_type_name + '</div>';
-					
-					list[i].app_url = '<div class="btn-wrap">';						
+			$('#result_patch').bootstrapTable();    			
+			if(list != null) {
+				if(list.length > 0) {	        	   
+					for(var i = 0 ; i < list.length ; i++) {
+						list[i].no = i+1;
+						
+						list[i].patch_type = 
+							'<div style="color: #' + list[i].app_color + '; font-weight: bold; font-size: 0.75rem;">' + list[i].app_type_name + '</div>';
+						
+						list[i].app_url = '<div class="btn-wrap">';						
 
-					if(list[i].url != null) {						
-						list[i].app_url += '<div class="font_btn"><a target="_blank" href="' + list[i].url + '">';
-						list[i].app_url += '<a target="_blank" href="' + list[i].url + '"><i class="fa-brands fa-app-store"></i></a></div>';
+						if(list[i].url != null) {						
+							list[i].app_url += '<div class="font_btn"><a target="_blank" href="' + list[i].url + '">';
+							list[i].app_url += '<a target="_blank" href="' + list[i].url + '"><i class="fa-brands fa-app-store"></i></a></div>';
+						}
+						
+						if(list[i].ext == 'apk') {
+							list[i].app_url += '<div class="font_btn"><a class="file_link" href="./file/app?virtname='+ list[i].apk_name;
+							list[i].app_url +=  '.' + list[i].ext + '&orgname='+ list[i].apk_name + '.' + list[i].ext + '&content_type=null">';
+							list[i].app_url += '<i class="fa-solid fa-cloud-arrow-down"></i></a></div>';
+						}								
 					}
-					
-					if(list[i].ext == 'apk') {
-						list[i].app_url += '<div class="font_btn"><a class="file_link" href="./file/app?virtname='+ list[i].apk_name;
-						list[i].app_url +=  '.' + list[i].ext + '&orgname='+ list[i].apk_name + '.' + list[i].ext + '&content_type=null">';
-						list[i].app_url += '<i class="fa-solid fa-cloud-arrow-down"></i></a></div>';
-					}								
-				}
-				$('#result_patch').bootstrapTable('load', list);	
-         	}
-			else {
-				$('#result_patch').bootstrapTable('load', []);
-			}   
+					$('#result_patch').bootstrapTable('load', list);	
+	         	}
+				else {
+					$('#result_patch').bootstrapTable('load', []);
+				} 
+			}
 		}
 	}); 	
 }
 
 //----------------------------------
 // Common
-
 function checkMacAddr(mac_addr) {
 	var mac_addr = mac_addr.toUpperCase();
 	const regex = /^([0-9A-F]{2}[:]){5}([0-9A-F]{2})$/;
