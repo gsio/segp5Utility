@@ -2,7 +2,7 @@ package com.cons.man.domain;
 
 public class QrVO {
 
-	private int id;
+	private String id;
 	private int role;
 	private int site_id;
 	private int cont_id;
@@ -49,10 +49,10 @@ public class QrVO {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public int getRole() {
