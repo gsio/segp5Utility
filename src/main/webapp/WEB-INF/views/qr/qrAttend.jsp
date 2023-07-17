@@ -300,6 +300,7 @@
 		} 
 	   	
 	   	if(cont_id == -1) {
+	   		alert("업체를 선택해주세요");
 	   		$('#cont').css('border','2px solid red');	
 	   		isOk = false;
 	   	} 
@@ -756,6 +757,7 @@
 								<th class="text-center required">업체<br /><span style="color:#FF3547; font-size: 0.8em;">* 확인 요망</span></th>
 								<td> 
 									<select id="cont" name="cont_id" class="form-control" onchange="changeWtList(this)">
+										<option value="-1" >[ ----- 업체를 선택해주세요 ----- ]</option>	
 										<c:forEach var="cont" items="${contList}" varStatus="idx">
 											<option value="${cont.id}" id="${cont.type}">${cont.name}</option>
 										</c:forEach>			
