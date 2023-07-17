@@ -99,6 +99,9 @@
 
 	function updateWorker(id) {
 		var isOk = true;
+		
+		// 유효성 제거 230717
+		/*
 		if (app_worker.edudate == '' || checkDateFormat(app_worker.edudate)) {
 			$('#worker_edudate').css('border', '1px solid #cccccc');
 		} else {
@@ -112,13 +115,14 @@
 			isOk = false;
 			$('#worker_hiredate').css('border', '1px solid red');
 		}
-
-		app_worker.jumin = '' + $('#worker_jumin_6').val()
-				+ $('#worker_jumin_7').val();
+		*/
+		
+		app_worker.jumin = '' + $('#worker_jumin_6').val() + $('#worker_jumin_7').val();
 		if (!isNaN(app_worker.jumin) && app_worker.jumin.length == 7) {
 			$('#worker_jumin_6').css('border', '1px solid #cccccc');
 			$('#worker_jumin_7').css('border', '1px solid #cccccc');
-		} else {
+		}
+		else {
 			isOk = false;
 			$('#worker_jumin_6').css('border', '1px solid red');
 			$('#worker_jumin_7').css('border', '1px solid red');

@@ -664,7 +664,7 @@
 			<div class="content_check_box content-item">
 				<div class="content-check-box">
 					<input id="_duty_1" class="duty" type="checkbox" name="duty1" style="background:url('')">
-					<label class="duty_label" for="duty1" style="color: #ff3547;    ">당사 직원의 통제에 따라주세요. <br />(방문목적 외 임의행동 금지)</label>
+					<label class="duty_label" for="duty1" style="color: #ff3547;">당사 직원의 통제에 따라주세요. <br />(방문목적 외 임의행동 금지)</label>
 				</div>
 				<div class="content-img">
 					<img class="duty_img" src="images/icons/qr/duty_img1.png">
@@ -753,13 +753,13 @@
 								</td>
 							</tr>							
 							<tr>
-								<th class="text-center required">업체</th>
+								<th class="text-center required">업체<br /><span style="color:#FF3547; font-size: 0.8em;">* 확인 요망</span></th>
 								<td> 
 									<select id="cont" name="cont_id" class="form-control" onchange="changeWtList(this)">
 										<c:forEach var="cont" items="${contList}" varStatus="idx">
 											<option value="${cont.id}" id="${cont.type}">${cont.name}</option>
 										</c:forEach>			
-										<option value="-2" >기타</option>																	
+										<option value="-2" >기타 (업체추가)</option>																	
 									</select>									
 								</td>
 							</tr>	
@@ -770,7 +770,7 @@
 								</td>
 							</tr>
 							<tr>
-								<th class="text-center required">직종 / 권한</th>
+								<th class="text-center required">직종<br />권한</th>
 								<td> 
 									<select id="workType" name="workType" class="form-control" >
 										<c:forEach var="wt" items="${wTList}" varStatus="idx">

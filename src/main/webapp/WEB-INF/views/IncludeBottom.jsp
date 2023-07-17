@@ -12,7 +12,7 @@
 
 <div id="__bottom_box" class="d-none d-lg-flex">
 	<div class="sub-buttons md hydrated">
-		<img src="${contextPath}/images/logo_gsil.png" style="height:100%; width: 100%;">
+		<img src="${contextPath}/images/logo/logo_gsil.png" style="height:100%; width: 100%;">
 	</div>	
 </div>
 
