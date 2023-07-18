@@ -158,8 +158,8 @@ function isConnectMobile() {
 			type: "GET",				
 			url: 'qr/checkCertKeyVaild',
 			data: {
-				phone : $("#inputPhone").val(),
-				certkey : $("#cerkeyInputId").val()		
+				phone : '01097009257',
+				certkey : '6292'	
 			},
 			async: true,
 			cache: false,			

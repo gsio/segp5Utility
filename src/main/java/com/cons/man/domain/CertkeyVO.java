@@ -2,7 +2,7 @@ package com.cons.man.domain;
 
 public class CertkeyVO {
 
-	private int id;
+	private String id;
 	private int role;
 	private String phone;
 	private String certkey;
@@ -17,10 +17,11 @@ public class CertkeyVO {
 	private int work_min;	
 	private int is_end;
 	
-	public int getId() {
+	
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public int getRole() {

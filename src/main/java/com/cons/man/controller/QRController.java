@@ -84,6 +84,9 @@ public class QRController {
 		@RequestParam(value="certkey", defaultValue="-1") String certkey)
 	{		
 		try {			
+			
+			System.out.println("[checkCertKeyVaild] phone: " + phone);
+			
 			CertkeyVO vo = userService.checkModifyUserId(phone);				
 			if(vo == null) {
 				return new ResponseEntity<CertkeyVO>(HttpStatus.NO_CONTENT);		

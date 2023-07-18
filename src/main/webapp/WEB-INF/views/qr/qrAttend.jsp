@@ -300,7 +300,6 @@
 		} 
 	   	
 	   	if(cont_id == -1) {
-	   		alert("업체를 선택해주세요");
 	   		$('#cont').css('border','2px solid red');	
 	   		isOk = false;
 	   	} 
@@ -388,7 +387,6 @@
 				else {
 					alert(data.err);
 				}			
-							
 	       	}
 		});	
 	}
@@ -414,7 +412,6 @@
 				else {
 					alert(data.err);
 				}			
-							
 	       	}
 		});	
 	}
