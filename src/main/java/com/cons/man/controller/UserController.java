@@ -266,6 +266,31 @@ public class UserController {
 		}
 	}
 	
+	@RequestMapping(value = {"/checkModifyUserId"}, method = RequestMethod.GET)
+	public void checkModifyUserId(HttpSession session, HttpServletResponse response,
+		@RequestParam(value="phone", defaultValue="") String phone,
+		@RequestParam(value="certkey", defaultValue="-1") String certkey)
+	{			
+		CertkeyVO vo = userService.checkModifyUserId(phone);			
+		
+		try {
+			if(vo == null) {
+				response.getWriter().print(false);	
+			}					
+			else {				
+				if(vo.getCertkey().equals(certkey)) {
+					response.getWriter().print(true);
+				}
+				else {
+					response.getWriter().print(false);
+				}		
+			}
+				
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}	
+	
 	@RequestMapping(value = {"/postChangeUserId"}, method = RequestMethod.POST)
 	public void postChangeUserId(HttpSession session, HttpServletResponse response,
 		@RequestParam(value="phone", defaultValue="") String phone,

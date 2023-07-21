@@ -85,7 +85,7 @@ public class QRController {
 	{		
 		try {			
 			
-			System.out.println("[checkCertKeyVaild] phone: " + phone);
+			//System.out.println("[checkCertKeyVaild] phone: " + phone);
 			
 			CertkeyVO vo = userService.checkModifyUserId(phone);				
 			if(vo == null) {
