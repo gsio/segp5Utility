@@ -44,8 +44,14 @@ function getQRLogList() {
 		success: function (list, status) {			
 			if(list != null) {
 				if(list.length > 0) {
-					for(var i=0; i < list.length; i++) {			
-						list[i].no = i+1;
+					for(var i=0; i < list.length; i++) {
+						
+						if(list[i].role == 1) {
+							list[i].role_type = "<span style='font-weight: bold; color: #3A751C;'>관리자</span>";		
+						}
+						else {
+							list[i].role_type = "<span style='font-weight: bold; color: #4264c9;'>근로자</span>";	
+						}
 						
 						if(list[i].inout_type == 1) {
 							list[i].inout = "<span style='font-weight: bold; color: #3A751C;'>入</span>";										
@@ -137,7 +143,7 @@ function loadingTemplate() {
 			data-page-list="[100, 200, 500, All]" data-sort-name="[section]" data-filter-control="true" class="table table-bordered col-xs-12 table-hover table-striped" >
 			<thead>
 				<tr>
-					<th data-field="no" class="text-center" data-sortable="true">순번</th>
+					<th data-field="role_type" class="text-center" data-sortable="true">구분</th>
 					<th data-field="cont_name" class="text-center">업체</th>
 					<th data-field="name" class="text-center">이름</th>
 					<th data-field="inout" class="text-center">출입</th>

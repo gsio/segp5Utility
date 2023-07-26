@@ -227,6 +227,14 @@ public class MenuController {
 		return "menu_qr_attend_log";
 	}	
 	
+	// Menu - Map Test
+	@RequestMapping(value = { "/menu_marker" })
+	public String mapMarking(HttpSession session, Model model) {		
+		//System.out.println("[Menu] (Map) > menu_marker");		
+		session.setAttribute("contentView", "menu_marker");		
+		return "menu_marker";
+	}	
+	
 	// Menu - 구역 그룹 관리
 	/*
 	@RequestMapping(value = { "/sectionList" })
