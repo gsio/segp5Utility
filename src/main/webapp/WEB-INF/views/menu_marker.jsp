@@ -50,7 +50,7 @@
 	    background-repeat: no-repeat;
 	}
 	
-	#map .gm-style > div:nth-child(15), #map .gm-style > div:nth-child(17) {
+	#map .gm-style > div:nth-child(13), #map .gm-style > div:nth-child(15), #map .gm-style > div:nth-child(17) {
 		display: none !important;
 	}
 	
