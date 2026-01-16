@@ -44,8 +44,8 @@ function getLocationList() {
 	
 	$.ajax({
 		type: "GET",
-		url: 'http://13.209.31.139:11243/getRtlsEngineerList',
-		//url: 'http://211.212.221.98:11243/getRtlsEngineerList',
+		url: 'https://segp5.gsil.net:11243/getRtlsEngineerList',
+		//url: 'https://segp5.gsil.net:11243/getRtlsEngineerList',
 		data: {
 			site_id: CUR_SITE_ID,
 			input_date: $('#input_date').val(),
@@ -114,8 +114,8 @@ function getLocationDetail() {
 	
 	$.ajax({
 		type: "GET",
-		url: 'http://13.209.31.139:11243/getRtlsEngineerLog',
-		//url: 'http://211.212.221.98:11243/getRtlsEngineerLog',
+		url: 'https://segp5.gsil.net:11243/getRtlsEngineerLog',
+		//url: 'https://segp5.gsil.net:11243/getRtlsEngineerLog',
 		data: {
 			site_id: CUR_SITE_ID,
 			role: G_ROLE,

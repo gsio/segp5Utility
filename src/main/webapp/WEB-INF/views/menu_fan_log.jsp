@@ -34,8 +34,8 @@ function getFanLogList() {
 	
 	$.ajax({
 		type: "GET",
-		url: 'http://13.209.31.139:11243/getFanLogList',
-		//url: 'http://211.212.221.98:11243/getFanLogList',
+		url: 'https://segp5.gsil.net:11243/getFanLogList',
+		//url: 'https://segp5.gsil.net:11243/getFanLogList',
 		data: {
 			site_id: CUR_SITE_ID,
 			input_date: $('#input_date').val(),
@@ -89,8 +89,8 @@ function getFanLogDetail() {
 	
 	$.ajax({
 		type: "GET",
-		url: 'http://13.209.31.139:11243/getFanLogDeatilList',
-		//url: 'http://211.212.221.98:11243/getFanLogDeatilList',
+		url: 'https://segp5.gsil.net:11243/getFanLogDeatilList',
+		//url: 'https://segp5.gsil.net:11243/getFanLogDeatilList',
 		data: {
 			site_id: CUR_SITE_ID,
 			input_section: G_SECTION,

@@ -8,8 +8,8 @@ function update() {
 function getBeaconScanLogList(beacon_mac) {
 	$.ajax({
 		type: "GET",
-		url: 'http://13.209.31.139:11243/getBeaconScanLogList',
-		//url: 'http://211.212.221.98:11243/getBeaconScanLogList',
+		url: 'https://segp5.gsil.net:11243/getBeaconScanLogList',
+		//url: 'https://segp5.gsil.net:11243/getBeaconScanLogList',
 		data: {
 			beacon_mac: beacon_mac
 		},
@@ -92,8 +92,8 @@ function getLogByBeaconIdx(){
 function getNFCLogList() {
 	$.ajax({
 		type: "GET",
-		url: 'http://13.209.31.139:11243/getNfcLogList',
-		//url: 'http://211.212.221.98:11243/getNfcLogList',
+		url: 'https://segp5.gsil.net:11243/getNfcLogList',
+		//url: 'https://segp5.gsil.net:11243/getNfcLogList',
 		data: {
 			site_id: CUR_SITE_ID
 		},
@@ -177,8 +177,8 @@ function getLogByHoleIdx(){
 function getHoleScanLogList(beacon_mac) {
 	$.ajax({
 		type: "GET",
-		url: 'http://13.209.31.139:11243/getHoleScanLogList',
-		//url: 'http://211.212.221.98:11243/getHoleScanLogList',
+		url: 'https://segp5.gsil.net:11243/getHoleScanLogList',
+		//url: 'https://segp5.gsil.net:11243/getHoleScanLogList',
 		data: {
 			beacon_mac: beacon_mac
 		},
@@ -231,8 +231,8 @@ function getLogScannerSection() {
 	else {
 		$.ajax({
 			type: "GET",
-			url: 'http://13.209.31.139:11243/getLogScannerSection',
-			//url: 'http://211.212.221.98:11243/getLogScannerSection',
+			url: 'https://segp5.gsil.net:11243/getLogScannerSection',
+			//url: 'https://segp5.gsil.net:11243/getLogScannerSection',
 			data: {
 				section: section_no
 			},

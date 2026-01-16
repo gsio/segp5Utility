@@ -41,8 +41,8 @@ function getSensorList() {
 	
 	$.ajax({
 		type: "GET",
-		//url: 'http://13.209.31.139:11243/getSensorLogList',
-		url: 'http://211.212.221.98:11243/getSensorLogList',
+		//url: 'https://segp5.gsil.net:11243/getSensorLogList',
+		url: 'https://segp5.gsil.net:11243/getSensorLogList',
 		data: {
 			input_date: $('#input_date').val(),
 			input_section: $('#search_section').val()

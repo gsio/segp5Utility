@@ -55,7 +55,6 @@
 	<script src="https://unpkg.com/bootstrap-table@1.21.3/dist/bootstrap-table.min.js"></script>
 	<script src="https://unpkg.com/bootstrap-table@1.21.3/dist/extensions/group-by-v2/bootstrap-table-group-by.min.js"></script>
 	
-	<link rel="stylesheet" href="css/qr/qr.css?s=2">
 	<link rel="stylesheet" href="fontawesome/css/all.css">	
 	
 	<script type="text/javascript" src="js/jquery.datepick.js"></script> 
@@ -66,7 +65,6 @@
 	<script type="text/javascript" src="js/bootstrap-table-filter.js?s=1"></script>
 	<script type="text/javascript" src="js/bootstrap-table-ko-KR.js"></script>
 	<script type="text/javascript" src="js/vue_2.0.3.js"></script>
-	<script type="text/javascript" src="js/qr/qr.js"></script>
 	<script type="text/javascript" src="js/basic.js"></script>
 	<script type="text/javascript" src="js/bootstrap4.1/bootstrap.bundle.js"></script>	 	  	
   	

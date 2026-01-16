@@ -150,8 +150,8 @@ public class PrintController {
 	{			
 		ArrayList<SensorLogVO> sensorList = new ArrayList<SensorLogVO>();
 		try {
-			JSONObject json = JsonReader.readJsonFromUrl("http://13.209.31.139:11243/getSensorLogList?input_date=" + date + "&input_section=" + section);
-			//JSONObject json = JsonReader.readJsonFromUrl("http://211.212.221.98:11243/getSensorLogList?input_date=" + date + "&input_section=" + section);
+			JSONObject json = JsonReader.readJsonFromUrl("https://segp5.gsil.net:11243/getSensorLogList?input_date=" + date + "&input_section=" + section);
+			//JSONObject json = JsonReader.readJsonFromUrl("https://segp5.gsil.net:11243/getSensorLogList?input_date=" + date + "&input_section=" + section);
 			JSONParser jsonParser = new JSONParser();
 			org.json.simple.JSONArray jsonArray = new org.json.simple.JSONArray();
 			try {
@@ -198,8 +198,8 @@ public class PrintController {
 		ArrayList<RtlsLogVO> rtlsList = new ArrayList<RtlsLogVO>();
 		
 		try {		
-			JSONObject json = JsonReader.readJsonFromUrl("http://13.209.31.139:11243/getRtlsEngineerLogList/" + site_id + "/" + cont_id + "/" + date);
-			//JSONObject json = JsonReader.readJsonFromUrl("http://211.212.221.98:11243/getRtlsEngineerLogList/" + site_id + "/" + cont_id + "/" + date);
+			JSONObject json = JsonReader.readJsonFromUrl("https://segp5.gsil.net:11243/getRtlsEngineerLogList/" + site_id + "/" + cont_id + "/" + date);
+			//JSONObject json = JsonReader.readJsonFromUrl("https://segp5.gsil.net:11243/getRtlsEngineerLogList/" + site_id + "/" + cont_id + "/" + date);
 
 			JSONParser jsonParser = new JSONParser();
 			org.json.simple.JSONArray jsonArray = new org.json.simple.JSONArray();
@@ -250,8 +250,8 @@ public class PrintController {
 		ArrayList<RtlsLogVO> inoutList = new ArrayList<RtlsLogVO>();
 		
 		try {		
-			JSONObject json = JsonReader.readJsonFromUrl("http://13.209.31.139:11243/getSectionInoutLogList/" + site_id + "/" + cont_id + "/" + date);
-			//JSONObject json = JsonReader.readJsonFromUrl("http://211.212.221.98:11243/getSectionInoutLogList/" + site_id + "/" + cont_id + "/" + date);
+			JSONObject json = JsonReader.readJsonFromUrl("https://segp5.gsil.net:11243/getSectionInoutLogList/" + site_id + "/" + cont_id + "/" + date);
+			//JSONObject json = JsonReader.readJsonFromUrl("https://segp5.gsil.net:11243/getSectionInoutLogList/" + site_id + "/" + cont_id + "/" + date);
 
 			JSONParser jsonParser = new JSONParser();
 			org.json.simple.JSONArray jsonArray = new org.json.simple.JSONArray();

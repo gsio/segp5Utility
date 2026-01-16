@@ -5,7 +5,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 
 <bean id="dataSourceSpied" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" >
 	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-	<property name="url" value="jdbc:mysql://database-segp5-utility.cfdrusaemzkj.ap-northeast-2.rds.amazonaws.com:3306/segp5?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC&amp;zeroDateTimeBehavior=convertToNull"/> 
+	<property name="url" value="jdbc:mysql://database-segp5-sub.cfdrusaemzkj.ap-northeast-2.rds.amazonaws.com:3306/segp5?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=UTC&amp;zeroDateTimeBehavior=convertToNull"/> 
 	<property name="username" value="admin" />
 	<property name="password" value="qkralsghvmfh!2#" />    
 	<property name="validationQuery" value="select 1" /> 

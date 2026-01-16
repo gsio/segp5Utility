@@ -43,8 +43,8 @@ function getLocationList() {
 	
 	$.ajax({
 		type: "GET",
-		url: 'http://13.209.31.139:11243/getSectionInoutList',
-		//url: 'http://211.212.221.98:11243/getSectionInoutList',
+		url: 'https://segp5.gsil.net:11243/getSectionInoutList',
+		//url: 'https://segp5.gsil.net:11243/getSectionInoutList',
 		data: {
 			site_id: CUR_SITE_ID,
 			input_date: $('#input_date').val(),
@@ -114,8 +114,8 @@ function getSectionDetail() {
 	
 	$.ajax({
 		type: "GET",
-		url: 'http://13.209.31.139:11243/getSectionInoutLog',
-		//url: 'http://211.212.221.98:11243/getSectionInoutLog',
+		url: 'https://segp5.gsil.net:11243/getSectionInoutLog',
+		//url: 'https://segp5.gsil.net:11243/getSectionInoutLog',
 		data: {
 			site_id: CUR_SITE_ID,
 			input_section: G_SECTION,

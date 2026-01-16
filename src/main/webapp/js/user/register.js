@@ -128,8 +128,8 @@ function modifyUserId() {
 		
 		$.ajax({
 			type: "POST",				
-			url: 'http://13.209.31.139:11243/postCertKeyChangeID',
-			//url: 'http://211.212.221.98:11243/postCertKeyChangeID',
+			url: 'https://segp5.gsil.net:11243/postCertKeyChangeID',
+			//url: 'https://segp5.gsil.net:11243/postCertKeyChangeID',
 			data: {
 				site_id: 17,
 				phone : $("#phone").val(),

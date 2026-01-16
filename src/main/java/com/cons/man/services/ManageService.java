@@ -104,7 +104,7 @@ public class ManageService {
 		ArrayList<SectionVO> sectionList = new ArrayList<SectionVO>();
 		/*
 		try {		
-			JSONObject json = JsonReader.readJsonFromUrl("http://13.209.31.139:11243/getSensorLogList?input_date=" + date);
+			JSONObject json = JsonReader.readJsonFromUrl("https://segp5.gsil.net:11243/getSensorLogList?input_date=" + date);
 			System.out.println("[Sensor-Section] JSON: " + json);
 			JSONParser jsonParser = new JSONParser();
 			org.json.simple.JSONArray jsonArray = new org.json.simple.JSONArray();

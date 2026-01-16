@@ -46,7 +46,7 @@ import com.cons.man.services.WorkerService;
 @Controller(value="QRController")
 public class QRController {
 	
-	private static int CUR_SITE_ID = 17;
+	private static int CUR_SITE_ID = 1;
 	private static int TIME_LIMIT = 315;
     public static String secretKey = "gsil-segp5qr-pmh";
     public static byte[] ivBytes = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };

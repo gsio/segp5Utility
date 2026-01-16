@@ -50,7 +50,7 @@
 	
 	<script type="text/javascript">     
 	
-		const CUR_SITE_ID = 17;
+		const CUR_SITE_ID = 1;
 		const SCANNER_MAC_LENGTH = 17;
 		    
 		$(document).ready(function() {
