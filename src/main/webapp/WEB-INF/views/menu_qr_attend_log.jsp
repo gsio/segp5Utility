@@ -147,6 +147,7 @@ function loadingTemplate() {
 					<th data-field="cont_name" class="text-center">업체</th>
 					<th data-field="name" class="text-center">이름</th>
 					<th data-field="inout" class="text-center">출입</th>
+					<th data-field="comment" class="text-center">의견</th>
 					<th data-field="write_time" class="text-center">시간</th>
 				</tr>
 			</thead>		
