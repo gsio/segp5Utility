@@ -15,16 +15,16 @@
 	};
 
 	/*
-		[G_STATE]
-		0   : Init
-		1   : 필수준수사항
-		2   : New Engineer
+	 * [ 프로세스 입력 ]
+		0: 초기화면
+		1: 필수준수사항
+		2: New Engineer
 			2.1 : 개인정보 수집 및 이용동의 체크 X
 			2.2 : 개인정보 수집 및 이용동의 체크 O
-		3   : Init Insert Info
-		4   : 입장
-		5   : 퇴장
-		5.1 : 퇴장 코멘트 입력
+		3: Init Insert Info
+		4: 입장
+		5: 퇴장
+			5.1 : 퇴장 코멘트 입력
 	*/
 
 	var G_STATE = 1;
@@ -305,6 +305,8 @@
 		}
 
 		lockIdentificationUI();
+		
+		
 
 		$.ajax({
 			type : "POST",
@@ -316,16 +318,22 @@
 			},
 			async : true,
 			cache : false,
-			success : function(data) {
-				var obj = parseJsonMaybe(data) || data;
+			success : function(data, status, xhr) {
+				  console.log("status:", status);
+				  console.log("content-type:", xhr && xhr.getResponseHeader ? xhr.getResponseHeader("Content-Type") : "");
+				  console.log("raw data:", data);
+				  console.log("typeof:", typeof data);
 
-				if (obj && obj.status == 200) {
-					setCertkeyFunction();
-				} else {
-					safeAlert("입력하신 핸드폰번호를 확인해주세요");
-					unlockIdentificationUI();
-				}
-			},
+				  var obj = parseJsonMaybe(data) || data;
+				  console.log("parsed:", obj);
+
+				  if (obj && (obj.status == 200 || String(obj.status) === "200")) {
+				    setCertkeyFunction();
+				  } else {
+				    safeAlert("인증 요청 실패: status=" + (obj && obj.status));
+				    unlockIdentificationUI();
+				  }
+				},
 			error : function(xhr, status, err) {
 				console.log("AJAX ERROR", status, err);
 				console.log("HTTP", xhr.status, xhr.responseText);
@@ -733,11 +741,13 @@
 
 		bindEvents();
 
-		if (!isConnectMobile()) {
-			return;
+		if(!isConnectMobile()) {
+			alert("모바일 전용입니다.");	
+			returnToMain();
 		}
-
-		checkSession();
+		else {			
+			checkSession();
+		}
 	};
 
 })(window, window.jQuery);
