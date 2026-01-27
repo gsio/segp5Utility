@@ -65,7 +65,7 @@ public class QRService {
 			WorkerVO worker = new WorkerVO();
 			worker.setPhone(phone);
 			worker.setJumin(jumin);
-			worker.setSite_id(17);
+			worker.setSite_id(1);
 			worker.setCont_id(cont_id);
 			worker.setGubun("0");
 			worker.setName(name);

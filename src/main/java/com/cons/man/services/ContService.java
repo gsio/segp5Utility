@@ -39,7 +39,7 @@ public class ContService {
 	public int insertContTemp(String name) {
 		try {
 			ContVO vo = new ContVO();
-			vo.setSite_id(17);
+			vo.setSite_id(1);
 			vo.setName(name);
 			vo.setType(1);
 			int resultInt = contMapper.insertContTemp(vo);

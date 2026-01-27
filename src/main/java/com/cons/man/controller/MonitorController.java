@@ -56,7 +56,7 @@ public class MonitorController {
 			if(vo == null) {
 				id = "unknown";
 				vo = new UserVO();
-				vo.setSite_id(16);
+				vo.setSite_id(1);
 				vo.setId(id);
 				monitorService.insertMonitorLog(request.getRemoteAddr(), id, request.getRequestURL().toString(), 0);
 			}
@@ -84,7 +84,7 @@ public class MonitorController {
 		try {			
 			UserVO vo = new UserVO();
 			String id = "unknown";
-			vo.setSite_id(16);
+			vo.setSite_id(1);
 			vo.setId(id);
 			
 			HoleVO hole = monitorService.getLastHoleId(16);
@@ -106,7 +106,7 @@ public class MonitorController {
 	@RequestMapping(value = {"/manage_default"})
 	public String manage_default(HttpSession session , Model model) {			
 		UserVO vo = new UserVO();
-		vo.setSite_id(16);		
+		vo.setSite_id(1);		
 		model.addAttribute("userLoginInfo", vo);
 		return "manage/default";
 	}
@@ -114,7 +114,7 @@ public class MonitorController {
 	@RequestMapping(value = {"/manage_detail"})
 	public String manage_device(HttpSession session , Model model) {			
 		UserVO vo = new UserVO();
-		vo.setSite_id(16);		
+		vo.setSite_id(1);		
 		model.addAttribute("userLoginInfo", vo);
 		return "manage/detail";
 	}
@@ -122,7 +122,7 @@ public class MonitorController {
 	@RequestMapping(value = {"/manage_log"})
 	public String manage_log(HttpSession session , Model model) {			
 		UserVO vo = new UserVO();
-		vo.setSite_id(16);		
+		vo.setSite_id(1);		
 		model.addAttribute("userLoginInfo", vo);
 		return "manage/log";
 	}

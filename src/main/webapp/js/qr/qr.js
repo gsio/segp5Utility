@@ -741,7 +741,6 @@
 
 		bindEvents();
 
-		/*
 		if(!isConnectMobile()) {
 			alert("모바일 전용입니다.");	
 			returnToMain();
@@ -749,8 +748,6 @@
 		else {			
 			checkSession();
 		}
-		*/
-		checkSession();
 	};
 
 })(window, window.jQuery);
