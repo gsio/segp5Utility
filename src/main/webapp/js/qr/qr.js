@@ -241,7 +241,7 @@
 	function checkSession() {
 		if (!acquireLock("checkSession"))
 			return;
-
+		
 		var encodedQueryString = location.search.replace(/\+/g, "%2B");
 		var params = new URLSearchParams(encodedQueryString);
 		var encryption = params.get("encryption");
@@ -741,6 +741,7 @@
 
 		bindEvents();
 
+		/*
 		if(!isConnectMobile()) {
 			alert("모바일 전용입니다.");	
 			returnToMain();
@@ -748,6 +749,8 @@
 		else {			
 			checkSession();
 		}
+		*/
+		checkSession();
 	};
 
 })(window, window.jQuery);
