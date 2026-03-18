@@ -8,11 +8,20 @@
 	var QRAttend = {};
 	window.QRAttend = QRAttend;
 
+	function detectBasePath() {
+		var path = window.location.pathname || "";
+		if (path.indexOf("/segp5/") === 0 || path === "/segp5") {
+			return "/segp5";
+		}
+		return "";
+	}
+
 	var CONFIG = {
 		siteId : null,
 		placeId : null,
 		section : null,
-		mainUrl : "main",
+		basePath : detectBasePath(),
+		mainUrl : detectBasePath() + "/main",
 		apiIdentificationUrl : "https://segp5.gsil.net:11243/postIdentification"
 	};
 
@@ -72,7 +81,7 @@
 			return null;
 		}
 	}
-	
+
 	function debugLog(msg) {
 		var box = document.getElementById("debugBox");
 		if (!box) return;
@@ -89,6 +98,37 @@
 		}
 		interval = null;
 		timerExpiredFired = false;
+	}
+
+	function getUrlParams() {
+		var encodedQueryString = location.search.replace(/\+/g, "%2B");
+		return new URLSearchParams(encodedQueryString);
+	}
+
+	function applyUrlParamsToConfig() {
+		var params = getUrlParams();
+
+		var siteId = params.get("site_id");
+		var placeId = params.get("place_id");
+		var section = params.get("section");
+
+		if (siteId != null && siteId !== "") CONFIG.siteId = siteId;
+		if (placeId != null && placeId !== "") CONFIG.placeId = placeId;
+		if (section != null && section !== "") CONFIG.section = section;
+
+		debugLog("location.href=" + location.href);
+		debugLog("location.pathname=" + location.pathname);
+		debugLog("CONFIG.basePath=" + CONFIG.basePath);
+		debugLog("url site_id=" + siteId);
+		debugLog("url place_id=" + placeId);
+		debugLog("url section=" + section);
+		debugLog("CONFIG.siteId=" + CONFIG.siteId);
+		debugLog("CONFIG.placeId=" + CONFIG.placeId);
+		debugLog("CONFIG.section=" + CONFIG.section);
+	}
+
+	function apiUrl(path) {
+		return CONFIG.basePath + path;
 	}
 
 	window.MOBILE_TYPE = window.MOBILE_TYPE || 0;
@@ -250,71 +290,63 @@
 	}
 
 	function checkSession() {
-	    if (!acquireLock("checkSession"))
-	        return;
+		if (!acquireLock("checkSession"))
+			return;
 
-	    var encodedQueryString = location.search.replace(/\+/g, "%2B");
-	    var params = new URLSearchParams(encodedQueryString);
+		var params = getUrlParams();
+		var encryption = params.get("encryption");
 
-	    var encryption = params.get("encryption");
-	    var siteId = params.get("site_id");
-	    var placeId = params.get("place_id");
-	    var section = params.get("section");
+		debugLog("checkSession start");
+		debugLog("encryption=" + encryption);
+		debugLog("site_id=" + CONFIG.siteId);
+		debugLog("place_id=" + CONFIG.placeId);
+		debugLog("section=" + CONFIG.section);
 
-	    debugLog("param encryption=" + params.get("encryption"));
-	    debugLog("param site_id=" + params.get("site_id"));
-	    debugLog("param place_id=" + params.get("place_id"));
-	    debugLog("param section=" + params.get("section"));
+		if (!encryption || encryption.length < 1) {
+			releaseLock("checkSession");
+			safeAlert("유효하지 않는 경로로 들어오셨습니다.");
+			returnToMain();
+			return;
+		}
 
-	    CONFIG.siteId = siteId;
-	    CONFIG.placeId = placeId;
-	    CONFIG.section = section;
+		$.ajax({
+			type : "POST",
+			url : apiUrl("/qr/checkEncryptionKey"),
+			data : {
+				encryption : encryption
+			},
+			async : true,
+			cache : false,
+			success : function(json) {
+				debugLog("checkSession success raw=" + JSON.stringify(json));
 
-	    if (!encryption || encryption.length < 1) {
-	        releaseLock("checkSession");
-	        safeAlert("유효하지 않는 경로로 들어오셨습니다.");
-	        returnToMain();
-	        return;
-	    }
+				var data = parseJsonMaybe(json);
+				debugLog("checkSession parsed=" + JSON.stringify(data));
 
-	    $.ajax({
-	        type : "POST",
-	        url : "qr/checkEncryptionKey",
-	        data : {
-	            encryption : encryption
-	        },
-	        async : true,
-	        cache : false,
-	        success : function(json) {
-	            console.log("[QR] ajax success raw =", json);
+				if (!data) {
+					safeAlert("세션 확인에 실패했습니다.");
+					returnToMain();
+					return;
+				}
 
-	            var data = parseJsonMaybe(json);
-	            console.log("[QR] ajax parsed =", data);
-
-	            if (!data) {
-	                safeAlert("세션 확인에 실패했습니다.");
-	                returnToMain();
-	                return;
-	            }
-
-	            if (String(data.result) === "true") {
-	                console.log("[QR] result true");
-	            } else {
-	                console.log("[QR] result false");
-	                safeAlert("인증이 완료된 QR로 입장하셨습니다.");
-	                returnToMain();
-	            }
-	        },
-	        error : function(xhr, status, err) {
-	            console.log("[QR] ajax error", xhr.status, status, err);
-	            safeAlert("세션 확인 요청에 실패했습니다.");
-	            returnToMain();
-	        },
-	        complete : function() {
-	            console.log("[QR] checkSession complete");
-	            releaseLock("checkSession");
-	        }
-	    });
+				if (String(data.result) === "true") {
+					debugLog("checkSession result=true");
+				} else {
+					debugLog("checkSession result=false");
+					safeAlert("인증이 완료된 QR로 입장하셨습니다.");
+					returnToMain();
+				}
+			},
+			error : function(xhr, status, err) {
+				debugLog("checkSession error http=" + xhr.status + ", status=" + status + ", err=" + err);
+				safeAlert("세션 확인 요청에 실패했습니다.");
+				returnToMain();
+			},
+			complete : function() {
+				debugLog("checkSession complete");
+				releaseLock("checkSession");
+			}
+		});
 	}
 
 	function getRandomFunction(min, max) {
@@ -338,8 +370,8 @@
 		}
 
 		lockIdentificationUI();
-		
-		
+
+		debugLog("requestIdentificationSMS site_id=" + CONFIG.siteId + ", phone=" + inputPhone);
 
 		$.ajax({
 			type : "POST",
@@ -352,24 +384,18 @@
 			async : true,
 			cache : false,
 			success : function(data, status, xhr) {
-				  console.log("status:", status);
-				  console.log("content-type:", xhr && xhr.getResponseHeader ? xhr.getResponseHeader("Content-Type") : "");
-				  console.log("raw data:", data);
-				  console.log("typeof:", typeof data);
+				var obj = parseJsonMaybe(data) || data;
+				debugLog("requestIdentificationSMS success=" + JSON.stringify(obj));
 
-				  var obj = parseJsonMaybe(data) || data;
-				  console.log("parsed:", obj);
-
-				  if (obj && (obj.status == 200 || String(obj.status) === "200")) {
-				    setCertkeyFunction();
-				  } else {
-				    safeAlert("인증 요청 실패: status=" + (obj && obj.status));
-				    unlockIdentificationUI();
-				  }
-				},
+				if (obj && (obj.status == 200 || String(obj.status) === "200")) {
+					setCertkeyFunction();
+				} else {
+					safeAlert("인증 요청 실패: status=" + (obj && obj.status));
+					unlockIdentificationUI();
+				}
+			},
 			error : function(xhr, status, err) {
-				console.log("AJAX ERROR", status, err);
-				console.log("HTTP", xhr.status, xhr.responseText);
+				debugLog("requestIdentificationSMS error http=" + xhr.status + ", status=" + status + ", err=" + err);
 				safeAlert("요청 실패: " + xhr.status + " / " + status);
 				unlockIdentificationUI();
 			},
@@ -394,17 +420,14 @@
 		var endTimeSeconds = endTime.getTime();
 
 		interval = setInterval(function() {
-			var timer = Math
-					.floor((endTimeSeconds - new Date().getTime()) / 1000);
+			var timer = Math.floor((endTimeSeconds - new Date().getTime()) / 1000);
 			displaykeyinTime(Math.max(timer, 0));
 
 			if (timer <= 0) {
 				clearTimer();
 
-				$("#cerkeyInputId").css("background", "#DEDEDE").prop(
-						"readonly", true);
-				$("#inputPhone").css("background", "#FFF").prop("readonly",
-						false);
+				$("#cerkeyInputId").css("background", "#DEDEDE").prop("readonly", true);
+				$("#inputPhone").css("background", "#FFF").prop("readonly", false);
 
 				if (!timerExpiredFired) {
 					timerExpiredFired = true;
@@ -441,7 +464,7 @@
 
 		$.ajax({
 			type : "GET",
-			url : "qr/checkCertKeyVaild",
+			url : apiUrl("/qr/checkCertKeyVaild"),
 			data : {
 				phone : $("#inputPhone").val(),
 				certkey : $("#cerkeyInputId").val()
@@ -460,8 +483,7 @@
 						$("#modifyId").css("display", "inherit");
 					}
 
-					$("#inputPhone").css("background", "#DEDEDE").prop(
-							"readonly", true);
+					$("#inputPhone").css("background", "#DEDEDE").prop("readonly", true);
 
 					if (obj.role > 0) {
 						$("#infoWrap").css("display", "block");
@@ -469,7 +491,7 @@
 						$("#_uw_name").text(obj.name || "");
 						$("#_uw_wt_type").text(obj.wt_name || "");
 
-						var photo = "<img src=\"image_thumb?virtname="
+						var photo = "<img src=\"" + apiUrl("/image_thumb") + "?virtname="
 								+ (obj.photo || "")
 								+ "&height=150&width=100\" onerror=\"this.src='images/noimage.png'\">";
 						$("#_uw_photo").html(photo);
@@ -487,6 +509,7 @@
 							G_STATE = 5;
 						}
 
+						debugLog("confirmCertKeyId G_ROLE=" + G_ROLE + ", G_UW_ID=" + G_UW_ID);
 						showNextBtn("다음");
 					} else {
 						safeAlert("신규 회원 입니다. 오른쪽 하단 다음을 눌러주세요.");
@@ -588,7 +611,7 @@
 
 		$.ajax({
 			type : "POST",
-			url : "qr/checkDuplicateCheck",
+			url : apiUrl("/qr/checkDuplicateCheck"),
 			data : payload,
 			async : true,
 			cache : false,
@@ -603,6 +626,7 @@
 				if (String(data.result) === "true") {
 					G_ROLE = data.role;
 					G_UW_ID = data.uw_id;
+					debugLog("checkDuplicateCheck success G_ROLE=" + G_ROLE + ", G_UW_ID=" + G_UW_ID);
 					safeAlert("등록에 성공하였습니다.");
 					G_STATE = 1;
 					moveDutyPage();
@@ -650,8 +674,9 @@
 	function postWorkIn() {
 		if (!acquireLock("postWorkIn"))
 			return;
-		
+
 		debugLog("postWorkIn start");
+		debugLog("POST URL=" + apiUrl("/qr/insertQRInData"));
 		debugLog("CONFIG.siteId=" + CONFIG.siteId);
 		debugLog("CONFIG.placeId=" + CONFIG.placeId);
 		debugLog("CONFIG.section=" + CONFIG.section);
@@ -660,7 +685,7 @@
 
 		$.ajax({
 			type : "POST",
-			url : "qr/insertQRInData",
+			url : apiUrl("/qr/insertQRInData"),
 			data : {
 				site_id : CONFIG.siteId,
 				place_id : CONFIG.placeId,
@@ -671,7 +696,10 @@
 			async : true,
 			cache : false,
 			success : function(json) {
+				debugLog("postWorkIn success raw=" + JSON.stringify(json));
 				var data = parseJsonMaybe(json);
+				debugLog("postWorkIn parsed=" + JSON.stringify(data));
+
 				if (data && String(data.result) === "true") {
 					safeAlert("입장완료");
 					returnToMain();
@@ -679,7 +707,8 @@
 					safeAlert((data && data.err) ? data.err : "입장 처리 실패");
 				}
 			},
-			error : function() {
+			error : function(xhr, status, err) {
+				debugLog("postWorkIn error http=" + xhr.status + ", status=" + status + ", err=" + err);
 				safeAlert("입장 요청에 실패했습니다.");
 			},
 			complete : function() {
@@ -692,9 +721,18 @@
 		if (!acquireLock("postWorkOut"))
 			return;
 
+		debugLog("postWorkOut start");
+		debugLog("POST URL=" + apiUrl("/qr/insertQROutData"));
+		debugLog("CONFIG.siteId=" + CONFIG.siteId);
+		debugLog("CONFIG.placeId=" + CONFIG.placeId);
+		debugLog("CONFIG.section=" + CONFIG.section);
+		debugLog("G_UW_ID=" + G_UW_ID);
+		debugLog("G_ROLE=" + G_ROLE);
+		debugLog("comment=" + ($("#comment").val() || ""));
+
 		$.ajax({
 			type : "POST",
-			url : "qr/insertQROutData",
+			url : apiUrl("/qr/insertQROutData"),
 			data : {
 				site_id : CONFIG.siteId,
 				place_id : CONFIG.placeId,
@@ -706,7 +744,10 @@
 			async : true,
 			cache : false,
 			success : function(json) {
+				debugLog("postWorkOut success raw=" + JSON.stringify(json));
 				var data = parseJsonMaybe(json);
+				debugLog("postWorkOut parsed=" + JSON.stringify(data));
+
 				if (data && String(data.result) === "true") {
 					safeAlert("퇴장완료");
 					returnToMain();
@@ -714,7 +755,8 @@
 					safeAlert((data && data.err) ? data.err : "퇴장 처리 실패");
 				}
 			},
-			error : function() {
+			error : function(xhr, status, err) {
+				debugLog("postWorkOut error http=" + xhr.status + ", status=" + status + ", err=" + err);
 				safeAlert("퇴장 요청에 실패했습니다.");
 			},
 			complete : function() {
@@ -777,23 +819,32 @@
 
 	QRAttend.init = function(opt) {
 		CONFIG = $.extend({}, CONFIG, opt || {});
-		
-		debugLog("init start");
-		debugLog("init CONFIG.siteId=" + CONFIG.siteId);
-		debugLog("init CONFIG.placeId=" + CONFIG.placeId);
-		debugLog("init CONFIG.section=" + CONFIG.section);
+		CONFIG.basePath = detectBasePath();
+		CONFIG.mainUrl = CONFIG.basePath + "/main";
 
-		if (!CONFIG.siteId || !CONFIG.placeId || !CONFIG.section) {
+		debugLog("init start");
+		debugLog("init CONFIG.siteId(before)=" + CONFIG.siteId);
+		debugLog("init CONFIG.placeId(before)=" + CONFIG.placeId);
+		debugLog("init CONFIG.section(before)=" + CONFIG.section);
+
+		applyUrlParamsToConfig();
+
+		debugLog("init CONFIG.siteId(after)=" + CONFIG.siteId);
+		debugLog("init CONFIG.placeId(after)=" + CONFIG.placeId);
+		debugLog("init CONFIG.section(after)=" + CONFIG.section);
+
+		if (CONFIG.siteId == null || CONFIG.placeId == null || CONFIG.section == null ||
+			CONFIG.siteId === "" || CONFIG.placeId === "" || CONFIG.section === "") {
 			safeAlert("구역 정보가 올바르지 않습니다.");
 			return;
 		}
 
 		bindEvents();
-		if(!isConnectMobile()) {
-			alert("모바일 전용입니다.");	
+
+		if (!isConnectMobile()) {
+			alert("모바일 전용입니다.");
 			returnToMain();
-		}
-		else {			
+		} else {
 			checkSession();
 		}
 	};

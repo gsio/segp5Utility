@@ -287,6 +287,46 @@
 			<button id="nextbtn" class="btn" style="display: none;">다음</button>
 		</div>
 	</div>
+	
+	<div id="debugPanel"
+     style="
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        z-index: 99999;
+        background: rgba(0,0,0,0.9);
+        box-sizing: border-box;
+        padding: 6px;
+        display: block;
+     ">
+    <div style="display:flex; gap:6px; margin-bottom:6px;">
+        <button type="button" id="debugToggleBtn"
+                style="flex:1; height:36px; font-size:13px; background:#444; color:#fff; border:none;">
+            디버그 접기
+        </button>
+        <button type="button" id="debugClearBtn"
+                style="flex:1; height:36px; font-size:13px; background:#8b0000; color:#fff; border:none;">
+            로그 지우기
+        </button>
+    </div>
+
+    <textarea id="debugBox"
+              readonly
+              style="
+                width:100%;
+                height:180px;
+                resize:none;
+                box-sizing:border-box;
+                background:#111;
+                color:#00ff66;
+                border:1px solid #333;
+                font-size:12px;
+                line-height:1.35;
+                padding:8px;
+              "></textarea>
+</div>
+	
 </div>
 
 <%@ include file="MonitorBottom.jsp"%>
