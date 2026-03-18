@@ -11,35 +11,7 @@
 			section : "${param.section}",
 			mainUrl : "main"
 		});
-	});
-	
-	function bindDebugPanel() {
-		var toggleBtn = document.getElementById("debugToggleBtn");
-		var clearBtn = document.getElementById("debugClearBtn");
-		var box = document.getElementById("debugBox");
-
-		if (toggleBtn && box) {
-			box.style.display = "none";
-			toggleBtn.textContent = "디버그 펼치기";
-
-			toggleBtn.addEventListener("click", function() {
-				if (box.style.display === "none") {
-					box.style.display = "block";
-					toggleBtn.textContent = "디버그 접기";
-				} else {
-					box.style.display = "none";
-					toggleBtn.textContent = "디버그 펼치기";
-				}
-			});
-		}
-
-		if (clearBtn && box) {
-			clearBtn.addEventListener("click", function() {
-				box.value = "";
-			});
-		}
-	}
-	
+	});	
 </script>
 
 <style>

@@ -153,7 +153,6 @@ public class QRService {
 	}	
 	
 	public int insertQROutData(int site_id, int place_id, int section, String uw_id, int role, String comment) {
-		System.out.println(site_id + "/" + uw_id + "/" + role);
 		int result = qrMapper.insertQROutData(site_id, place_id, section, uw_id, role);
 		qrMapper.insertQRInoutLog(site_id, place_id, section, uw_id, role, 2, comment);
 		return result;

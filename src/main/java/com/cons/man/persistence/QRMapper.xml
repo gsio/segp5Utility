@@ -26,10 +26,7 @@
 	
 	<delete id="insertQROutData" parameterType="QrVO">
 		DELETE FROM qr_inout
-		WHERE site_id = #{site_id}
-		  AND place_id = #{place_id}
-		  AND section = #{section}
-		  AND uw_id = #{uw_id}
+		WHERE uw_id = #{uw_id}
 		  AND role = #{role}
 	</delete>
 	

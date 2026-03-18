@@ -90,6 +90,39 @@
 		box.value += "[" + time + "] " + msg + "\n";
 		box.scrollTop = box.scrollHeight;
 	}
+	
+	function bindDebugPanel() {
+		var toggleBtn = document.getElementById("debugToggleBtn");
+		var clearBtn = document.getElementById("debugClearBtn");
+		var box = document.getElementById("debugBox");
+
+		debugLog("bindDebugPanel start");
+		debugLog("toggleBtn exists=" + (!!toggleBtn));
+		debugLog("clearBtn exists=" + (!!clearBtn));
+		debugLog("debugBox exists=" + (!!box));
+
+		if (toggleBtn && box) {
+			box.style.display = "none";
+			toggleBtn.textContent = "디버그 펼치기";
+
+			toggleBtn.onclick = function() {
+				if (box.style.display === "none") {
+					box.style.display = "block";
+					toggleBtn.textContent = "디버그 접기";
+					debugLog("debugBox opened");
+				} else {
+					box.style.display = "none";
+					toggleBtn.textContent = "디버그 펼치기";
+				}
+			};
+		}
+
+		if (clearBtn && box) {
+			clearBtn.onclick = function() {
+				box.value = "";
+			};
+		}
+	}
 
 	function clearTimer() {
 		try {
@@ -328,7 +361,7 @@
 					returnToMain();
 					return;
 				}
-
+				/*
 				if (String(data.result) === "true") {
 					debugLog("checkSession result=true");
 				} else {
@@ -336,6 +369,8 @@
 					safeAlert("인증이 완료된 QR로 입장하셨습니다.");
 					returnToMain();
 				}
+				*/
+				debugLog("checkSession result=true");
 			},
 			error : function(xhr, status, err) {
 				debugLog("checkSession error http=" + xhr.status + ", status=" + status + ", err=" + err);
@@ -822,6 +857,8 @@
 		CONFIG.basePath = detectBasePath();
 		CONFIG.mainUrl = CONFIG.basePath + "/main";
 
+		bindDebugPanel();
+
 		debugLog("init start");
 		debugLog("init CONFIG.siteId(before)=" + CONFIG.siteId);
 		debugLog("init CONFIG.placeId(before)=" + CONFIG.placeId);
@@ -840,13 +877,15 @@
 		}
 
 		bindEvents();
-
+		/*
 		if (!isConnectMobile()) {
 			alert("모바일 전용입니다.");
 			returnToMain();
 		} else {
 			checkSession();
 		}
+		*/
+		checkSession();
 	};
 
 })(window, window.jQuery);
