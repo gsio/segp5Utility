@@ -243,38 +243,98 @@ public class QRController {
 		}
 	}
 	
-	
 	@RequestMapping(value = {"/qr/checkEncryptionKey"}, method = RequestMethod.POST)
-	public void checkEncryptionKey(HttpSession session, HttpServletResponse response,
-		@RequestParam(value="encryption", defaultValue="") String encryption)
-	{	
-		JSONObject jo = new JSONObject();
-		try {
-		    byte[] textBytes = Base64.getDecoder().decode(encryption);
-		    AlgorithmParameterSpec ivSpec = new IvParameterSpec(ivBytes);
-		    SecretKeySpec newKey = new SecretKeySpec(secretKey.getBytes("UTF-8"), "AES");
-		    Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-		    cipher.init(Cipher.DECRYPT_MODE, newKey, ivSpec);
-		    byte[] decryptedBytes = cipher.doFinal(textBytes);
-		    String decryptedString = new String(decryptedBytes, "UTF-8");			
-			long currentTime = System.currentTimeMillis();
-			long decryptedTime = Long.parseLong(decryptedString);
-			long timeDifferenceInSeconds = (currentTime - decryptedTime) / 1000;
-			if (timeDifferenceInSeconds < TIME_LIMIT) {
-				jo.put("result", "true");			
-			}
-			else {
-				jo.put("result", "false");
-			}			
-		} catch (Exception e) {
-			e.printStackTrace();
-			jo.put("result", "false");
-		}		
-		try {
-			response.getWriter().print(jo.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
+	public void checkEncryptionKey(
+	        HttpSession session,
+	        HttpServletResponse response,
+	        @RequestParam(value="encryption", defaultValue="") String encryption) {
+
+	    JSONObject jo = new JSONObject();
+	    
+		 // QR 유효시간 제한값 (seconds)
+		 // 기준:
+		 //   currentTime      = 서버에서 인증 체크하는 현재 시간
+		 //   decryptedTime    = QR 생성 시 암호화해 넣어둔 timestamp(ms)
+		 // 판정:
+		 //   (currentTime - decryptedTime) / 1000 < TIME_LIMIT 이면 유효
+		 // 310초 = 5분 10초 - 300초 = 10초의 유예시간을 줌 
+
+	    try {
+	    	/*
+	        System.out.println("======================================");
+	        System.out.println("[QR] /qr/checkEncryptionKey START");
+	        System.out.println("[QR] raw encryption           = [" + encryption + "]");
+	        System.out.println("[QR] raw length               = " + (encryption == null ? 0 : encryption.length()));
+	        System.out.println("[QR] raw trim length          = " + (encryption == null ? 0 : encryption.trim().length()));
+	        System.out.println("[QR] contains blank          = " + (encryption != null && encryption.contains(" ")));
+	        System.out.println("[QR] contains plus(+)        = " + (encryption != null && encryption.contains("+")));
+	        System.out.println("[QR] contains slash(/)       = " + (encryption != null && encryption.contains("/")));
+	        System.out.println("[QR] contains equal(=)       = " + (encryption != null && encryption.contains("=")));
+	        System.out.println("[QR] contains dash(-)        = " + (encryption != null && encryption.contains("-")));
+	        System.out.println("[QR] contains underscore(_)  = " + (encryption != null && encryption.contains("_")));
+	        */
+
+	        String safeEncryption = encryption == null ? "" : encryption.trim();
+
+	        // + 가 공백으로 깨진 경우 보정
+	        if (safeEncryption.contains(" ")) {
+	            //System.out.println("[QR] blank found -> replace to +");
+	            safeEncryption = safeEncryption.replace(' ', '+');
+	        }
+
+	        //System.out.println("[QR] safe encryption          = [" + safeEncryption + "]");
+	        //System.out.println("[QR] safe length              = " + safeEncryption.length());
+
+	        byte[] textBytes = null;
+
+	        try {
+	            textBytes = Base64.getDecoder().decode(safeEncryption);
+	            //System.out.println("[QR] Base64 decode success (standard)");
+	        } catch (IllegalArgumentException e1) {
+	            //System.out.println("[QR] Base64 decode fail (standard): " + e1.getMessage());
+
+	            // URL-safe Base64 가능성도 확인
+	            textBytes = Base64.getUrlDecoder().decode(safeEncryption);
+	            //System.out.println("[QR] Base64 decode success (url-safe)");
+	        }
+
+	        //System.out.println("[QR] decoded byte length      = " + (textBytes == null ? 0 : textBytes.length));
+
+	        AlgorithmParameterSpec ivSpec = new IvParameterSpec(ivBytes);
+	        SecretKeySpec newKey = new SecretKeySpec(secretKey.getBytes("UTF-8"), "AES");
+	        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+	        cipher.init(Cipher.DECRYPT_MODE, newKey, ivSpec);
+
+	        byte[] decryptedBytes = cipher.doFinal(textBytes);
+	        String decryptedString = new String(decryptedBytes, "UTF-8");
+
+	        //System.out.println("[QR] decryptedString          = [" + decryptedString + "]");
+
+	        long currentTime = System.currentTimeMillis();
+	        long decryptedTime = Long.parseLong(decryptedString);
+	        long timeDifferenceInSeconds = (currentTime - decryptedTime) / 1000;
+
+	        //System.out.println("[QR] currentTime              = " + currentTime);
+	        //System.out.println("[QR] decryptedTime            = " + decryptedTime);
+	        //System.out.println("[QR] diff(sec)                = " + timeDifferenceInSeconds);
+
+	        if (timeDifferenceInSeconds < TIME_LIMIT) {
+	            jo.put("result", "true");
+	        } else {
+	            jo.put("result", "false");
+	        }
+
+	    } catch (Exception e) {
+	        //System.out.println("[QR] ERROR = " + e.getClass().getName() + " / " + e.getMessage());
+	        e.printStackTrace();
+	        jo.put("result", "false");
+	    }
+
+	    try {
+	        response.getWriter().print(jo.toString());
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}	
 	
 	@RequestMapping(value = {"/qr/getQRInoutLogToday"}, method = RequestMethod.GET)

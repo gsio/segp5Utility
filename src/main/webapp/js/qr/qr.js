@@ -241,50 +241,64 @@
 	}
 
 	function checkSession() {
-		if (!acquireLock("checkSession"))
-			return;
-		
-		var encodedQueryString = location.search.replace(/\+/g, "%2B");
-		var params = new URLSearchParams(encodedQueryString);
-		var encryption = params.get("encryption");
+	    console.log("[QR] checkSession called at", new Date().toISOString());
 
-		if (!encryption || encryption.length < 1) {
-			releaseLock("checkSession");
-			safeAlert("유효하지 않는 경로로 들어오셨습니다.");
-			returnToMain();
-			return;
-		}
+	    if (!acquireLock("checkSession")) {
+	        console.log("[QR] checkSession blocked by lock");
+	        return;
+	    }
 
-		$.ajax({
-			type : "POST",
-			url : "qr/checkEncryptionKey",
-			data : {
-				encryption : encryption
-			},
-			async : true,
-			cache : false,
-			success : function(json) {
-				var data = parseJsonMaybe(json);
-				if (!data) {
-					safeAlert("세션 확인에 실패했습니다.");
-					returnToMain();
-					return;
-				}
-			
-				if (String(data.result) === "true") {
-				} else {
-					safeAlert("인증이 완료된 QR로 입장하셨습니다.");
-					returnToMain();
-				}
-			},
-			error : function() {
-				safeAlert("세션 확인 요청에 실패했습니다.");
-				returnToMain();
-			},
-			complete : function() {
-				releaseLock("checkSession");
-			}
-		});
+	    var encodedQueryString = location.search.replace(/\+/g, "%2B");
+	    var params = new URLSearchParams(encodedQueryString);
+	    var encryption = params.get("encryption");
+
+	    console.log("[QR] encryption =", encryption);
+
+	    if (!encryption || encryption.length < 1) {
+	        releaseLock("checkSession");
+	        safeAlert("유효하지 않는 경로로 들어오셨습니다.");
+	        returnToMain();
+	        return;
+	    }
+
+	    $.ajax({
+	        type : "POST",
+	        url : "qr/checkEncryptionKey",
+	        data : {
+	            encryption : encryption
+	        },
+	        async : true,
+	        cache : false,
+	        success : function(json) {
+	            console.log("[QR] ajax success raw =", json);
+
+	            var data = parseJsonMaybe(json);
+	            console.log("[QR] ajax parsed =", data);
+
+	            if (!data) {
+	                safeAlert("세션 확인에 실패했습니다.");
+	                returnToMain();
+	                return;
+	            }
+
+	            if (String(data.result) === "true") {
+	                console.log("[QR] result true");
+	            } else {
+	                console.log("[QR] result false");
+	                safeAlert("인증이 완료된 QR로 입장하셨습니다.");
+	                returnToMain();
+	            }
+	        },
+	        error : function(xhr, status, err) {
+	            console.log("[QR] ajax error", xhr.status, status, err);
+	            safeAlert("세션 확인 요청에 실패했습니다.");
+	            returnToMain();
+	        },
+	        complete : function() {
+	            console.log("[QR] checkSession complete");
+	            releaseLock("checkSession");
+	        }
+	    });
 	}
 
 	function getRandomFunction(min, max) {
