@@ -270,13 +270,12 @@
 					returnToMain();
 					return;
 				}
-				/*
+			
 				if (String(data.result) === "true") {
 				} else {
 					safeAlert("인증이 완료된 QR로 입장하셨습니다.");
 					returnToMain();
 				}
-				*/
 			},
 			error : function() {
 				safeAlert("세션 확인 요청에 실패했습니다.");
@@ -748,7 +747,6 @@
 		}
 
 		bindEvents();
-		/*
 		if(!isConnectMobile()) {
 			alert("모바일 전용입니다.");	
 			returnToMain();
@@ -756,8 +754,6 @@
 		else {			
 			checkSession();
 		}
-		*/
-		checkSession();
 	};
 
 })(window, window.jQuery);
