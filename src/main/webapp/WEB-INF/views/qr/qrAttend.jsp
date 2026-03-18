@@ -12,7 +12,41 @@
 			mainUrl : "main"
 		});
 	});
+	
+	function bindDebugPanel() {
+		var toggleBtn = document.getElementById("debugToggleBtn");
+		var clearBtn = document.getElementById("debugClearBtn");
+		var box = document.getElementById("debugBox");
+
+		if (toggleBtn && box) {
+			box.style.display = "none";
+			toggleBtn.textContent = "디버그 펼치기";
+
+			toggleBtn.addEventListener("click", function() {
+				if (box.style.display === "none") {
+					box.style.display = "block";
+					toggleBtn.textContent = "디버그 접기";
+				} else {
+					box.style.display = "none";
+					toggleBtn.textContent = "디버그 펼치기";
+				}
+			});
+		}
+
+		if (clearBtn && box) {
+			clearBtn.addEventListener("click", function() {
+				box.value = "";
+			});
+		}
+	}
+	
 </script>
+
+<style>
+	#content-wrapper {
+		padding-bottom: 56px !important;
+	}
+</style>
 
 <div id="content-wrapper">
 	<div id="contentPage">
@@ -289,24 +323,22 @@
 	</div>
 	
 	<div id="debugPanel"
-     style="
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        z-index: 99999;
-        background: rgba(0,0,0,0.9);
-        box-sizing: border-box;
-        padding: 6px;
-        display: block;
-     ">
-    <div style="display:flex; gap:6px; margin-bottom:6px;">
-        <button type="button" id="debugToggleBtn"
-                style="flex:1; height:36px; font-size:13px; background:#444; color:#fff; border:none;">
-            디버그 접기
+	     style="
+	        position: fixed;
+	        left: 0;
+	        bottom: 0;
+	        width: 100%;
+	        z-index: 99999;
+	        background: rgba(0,0,0,0.9);
+	        box-sizing: border-box;
+	        padding: 6px;
+	        display: block;">
+	    <div style="display:flex; gap:6px;">
+        <button type="button" id="debugToggleBtn" style="flex:1; height:36px; font-size:13px; background:#444; color:#fff; border:none;">
+            디버그 펼치기
         </button>
         <button type="button" id="debugClearBtn"
-                style="flex:1; height:36px; font-size:13px; background:#8b0000; color:#fff; border:none;">
+                style="width:110px; height:36px; font-size:13px; background:#8b0000; color:#fff; border:none;">
             로그 지우기
         </button>
     </div>
@@ -324,8 +356,10 @@
                 font-size:12px;
                 line-height:1.35;
                 padding:8px;
+                margin-top:6px;
+                display:none;
               "></textarea>
-</div>
+	</div>
 	
 </div>
 
