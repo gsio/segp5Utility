@@ -1,7 +1,7 @@
 <%@ include file="MonitorTop.jsp"%>
 <%@ page pageEncoding="utf-8"%>
-<script type="text/javascript" src="js/qr/qr.js"></script>
-<link rel="stylesheet" href="css/qr/qr.css?s=2">
+<script type="text/javascript" src="js/qr/qr.js?s=1"></script>
+<link rel="stylesheet" href="css/qr/qr.css?s=1">
 
 <script>
 	$(document).ready(function() {
