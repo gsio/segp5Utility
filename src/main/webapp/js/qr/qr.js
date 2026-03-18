@@ -241,18 +241,26 @@
 	}
 
 	function checkSession() {
-	    console.log("[QR] checkSession called at", new Date().toISOString());
-
-	    if (!acquireLock("checkSession")) {
-	        console.log("[QR] checkSession blocked by lock");
+	    if (!acquireLock("checkSession"))
 	        return;
-	    }
 
 	    var encodedQueryString = location.search.replace(/\+/g, "%2B");
 	    var params = new URLSearchParams(encodedQueryString);
-	    var encryption = params.get("encryption");
 
-	    console.log("[QR] encryption =", encryption);
+	    var encryption = params.get("encryption");
+	    var siteId = params.get("site_id");
+	    var placeId = params.get("place_id");
+	    var section = params.get("section");
+
+	    console.log("[QR] checkSession site_id =", siteId);
+	    console.log("[QR] checkSession place_id =", placeId);
+	    console.log("[QR] checkSession section =", section);
+
+	    CONFIG.siteId = siteId;
+	    CONFIG.placeId = placeId;
+	    CONFIG.section = section;
+
+	    console.log("[QR] CONFIG after parse =", CONFIG);
 
 	    if (!encryption || encryption.length < 1) {
 	        releaseLock("checkSession");

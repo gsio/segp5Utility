@@ -200,7 +200,7 @@ public class QRController {
 		@RequestParam(value="role", defaultValue="-1") int role,
 		@RequestParam(value="comment", defaultValue="") String comment)
 	{	
-		//System.out.println("[insertQRInData]: " + site_id+"/"+uw_id+"/"+role+"/"+comment);
+		System.out.println("[insertQRInData]: " + site_id+"/"+place_id+"/"+section+"/"+uw_id+"/"+role+"/"+comment);
 		int resultQRIn = qrService.insertQRInData(site_id, place_id, section, uw_id, role);
 		JSONObject jo = new JSONObject();
 		if(resultQRIn > 0) {
@@ -226,7 +226,7 @@ public class QRController {
 		@RequestParam(value="role", defaultValue="-1") int role,
 		@RequestParam(value="comment", defaultValue="") String comment)
 	{	
-		//System.out.println("[insertQROutData]: " + site_id+"/"+uw_id+"/"+role+"/"+comment);
+		System.out.println("[insertQROutData]: " + site_id+"/"+place_id+"/"+section+"/"+uw_id+"/"+role+"/"+comment);
 		int resultQROut = qrService.insertQROutData(site_id, place_id, section, uw_id, role, comment);
 		JSONObject jo = new JSONObject();
 		if(resultQROut > 0) {
