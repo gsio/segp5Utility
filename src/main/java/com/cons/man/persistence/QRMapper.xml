@@ -20,25 +20,30 @@
 	</insert>
 	
 	<insert id="insertQRInData" parameterType="QrVO">
-		REPLACE INTO qr_inout(site_id, uw_id, role, start_time, read_time, last_update_time)
-    	VALUES(#{site_id}, #{uw_id}, #{role}, NOW(), NOW(), NOW())
+		REPLACE INTO qr_inout(site_id, place_id, section, uw_id, role, start_time, read_time, last_update_time)
+    	VALUES(#{site_id}, #{place_id}, #{section}, #{uw_id}, #{role}, NOW(), NOW(), NOW())
 	</insert>
 	
-	<insert id="insertQROutData" parameterType="QrVO">
-		DELETE FROM qr_inout 
-		WHERE uw_id = #{uw_id}
-		AND role = #{role}
-	</insert>
+	<delete id="insertQROutData" parameterType="QrVO">
+		DELETE FROM qr_inout
+		WHERE site_id = #{site_id}
+		  AND place_id = #{place_id}
+		  AND section = #{section}
+		  AND uw_id = #{uw_id}
+		  AND role = #{role}
+	</delete>
 	
 	<insert id="insertQRInoutLog" parameterType="QrVO">
-		INSERT INTO qr_inout_log(site_id, uw_id, role, type, comment, write_date, write_time)
-    	VALUES(#{site_id}, #{uw_id}, #{role}, #{type}, #{comment}, DATE(NOW()), NOW())
+		INSERT INTO qr_inout_log(site_id, place_id, section, uw_id, role, type, comment, write_date, write_time)
+    	VALUES(#{site_id}, #{place_id}, #{section}, #{uw_id}, #{role}, #{type}, #{comment}, DATE(NOW()), NOW())
 	</insert>
 	
 	<select id="getQRInoutLogToday" resultType="QrVO" parameterType="Integer" >
 		SELECT * FROM qr_inout_log_view
-		WHERE site_id = #{site_id}
-		AND write_date = DATE(NOW())
+		WHERE site_id = #{site_id} 
+			AND place_id = #{place_id} 
+			AND	section = #{section}
+			AND write_date = DATE(NOW())
 	</select>
 	
 	<select id="getQRInoutLog" resultType="QrVO"  parameterType="Integer" >

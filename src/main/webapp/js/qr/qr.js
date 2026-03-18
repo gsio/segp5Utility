@@ -10,6 +10,8 @@
 
 	var CONFIG = {
 		siteId : null,
+		placeId : null,
+		section : null,
 		mainUrl : "main",
 		apiIdentificationUrl : "https://segp5.gsil.net:11243/postIdentification"
 	};
@@ -268,11 +270,13 @@
 					returnToMain();
 					return;
 				}
+				/*
 				if (String(data.result) === "true") {
 				} else {
 					safeAlert("인증이 완료된 QR로 입장하셨습니다.");
 					returnToMain();
 				}
+				*/
 			},
 			error : function() {
 				safeAlert("세션 확인 요청에 실패했습니다.");
@@ -623,6 +627,8 @@
 			url : "qr/insertQRInData",
 			data : {
 				site_id : CONFIG.siteId,
+				place_id : CONFIG.placeId,
+				section : CONFIG.section,
 				uw_id : G_UW_ID,
 				role : G_ROLE
 			},
@@ -655,6 +661,8 @@
 			url : "qr/insertQROutData",
 			data : {
 				site_id : CONFIG.siteId,
+				place_id : CONFIG.placeId,
+				section : CONFIG.section,
 				uw_id : G_UW_ID,
 				role : G_ROLE,
 				comment : $("#comment").val()
@@ -734,13 +742,13 @@
 	QRAttend.init = function(opt) {
 		CONFIG = $.extend({}, CONFIG, opt || {});
 
-		if (!CONFIG.siteId) {
-			safeAlert("siteId 설정이 없습니다.");
+		if (!CONFIG.siteId || !CONFIG.placeId || !CONFIG.section) {
+			safeAlert("구역 정보가 올바르지 않습니다.");
 			return;
 		}
 
 		bindEvents();
-
+		/*
 		if(!isConnectMobile()) {
 			alert("모바일 전용입니다.");	
 			returnToMain();
@@ -748,6 +756,8 @@
 		else {			
 			checkSession();
 		}
+		*/
+		checkSession();
 	};
 
 })(window, window.jQuery);

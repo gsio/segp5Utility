@@ -1056,20 +1056,21 @@ public class PrintExcel {
 		s.setMargin(Sheet.LeftMargin, 0.2);
 		s.setMargin(Sheet.RightMargin, 0.2);	
 		
-		String[] th_arr = new String[]{"NO", "구분", "업체", "이름", "출입", "시간"};
+		String[] th_arr = new String[]{"NO", "구분", "구역", "업체", "이름", "출입", "시간"};
 		s.setColumnWidth(0, 55 * 37);
 		s.setColumnWidth(1, 100 * 37);
-		s.setColumnWidth(2, 180 * 37);
-		s.setColumnWidth(3, 100 * 37);
-		s.setColumnWidth(4, 120 * 37);
-		s.setColumnWidth(5, 180 * 37);
+		s.setColumnWidth(2, 150 * 37);
+		s.setColumnWidth(3, 180 * 37);
+		s.setColumnWidth(4, 100 * 37);
+		s.setColumnWidth(5, 120 * 37);
+		s.setColumnWidth(6, 180 * 37);
 		
 		//제목
 		r = s.createRow(0);
 		r.setHeight((short)(90 * 15));
 		r.createCell( 0).setCellStyle(td_title);
 		r.getCell( 0).setCellValue(new XSSFRichTextString("QR출입로그"));
-		for(int i = 1 ; i <= 6; i++){
+		for(int i = 1 ; i <= 7; i++){
 			r.createCell(i).setCellStyle(td_title);
 		}
 		s.addMergedRegion (new CellRangeAddress((int) 0 , (short)0 , (int) 0, (short)MAX_COLUMN - 1));	
@@ -1095,22 +1096,25 @@ public class PrintExcel {
 				r. getCell( 1).setCellValue(new HSSFRichTextString("근로자"));
 			}
 			
-			r. createCell( 2).setCellStyle(td1);
-			r. getCell( 2).setCellValue(new HSSFRichTextString(vo.getCont_name()));	
+			r. createCell( 3).setCellStyle(td1);
+			r. getCell( 3).setCellValue(new HSSFRichTextString(vo.getSection_name()));	
 			
 			r. createCell( 3).setCellStyle(td1);
-			r. getCell( 3).setCellValue(new HSSFRichTextString(vo.getName()));		
+			r. getCell( 3).setCellValue(new HSSFRichTextString(vo.getCont_name()));	
 			
 			r. createCell( 4).setCellStyle(td1);
-			if(vo.getInout_type() == 1) {
-				r. getCell( 4).setCellValue(new HSSFRichTextString("입장"));		
-			}
-			else {
-				r. getCell( 4).setCellValue(new HSSFRichTextString("퇴장"));
-			}
+			r. getCell( 4).setCellValue(new HSSFRichTextString(vo.getName()));		
 			
 			r. createCell( 5).setCellStyle(td1);
-			r. getCell( 5).setCellValue(new HSSFRichTextString(vo.getWrite_time()));					
+			if(vo.getInout_type() == 1) {
+				r. getCell( 5).setCellValue(new HSSFRichTextString("입장"));		
+			}
+			else {
+				r. getCell( 5).setCellValue(new HSSFRichTextString("퇴장"));
+			}
+			
+			r. createCell( 6).setCellStyle(td1);
+			r. getCell( 6).setCellValue(new HSSFRichTextString(vo.getWrite_time()));					
 			idx++;
 		}
 		

@@ -1,8 +1,6 @@
 <%@ include file="IncludeTop.jsp"%>
 <%@ page pageEncoding="utf-8"%>
 
-
-
 <script>
 
 var app_data;
@@ -20,7 +18,7 @@ function initVue(){
 			insert: {		  
 				t_name : '',
 				gubun : 1,
-				u_id : ''
+				write_user_id : ''
 			}
 		}    
 	});
@@ -29,7 +27,7 @@ function initVue(){
 function initInputValue(){
 	app_data.insert.t_name = '';
 	app_data.insert.gubun = 1;
-	app_data.insert.u_id = '${userLoginInfo.id}';
+	app_data.insert.write_user_id = '${userLoginInfo.id}';
 }
 
 function openInputModal(){
@@ -117,7 +115,7 @@ function deleteWtype(id) {
 					<th data-field="gubun" data-sortable="true" class="text-center show-web">구분</th>
 					<th data-field="t_name" data-sortable="true" class="text-center">직종</th>
 					<th data-field="writer_user_name" data-sortable="true" class="text-center">작성자</th>
-					<th data-field="write_time" class="text-center show-web">변경시간</th>
+					<th data-field="write_time" class="text-center show-web">변경시간</th>					
 					<th data-field="btn_delete" class="text-center">삭제</th>
 				</tr>
 			</thead>
@@ -135,10 +133,21 @@ function deleteWtype(id) {
 				      	 	</c:otherwise>
 						</c:choose> 	      	 	
 			        	<td class="text-center">${vo.t_name}</td>    
-			        	<td class="text-center">${vo.name}</td>       	
+			        	<td class="text-center">${vo.writer_user_name}</td>       	
 			        	<td class="text-center show-web">${vo.write_time}</td>	
 						<td class="text-center">
-							<div class="btn icon-danger" onclick="deleteWtype(${vo.id})"><i class="fa-solid fa-trash"></i></div>
+							<c:choose>
+								<c:when test="${vo.id > 4}">
+				      	 			<div class="btn icon-default" onclick="deleteWtype(${vo.id})">
+										<i class="fa-solid fa-trash"></i>
+									</div>
+				      	 		</c:when>
+								<c:otherwise>
+					      	 		<div class="btn icon-danger" style="cursor: not-allowed;">
+										<i class='fas fa-ban'></i>
+									</div>
+					      	 	</c:otherwise>
+							</c:choose> 
 						</td>		     
 			      </tr>
 		   		</c:forEach>

@@ -144,6 +144,7 @@ function loadingTemplate() {
 			<thead>
 				<tr>
 					<th data-field="role_type" class="text-center" data-sortable="true">구분</th>
+					<th data-field="section_name" class="text-center">구역</th>
 					<th data-field="cont_name" class="text-center">업체</th>
 					<th data-field="name" class="text-center">이름</th>
 					<th data-field="inout" class="text-center">출입</th>

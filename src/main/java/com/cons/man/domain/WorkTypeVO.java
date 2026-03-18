@@ -9,6 +9,8 @@ public class WorkTypeVO {
 	private int site_id;
 	private String u_id;
 	private String name;
+	private String writer_user_id;
+	private String writer_user_name;
 	private String write_time;
 	
 	public int getId() {
@@ -59,6 +61,18 @@ public class WorkTypeVO {
 	}
 	public void setWrite_time(String write_time) {
 		this.write_time = write_time;
-	}	
-	
+	}
+	public String getWriter_user_id() {
+		return writer_user_id;
+	}
+	public void setWriter_user_id(String writer_user_id) {
+		this.writer_user_id = writer_user_id;
+	}
+	public String getWriter_user_name() {
+		return writer_user_name;
+	}
+	public void setWriter_user_name(String writer_user_name) {
+		this.writer_user_name = writer_user_name;
+	}
+
 }

@@ -20,13 +20,13 @@ public interface QRMapper {
 	
 	public int insertWorkerTemp(WorkerVO vo);
 	
-	public int insertQRInData(@Param("site_id")int site_id, @Param("uw_id")String uw_id, @Param("role")int role);
+	public int insertQRInData(@Param("site_id")int site_id, @Param("place_id")int place_id, @Param("section")int section, @Param("uw_id")String uw_id, @Param("role")int role);
 	
-	public int insertQROutData(@Param("site_id")int site_id, @Param("uw_id")String uw_id, @Param("role")int role);
+	public int insertQROutData(@Param("site_id")int site_id, @Param("place_id")int place_id, @Param("section")int section, @Param("uw_id")String uw_id, @Param("role")int role);
 	
-	public void insertQRInoutLog(@Param("site_id")int site_id, @Param("uw_id")String uw_id, @Param("role")int role, @Param("type")int type, @Param("comment")String comment);
+	public void insertQRInoutLog(@Param("site_id")int site_id, @Param("place_id")int place_id, @Param("section")int section, @Param("uw_id")String uw_id, @Param("role")int role, @Param("type")int type, @Param("comment")String comment);
 	
-	public List<QrVO> getQRInoutLogToday(@Param("site_id")int site_id);	
+	public List<QrVO> getQRInoutLogToday(@Param("site_id")int site_id, @Param("place_id")int place_id, @Param("section")int section);	
 	
 	public List<QrVO> getQRInoutLogList(@Param("site_id")int site_id, @Param("input_date")String input_date);
 	

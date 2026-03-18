@@ -26,6 +26,10 @@ public class SectionService {
 		return sectionMapper.getSectionList(site_id);
 	}
 	
+	public SectionVO getQrSectionData(int site_id, int place_id, int section){
+		return sectionMapper.getQrSectionData(site_id, place_id, section);
+	}
+	
 	public List<SectionVO> checkSectionDuplicate(int section) {
 		return sectionMapper.checkSectionDuplicate(section);
 	}

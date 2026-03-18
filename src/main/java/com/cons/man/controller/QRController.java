@@ -61,8 +61,12 @@ public class QRController {
 	private UserService userService;
 	
 	@Resource(name = "WorkerService")
-	private WorkerService workerService;
+	private WorkerService workerService;	
 	
+	@Resource(name="SectionService")
+	private SectionService sectionService;
+	
+		
 	@RequestMapping(value = {"/qrAttend"})
 	public String qrAttendInitPage(HttpSession session, Model model) {		
 		List<ContVO> contList = contService.getContList(CUR_SITE_ID);		
@@ -190,12 +194,14 @@ public class QRController {
 	@RequestMapping(value = {"/qr/insertQRInData"}, method = RequestMethod.POST)
 	public void insertQRInData(HttpSession session, HttpServletResponse response,
 		@RequestParam(value="site_id", defaultValue="-1") int site_id,
+		@RequestParam(value="place_id", defaultValue="-1") int place_id,
+		@RequestParam(value="section", defaultValue="-1") int section,		
 		@RequestParam(value="uw_id", defaultValue="") String uw_id,
 		@RequestParam(value="role", defaultValue="-1") int role,
 		@RequestParam(value="comment", defaultValue="") String comment)
 	{	
 		//System.out.println("[insertQRInData]: " + site_id+"/"+uw_id+"/"+role+"/"+comment);
-		int resultQRIn = qrService.insertQRInData(site_id, uw_id, role);
+		int resultQRIn = qrService.insertQRInData(site_id, place_id, section, uw_id, role);
 		JSONObject jo = new JSONObject();
 		if(resultQRIn > 0) {
 			jo.put("result", "true");
@@ -214,12 +220,14 @@ public class QRController {
 	@RequestMapping(value = {"/qr/insertQROutData"}, method = RequestMethod.POST)
 	public void insertQROutData(HttpSession session, HttpServletResponse response,
 		@RequestParam(value="site_id", defaultValue="-1") int site_id,
+		@RequestParam(value="place_id", defaultValue="-1") int place_id,
+		@RequestParam(value="section", defaultValue="-1") int section,		
 		@RequestParam(value="uw_id", defaultValue="") String uw_id,
 		@RequestParam(value="role", defaultValue="-1") int role,
 		@RequestParam(value="comment", defaultValue="") String comment)
 	{	
 		//System.out.println("[insertQROutData]: " + site_id+"/"+uw_id+"/"+role+"/"+comment);
-		int resultQROut = qrService.insertQROutData(site_id, uw_id, role, comment);
+		int resultQROut = qrService.insertQROutData(site_id, place_id, section, uw_id, role, comment);
 		JSONObject jo = new JSONObject();
 		if(resultQROut > 0) {
 			jo.put("result", "true");
@@ -271,11 +279,12 @@ public class QRController {
 	
 	@RequestMapping(value = {"/qr/getQRInoutLogToday"}, method = RequestMethod.GET)
 	public ResponseEntity<List<QrVO>> getQRInoutLogToday(HttpSession session, HttpServletResponse response,
-		@RequestParam(value="site_id", defaultValue="-1") int site_id)
+		@RequestParam(value="site_id", defaultValue="-1") int site_id,
+		@RequestParam(value="place_id", defaultValue="-1") int place_id,
+		@RequestParam(value="section", defaultValue="-1") int section)
 	{	
 		try {
-			//System.out.println("[getQRInoutLog]: " + site_id);
-			List<QrVO> sensor_List = qrService.getQRInoutLogToday(site_id);	
+			List<QrVO> sensor_List = qrService.getQRInoutLogToday(site_id, place_id, section);	
 			return new ResponseEntity<List<QrVO>>(sensor_List, HttpStatus.OK);	
 		} 
 		catch (Exception e) {
@@ -297,6 +306,36 @@ public class QRController {
 		catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<List<QrVO>>(HttpStatus.NO_CONTENT);		
+		}
+	}
+	
+	@RequestMapping(value = {"/qr/sections"}, method = RequestMethod.GET)
+	public ResponseEntity<List<SectionVO>> getQrSectionList(HttpSession session, HttpServletResponse response,
+		@RequestParam(value="site_id", defaultValue="-1") int site_id)
+	{	
+		try {
+			List<SectionVO> list = sectionService.getSectionList(site_id);	
+			return new ResponseEntity<List<SectionVO>>(list, HttpStatus.OK);	
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<List<SectionVO>>(HttpStatus.NO_CONTENT);		
+		}
+	}
+	
+	@RequestMapping(value = {"/qr/section"}, method = RequestMethod.GET)
+	public ResponseEntity<SectionVO> getQrSectionData(HttpSession session, HttpServletResponse response,
+		@RequestParam(value="site_id", defaultValue="-1") int site_id,
+		@RequestParam(value="place_id", defaultValue="-1") int place_id,
+		@RequestParam(value="section", defaultValue="-1") int section)
+	{	
+		try {
+			SectionVO vo = sectionService.getQrSectionData(site_id, place_id, section);	
+			return new ResponseEntity<SectionVO>(vo, HttpStatus.OK);	
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<SectionVO>(HttpStatus.NO_CONTENT);		
 		}
 	}
 	

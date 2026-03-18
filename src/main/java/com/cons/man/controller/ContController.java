@@ -47,7 +47,7 @@ public class ContController {
 	) {		
 		UserVO userInfo = (UserVO)session.getAttribute("userLoginInfo");		
 		ContVO contVO = new ContVO();
-		List<WorkStateVO> list = manageService.getWorkStateList(userInfo.getSite_id());	
+		List<WorkStateVO> list = manageService.getWorkStateListFromWeb(userInfo.getSite_id());	
 		model.addAttribute("sList", list);
 		if( cont_id >= 0 ) {
 			contVO = contService.getContInfo(cont_id);

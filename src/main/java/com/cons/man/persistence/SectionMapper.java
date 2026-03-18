@@ -12,5 +12,7 @@ public interface SectionMapper {
 
 	public List<SectionVO> getSectionList(@Param("site_id")int site_id);
 	
+	public SectionVO getQrSectionData(@Param("site_id")int site_id, @Param("place_id")int place_id, @Param("section")int section);
+	
 	public List<SectionVO> checkSectionDuplicate(@Param("section")int section);
 }

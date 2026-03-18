@@ -146,21 +146,21 @@ public class QRService {
 		return jumin_back;
 	}
 	
-	public int insertQRInData(int site_id, String uw_id, int role) {
-		int result = qrMapper.insertQRInData(site_id, uw_id, role);
-		qrMapper.insertQRInoutLog(site_id, uw_id, role, 1, "");
+	public int insertQRInData(int site_id, int place_id, int section, String uw_id, int role) {
+		int result = qrMapper.insertQRInData(site_id, place_id, section, uw_id, role);
+		qrMapper.insertQRInoutLog(site_id, place_id, section, uw_id, role, 1, "");
 		return result;
 	}	
 	
-	public int insertQROutData(int site_id, String uw_id, int role, String comment) {
+	public int insertQROutData(int site_id, int place_id, int section, String uw_id, int role, String comment) {
 		System.out.println(site_id + "/" + uw_id + "/" + role);
-		int result = qrMapper.insertQROutData(site_id, uw_id, role);
-		qrMapper.insertQRInoutLog(site_id, uw_id, role, 2, comment);
+		int result = qrMapper.insertQROutData(site_id, place_id, section, uw_id, role);
+		qrMapper.insertQRInoutLog(site_id, place_id, section, uw_id, role, 2, comment);
 		return result;
 	}
 	
-	public List<QrVO> getQRInoutLogToday(int site_id) {
-		List<QrVO> list = qrMapper.getQRInoutLogToday(site_id);		
+	public List<QrVO> getQRInoutLogToday(int site_id, int place_id, int section) {
+		List<QrVO> list = qrMapper.getQRInoutLogToday(site_id, place_id, section);		
 		return list;
 	}	
 	

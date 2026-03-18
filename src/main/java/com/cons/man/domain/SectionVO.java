@@ -6,36 +6,26 @@ public class SectionVO {
 	private int site_id;
 	private int place_id;
 	private int section;	
-	private int type; // 1:일반수조, 2:특수(MCC, RM, 전기실)
+	private int type;
 	private int group_id;
-	private String sec_type;
-	private String sec_name;	
-	private int alert_id;
-	private int alert_type;
-	private int alert_activated;
-	private int alert_time_diff_min;
-	private String scanner_mac;
-	private int scanner_idx;
-	private int has_env;
-	private int beacon_count;
-	private int state_count;
-	private int fan_min_time;
-	private int fan_state;
-	private int hole_state;
-	private int input_state;
-	private String alias;
-	private String name;
-	private String floor;
+	private String section_type;
 	private String section_name;
 	private String group_name;
+	private String alias;	
+	private String floor;	
 	private int state;
 	private String state_name;
 	private String state_color; 
-	private int fan_standard_time;
-	
-	// 지워야 할 목록
-	private String scanner_mac_init;
-	private int push_sensor;
+	private int total_count;
+	private String writer_user_id;
+	private String writer_user_name;
+	private String write_time;
+
+	// 아래는 대표 공종
+	private int cont_id;
+	private String cont_name;
+	private String work_state_name;
+	private int work_state_count;
 	
 	public int getId() {
 		return id;
@@ -61,90 +51,41 @@ public class SectionVO {
 	public void setSection(int section) {
 		this.section = section;
 	}
-	public String getSec_type() {
-		return sec_type;
+	public int getType() {
+		return type;
 	}
-	public void setSec_type(String sec_type) {
-		this.sec_type = sec_type;
+	public void setType(int type) {
+		this.type = type;
 	}
-	public String getSec_name() {
-		return sec_name;
+	public int getGroup_id() {
+		return group_id;
 	}
-	public void setSec_name(String sec_name) {
-		this.sec_name = sec_name;
+	public void setGroup_id(int group_id) {
+		this.group_id = group_id;
 	}
-	public int getAlert_id() {
-		return alert_id;
+	public String getSection_type() {
+		return section_type;
 	}
-	public void setAlert_id(int alert_id) {
-		this.alert_id = alert_id;
+	public void setSection_type(String section_type) {
+		this.section_type = section_type;
 	}
-	public int getAlert_type() {
-		return alert_type;
+	public String getSection_name() {
+		return section_name;
 	}
-	public void setAlert_type(int alert_type) {
-		this.alert_type = alert_type;
+	public void setSection_name(String section_name) {
+		this.section_name = section_name;
 	}
-	public int getAlert_activated() {
-		return alert_activated;
+	public String getGroup_name() {
+		return group_name;
 	}
-	public void setAlert_activated(int alert_activated) {
-		this.alert_activated = alert_activated;
+	public void setGroup_name(String group_name) {
+		this.group_name = group_name;
 	}
-	public int getAlert_time_diff_min() {
-		return alert_time_diff_min;
+	public String getAlias() {
+		return alias;
 	}
-	public void setAlert_time_diff_min(int alert_time_diff_min) {
-		this.alert_time_diff_min = alert_time_diff_min;
-	}
-	public String getScanner_mac() {
-		return scanner_mac;
-	}
-	public void setScanner_mac(String scanner_mac) {
-		this.scanner_mac = scanner_mac;
-	}
-	public int getScanner_idx() {
-		return scanner_idx;
-	}
-	public void setScanner_idx(int scanner_idx) {
-		this.scanner_idx = scanner_idx;
-	}
-	public int getHas_env() {
-		return has_env;
-	}
-	public void setHas_env(int has_env) {
-		this.has_env = has_env;
-	}
-	
-	public int getPush_sensor() {
-		return push_sensor;
-	}
-	public void setPush_sensor(int push_sensor) {
-		this.push_sensor = push_sensor;
-	}
-	public int getBeacon_count() {
-		return beacon_count;
-	}
-	public void setBeacon_count(int beacon_count) {
-		this.beacon_count = beacon_count;
-	}
-	public String getScanner_mac_init() {
-		return scanner_mac_init;
-	}
-	public void setScanner_mac_init(String scanner_mac_init) {
-		this.scanner_mac_init = scanner_mac_init;
-	}
-	public int getInput_state() {
-		return input_state;
-	}
-	public void setInput_state(int input_state) {
-		this.input_state = input_state;
-	}
-	public int getState_count() {
-		return state_count;
-	}
-	public void setState_count(int state_count) {
-		this.state_count = state_count;
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 	public String getFloor() {
 		return floor;
@@ -170,65 +111,52 @@ public class SectionVO {
 	public void setState_color(String state_color) {
 		this.state_color = state_color;
 	}
-	public int getHole_state() {
-		return hole_state;
+	public int getTotal_count() {
+		return total_count;
 	}
-	public void setHole_state(int hole_state) {
-		this.hole_state = hole_state;
-	}	
-	public int getFan_min_time() {
-		return fan_min_time;
+	public void setTotal_count(int total_count) {
+		this.total_count = total_count;
 	}
-	public void setFan_min_time(int fan_min_time) {
-		this.fan_min_time = fan_min_time;
+	public int getCont_id() {
+		return cont_id;
 	}
-	public int getFan_state() {
-		return fan_state;
+	public void setCont_id(int cont_id) {
+		this.cont_id = cont_id;
 	}
-	public void setFan_state(int fan_state) {
-		this.fan_state = fan_state;
+	public String getCont_name() {
+		return cont_name;
 	}
-	public int getGroup_id() {
-		return group_id;
+	public void setCont_name(String cont_name) {
+		this.cont_name = cont_name;
 	}
-	public void setGroup_id(int group_id) {
-		this.group_id = group_id;
+	public String getWork_state_name() {
+		return work_state_name;
 	}
-	public int getType() {
-		return type;
+	public void setWork_state_name(String work_state_name) {
+		this.work_state_name = work_state_name;
 	}
-	public void setType(int type) {
-		this.type = type;
+	public int getWork_state_count() {
+		return work_state_count;
 	}
-	public String getAlias() {
-		return alias;
+	public void setWork_state_count(int work_state_count) {
+		this.work_state_count = work_state_count;
 	}
-	public void setAlias(String alias) {
-		this.alias = alias;
+	public String getWriter_user_id() {
+		return writer_user_id;
 	}
-	public String getName() {
-		return name;
+	public void setWriter_user_id(String writer_user_id) {
+		this.writer_user_id = writer_user_id;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public String getWriter_user_name() {
+		return writer_user_name;
 	}
-	public String getSection_name() {
-		return section_name;
+	public void setWriter_user_name(String writer_user_name) {
+		this.writer_user_name = writer_user_name;
 	}
-	public void setSection_name(String section_name) {
-		this.section_name = section_name;
+	public String getWrite_time() {
+		return write_time;
 	}
-	public String getGroup_name() {
-		return group_name;
+	public void setWrite_time(String write_time) {
+		this.write_time = write_time;
 	}
-	public void setGroup_name(String group_name) {
-		this.group_name = group_name;
-	}
-	public int getFan_standard_time() {
-		return fan_standard_time;
-	}
-	public void setFan_standard_time(int fan_standard_time) {
-		this.fan_standard_time = fan_standard_time;
-	}		
-	
 }

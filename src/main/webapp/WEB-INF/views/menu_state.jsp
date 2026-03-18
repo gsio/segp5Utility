@@ -115,67 +115,68 @@ function deleteWState(id) {
 
 </script>
 
-<div>
-	<form id="printForm" action="printDailyValueList" method="POST">
-		<input id="print_pg" type="hidden" name="place_gubun" />
-	</form>
-</div>
-
-<div class="col-xs-8" style="margin-left: 17%;">
-	<div class="list_title">작업공종 관리</div>
-	<div class="row no-gutters">
-		<div class="btn btn-primary" style="float:right;" onclick="openInputModal();"><span class="glyphicon glyphicon-pencil"></span> 공종 추가</div>	
-	</div>
-
-	<table id="wListTable" data-toggle="table" data-search="true" data-pagination="true" data-page-size="25" data-page-list="[10, 25, 50, 100, All]"
-		 data-sort-name="[input_date]" data-filter-control="true" class="table table-bordered table-hover table-striped">
-		<thead>
-			<tr>
-				<th data-field="no" data-sortable="true" class="text-center">No.</th>
-				<th data-field="gubun" data-sortable="true" class="text-center">공종</th>
-				<th data-field="t_name" data-sortable="true" class="text-center">색상</th>
-				<th data-field="writer_user_name" data-sortable="true" class="text-center">작성자</th>
-				<th data-field="write_time" class="text-center">변경시간</th>
-				<th data-field="btn_delete" class="text-center">삭제</th>
-			</tr>
-		</thead>
-		
-		<tbody>
-	
- 			<c:forEach var="vo" items="${sList}" varStatus="idx">
-		     	<tr>	     		
-		        	<td class="text-center">${idx.index + 1}</td>  		    
-		        	<td class="text-center">${vo.name}</td>    
-		        	<td class="text-center">
-		        		<div style="background: #${vo.color}">${vo.color}</div>
-		        	</td>       	
-		        	<td class="text-center">${vo.writer_name}</td>
-		        	
-		        	<td class="text-center">${vo.write_time}</td>	
-		        	
-					<td class="text-center">
-						 <c:choose>
-				   			<c:when test="${vo.id > 0}">
-					   			<div class="btn btn-danger" onclick="deleteWState(${vo.id})"><span class="glyphicon glyphicon-remove"></span></div>		   					
-					   		</c:when>
-			   				<c:otherwise>
-				   				삭제 불가
-			   				</c:otherwise>
-			   			</c:choose>
-					</td>		     
-		      </tr>
-	   		</c:forEach>
-	   	
-		</tbody>
-		
-	</table>
-</div>
 <div id="form_group">
 	<form id="printDaily" action="printDailyList" method="POST">
 		<input type="hidden" name="site_id" value="${userLoginInfo.site_id}"/>
 	</form>	
 </div>
-				
+
+<div id="content-wrapper">
+	<div id="content_title" class="content-item">작업공종 관리</div>
+	
+	<div class="content_button_box content-item" >
+		<div class="btn btn-default" onclick="openInputModal()"><i class="fa-regular fa-registered"></i> 등록</div>
+	</div>
+	
+	<div class="content_table_box content-item">
+		<table id="wListTable" data-toggle="table" data-search="true" data-pagination="true" data-page-size="25" data-page-list="[10, 25, 50, 100, All]"
+		 data-sort-name="[input_date]" data-filter-control="true" class="table table-bordered table-hover table-striped">
+			<thead>
+				<tr>
+					<th data-field="no" data-sortable="true" class="text-center">No.</th>
+					<th data-field="gubun" data-sortable="true" class="text-center">공종</th>
+					<th data-field="t_name" data-sortable="true" class="text-center">색상</th>
+					<th data-field="writer_user_name" data-sortable="true" class="text-center">작성자</th>
+					<th data-field="write_time" class="text-center">변경시간</th>
+					<th data-field="btn_delete" class="text-center">삭제</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+		
+	 			<c:forEach var="vo" items="${sList}" varStatus="idx">
+			     	<tr>	     		
+			        	<td class="text-center">${idx.index + 1}</td>  		    
+			        	<td class="text-center">${vo.name}</td>    
+			        	<td class="text-center">
+			        		<div style="font-weight: 600; background: #${vo.color};">#${vo.color}</div>
+			        	</td>       	
+			        	<td class="text-center">${vo.writer_name}</td>
+			        	
+			        	<td class="text-center">${vo.write_time}</td>	
+			        	
+						<td class="text-center">
+							<c:choose>
+								<c:when test="${vo.id > 0}">
+				      	 			<div class="btn icon-default" onclick="deleteWState(${vo.id})">
+										<i class="fa-solid fa-trash"></i>
+									</div>
+				      	 		</c:when>
+								<c:otherwise>
+					      	 		<div class="btn icon-danger" style="cursor: not-allowed;">
+										<i class='fas fa-ban'></i>
+									</div>
+					      	 	</c:otherwise>
+							</c:choose> 
+						</td>		     
+			      </tr>
+		   		</c:forEach>	   	
+			</tbody>		
+		</table>
+	</div>
+	
+</div> <!-- content-wrapper END -->
+
 <div id="app_data">
 	<div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="inputModal" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
@@ -208,5 +209,7 @@ function deleteWState(id) {
 		</div>
 	</div>
 </div>
+
  
+
 <%@ include file="IncludeBottom.jsp"%>

@@ -6,7 +6,9 @@
 <script>
 	$(document).ready(function() {
 		QRAttend.init({
-			siteId : 1,
+			siteId : "${param.site_id}",
+			placeId : "${param.place_id}",
+			section : "${param.section}",
 			mainUrl : "main"
 		});
 	});

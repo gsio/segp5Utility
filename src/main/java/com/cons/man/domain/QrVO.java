@@ -5,6 +5,9 @@ public class QrVO {
 	private String id;
 	private int role;
 	private int site_id;
+	private int place_id;
+	private int section;
+	private String section_name;
 	private int cont_id;
 	private int cont_type;
 	private String uw_id;
@@ -199,6 +202,22 @@ public class QrVO {
 	public void setInput_date(String input_date) {
 		this.input_date = input_date;
 	}
-	
-	
+	public int getPlace_id() {
+		return place_id;
+	}
+	public void setPlace_id(int place_id) {
+		this.place_id = place_id;
+	}
+	public int getSection() {
+		return section;
+	}
+	public void setSection(int section) {
+		this.section = section;
+	}
+	public String getSection_name() {
+		return section_name;
+	}
+	public void setSection_name(String section_name) {
+		this.section_name = section_name;
+	}
 }
