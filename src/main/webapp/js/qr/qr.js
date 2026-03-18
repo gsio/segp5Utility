@@ -72,6 +72,15 @@
 			return null;
 		}
 	}
+	
+	function debugLog(msg) {
+		var box = document.getElementById("debugBox");
+		if (!box) return;
+
+		var time = new Date().toLocaleTimeString();
+		box.value += "[" + time + "] " + msg + "\n";
+		box.scrollTop = box.scrollHeight;
+	}
 
 	function clearTimer() {
 		try {
@@ -252,15 +261,14 @@
 	    var placeId = params.get("place_id");
 	    var section = params.get("section");
 
-	    console.log("[QR] checkSession site_id =", siteId);
-	    console.log("[QR] checkSession place_id =", placeId);
-	    console.log("[QR] checkSession section =", section);
+	    debugLog("param encryption=" + params.get("encryption"));
+	    debugLog("param site_id=" + params.get("site_id"));
+	    debugLog("param place_id=" + params.get("place_id"));
+	    debugLog("param section=" + params.get("section"));
 
 	    CONFIG.siteId = siteId;
 	    CONFIG.placeId = placeId;
 	    CONFIG.section = section;
-
-	    console.log("[QR] CONFIG after parse =", CONFIG);
 
 	    if (!encryption || encryption.length < 1) {
 	        releaseLock("checkSession");
@@ -642,6 +650,13 @@
 	function postWorkIn() {
 		if (!acquireLock("postWorkIn"))
 			return;
+		
+		debugLog("postWorkIn start");
+		debugLog("CONFIG.siteId=" + CONFIG.siteId);
+		debugLog("CONFIG.placeId=" + CONFIG.placeId);
+		debugLog("CONFIG.section=" + CONFIG.section);
+		debugLog("G_UW_ID=" + G_UW_ID);
+		debugLog("G_ROLE=" + G_ROLE);
 
 		$.ajax({
 			type : "POST",
@@ -762,6 +777,11 @@
 
 	QRAttend.init = function(opt) {
 		CONFIG = $.extend({}, CONFIG, opt || {});
+		
+		debugLog("init start");
+		debugLog("init CONFIG.siteId=" + CONFIG.siteId);
+		debugLog("init CONFIG.placeId=" + CONFIG.placeId);
+		debugLog("init CONFIG.section=" + CONFIG.section);
 
 		if (!CONFIG.siteId || !CONFIG.placeId || !CONFIG.section) {
 			safeAlert("구역 정보가 올바르지 않습니다.");
