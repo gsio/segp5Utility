@@ -808,3 +808,11 @@ table .mobile-item {
     cursor: not-allowed;
     font-weight: 600;
 }
+
+#content-wrapper {
+	padding-bottom: 56px !important;
+}
+
+#debugPanel {
+	display: none !important;
+}
