@@ -231,7 +231,7 @@ public class MenuController {
 	// Menu - 직종 관리
 	@RequestMapping(value = { "/menu_wtype" })
 	public String wtypeList(HttpSession session, Model model) {		
-		System.out.println("[Menu] (WType) > wtypeList");		
+		//System.out.println("[Menu] (WType) > wtypeList");		
 		UserVO userInfo = (UserVO) session.getAttribute("userLoginInfo");
 		List<WorkTypeVO> list = manageService.getWorkTypeList(userInfo.getSite_id());	
 		model.addAttribute("wList", list);
@@ -242,7 +242,7 @@ public class MenuController {
 	@RequestMapping(value = { "/menu_section" })
 	public String sectionList(HttpSession session, Model model) 
 	{
-		System.out.println("[Menu] (Section) > sectionList");		
+		//System.out.println("[Menu] (Section) > sectionList");		
 		UserVO userInfo = (UserVO) session.getAttribute("userLoginInfo");
 		List<SectionVO> section = sectionService.getSectionList(userInfo.getSite_id());		
 		model.addAttribute("sList", section);
