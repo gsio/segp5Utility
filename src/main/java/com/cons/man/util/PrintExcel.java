@@ -1043,7 +1043,7 @@ public class PrintExcel {
 		fh.setFontHeight((short)(12 * 20));
 		fh.setColor(HSSFColor.WHITE.index);
 	
-		int MAX_COLUMN = 6;
+		int MAX_COLUMN = 7;
 		
 		Iterator<QrVO> it = list.iterator();
 		
@@ -1059,7 +1059,7 @@ public class PrintExcel {
 		String[] th_arr = new String[]{"NO", "구분", "구역", "업체", "이름", "출입", "시간"};
 		s.setColumnWidth(0, 55 * 37);
 		s.setColumnWidth(1, 100 * 37);
-		s.setColumnWidth(2, 150 * 37);
+		s.setColumnWidth(2, 250 * 37);
 		s.setColumnWidth(3, 180 * 37);
 		s.setColumnWidth(4, 100 * 37);
 		s.setColumnWidth(5, 120 * 37);
@@ -1096,8 +1096,8 @@ public class PrintExcel {
 				r. getCell( 1).setCellValue(new HSSFRichTextString("근로자"));
 			}
 			
-			r. createCell( 3).setCellStyle(td1);
-			r. getCell( 3).setCellValue(new HSSFRichTextString(vo.getSection_name()));	
+			r. createCell( 2).setCellStyle(td1);
+			r. getCell( 2).setCellValue(new HSSFRichTextString(vo.getSection_name()));	
 			
 			r. createCell( 3).setCellStyle(td1);
 			r. getCell( 3).setCellValue(new HSSFRichTextString(vo.getCont_name()));	
