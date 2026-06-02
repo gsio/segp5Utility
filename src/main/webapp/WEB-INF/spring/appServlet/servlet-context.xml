@@ -6,7 +6,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/task 
 		http://www.springframework.org/schema/task/spring-task.xsd">
 
@@ -14,14 +14,15 @@
 		infrastructure -->
 
 	<!-- Enables the Spring MVC @Controller programming model -->
+	<!-- 
+	  [Phase 5 변경 이력 — 2026.05.18]
+	  AnnotationMethodHandlerAdapter는 Spring 3.2 deprecated, Spring 5.0에서 완전 제거됨.
+	  Spring 5.1.5 환경에서 ClassNotFoundException 발생하여 빈 등록 제거.
+	  <annotation-driven>이 RequestMappingHandlerAdapter를 자동 등록하며,
+	  ByteArrayHttpMessageConverter는 기본 컨버터 목록에 포함되어 별도 등록 불필요.
+	  바이트 응답 API에서 문제 발생 시 <annotation-driven> 하위 <message-converters>로 명시 등록 검토.
+	-->
 	<annotation-driven></annotation-driven>
-	<beans:bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-	  <beans:property name="messageConverters">
-	    <beans:list>
-	      <beans:bean id="byteArrayMessageConverter" class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
-	    </beans:list>
-	  </beans:property>
-	</beans:bean> 
 	<tx:annotation-driven />
 	<!-- transaction manager, use JtaTransactionManager for global tx -->
 	<beans:bean id="transactionManager"
@@ -52,7 +53,18 @@
 		<beans:property name="order" value="1"/>
 		<beans:property name="contentType" value="text/html; charset=UTF-8"/>
 	</beans:bean>
-
+	
+	<!-- ===================================================================== -->
+	<!-- 외부 properties 분리 패턴 - Phase 8 첫 적용 (2026.05)                    -->
+	<!-- 본 라인은 향후 P1 보안 작업(RDS 분리, 키스토어 분리)의 베이스 패턴.        -->
+	<!-- 추가 properties 분리 시점에는 location에 콤마 구분으로 누적 추가.         -->
+	<!-- ignore-resource-not-found=true 이유:                                    -->
+	<!--   - 로컬은 sentry.properties 있음 / 운영은 별도 경로 배치 케이스 대비      -->
+	<!--   - 신규 환경 셋업 시 properties 누락으로 인한 컨텍스트 로딩 실패 방지      -->
+	<!-- ===================================================================== -->
+	<context:property-placeholder 
+	    location="classpath:sentry.properties" 
+	    ignore-resource-not-found="true" />
 
 	<context:component-scan base-package="com.cons.man"></context:component-scan>
 	
@@ -95,27 +107,6 @@
 <beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 	      	<beans:property name="order" value="0"/>
 </beans:bean>
-
-<!-- mail -->
-<beans:bean id="mailSender"
-	class="org.springframework.mail.javamail.JavaMailSenderImpl">
-	<beans:property name="host" value="smtp.worksmobile.com" />
-	<beans:property name="port" value="465" />
-	<beans:property name="username" value="ljh@gsil.kr" />
-	<beans:property name="protocol" value="smtps" />
-	<beans:property name="password" value="dlwjdgns11!" />	
-	<beans:property name="javaMailProperties">
-		<beans:props>
-		  	<!-- <beans:prop key="mail.transport.protocol">smtps</beans:prop> -->
-			<beans:prop key="mail.smtp.auth">true</beans:prop>
-			<beans:prop key="mail.smtps.ssl.checkserveridentity">true</beans:prop>
-			<beans:prop key="mail.smtps.ssl.trust">*</beans:prop>
-
-		</beans:props>
-	</beans:property>
-</beans:bean>
-
-
 
 <!-- 다국어지원 -->
  <beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">

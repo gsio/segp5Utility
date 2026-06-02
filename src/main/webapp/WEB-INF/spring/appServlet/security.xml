@@ -4,14 +4,16 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:jee="http://www.springframework.org/schema/jee"
     xsi:schemaLocation="http://www.springframework.org/schema/security 
-    	http://www.springframework.org/schema/security/spring-security-3.2.xsd
+    	http://www.springframework.org/schema/security/spring-security.xsd
         http://www.springframework.org/schema/jee
-        http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+        http://www.springframework.org/schema/jee/spring-jee.xsd
         http://www.springframework.org/schema/beans 
-        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
   
 	<http auto-config='true' use-expressions="true" disable-url-rewriting="true">
 	
+		<csrf disabled="true"/>
+		
 		<!-- DID -->
 		<intercept-url pattern="/seg_mon_8022123" access="permitAll" />
 		<intercept-url pattern="/seg_mon_1523399" access="permitAll" />
@@ -100,6 +102,7 @@
          		 logout-success-url="/logout_success"
          		 invalidate-session="true" 
          		 delete-cookies="JSESSIONID"/>
+                   
                    
         <session-management>
             <!--concurrency-control max-sessions="1" expired-url="/login_duplicate"/-->

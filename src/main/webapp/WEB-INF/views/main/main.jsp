@@ -75,7 +75,7 @@
 			<div class="sm-top-title">Safety With U</div>
 			<div class="sm-card">
 
-				<img class="logo-ss" src="images/logo/logo_seal.png">
+				<img class="logo-ss" src="images/logo/logo_se.svg">
 
 
 				<p class="logo-text">평택 P5-PJT 그린동 관리 시스템</p>
@@ -145,7 +145,7 @@
 			<div class="md-form-box form-box">
 
 				<div class="sub-buttons md hydrated">
-					<img class="logo-ss" src="images/logo/logo_seal.png">
+					<img class="logo-ss" src="images/logo/logo_se.svg">
 				</div>
 
 				<div class="md hydrated">
